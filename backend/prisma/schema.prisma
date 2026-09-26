@@ -1,0 +1,138 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model EmailOtp {
+  id        String   @id @default(uuid())
+  email     String
+  otp       String
+  used      Boolean  @default(false)
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+
+enum Role {
+  CLIENT
+  BEAUTICIAN
+  ADMIN
+}
+
+model User {
+  id               String   @id @default(uuid())
+  email            String   @unique
+  firstName        String?
+  lastName         String?
+  phone            String?
+  role             Role     @default(CLIENT)
+  isEmailVerified  Boolean  @default(false)
+  profileCompleted Boolean  @default(false)
+
+  beauticianProfile BeauticianProfile?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model BeauticianProfile {
+  id String @id @default(uuid())
+
+  userId String @unique
+  user   User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  profilePhoto String?
+  gender       String?
+  dateOfBirth  DateTime?
+  city         String
+  area         String
+  languages    String[]
+
+  primaryCategory String
+  experienceYears Int
+  workType        String
+  salonName       String?
+  about           String
+
+  serviceLocation String
+  travelRadius    Int
+  workingDays     String[] @default([])
+  startTime       String?
+  endTime         String?
+
+  businessName    String?
+  businessAddress String?
+  gstNumber       String?
+
+  instagram String?
+  facebook  String?
+  youtube   String?
+  website   String?
+  pinterest String?
+
+  governmentIdType String?
+  governmentIdUrl  String?
+  selfieUrl        String?
+
+  verificationStatus VerificationStatus @default(PENDING)
+
+  services     BeauticianService[]
+  portfolio    PortfolioImage[]
+  certificates Certificate[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model BeauticianService {
+  id String @id @default(uuid())
+
+  beauticianId String
+  beautician   BeauticianProfile @relation(fields: [beauticianId], references: [id], onDelete: Cascade)
+
+  name        String
+  price       Int
+  duration    String
+  description String?
+
+  createdAt DateTime @default(now())
+}
+
+model PortfolioImage {
+  id String @id @default(uuid())
+
+  beauticianId String
+  beautician   BeauticianProfile @relation(fields: [beauticianId], references: [id], onDelete: Cascade)
+
+  imageUrl String
+  title    String?
+  category String?
+
+  createdAt DateTime @default(now())
+}
+
+model Certificate {
+  id String @id @default(uuid())
+
+  beauticianId String
+  beautician   BeauticianProfile @relation(fields: [beauticianId], references: [id], onDelete: Cascade)
+
+  title String
+  fileUrl String
+
+  createdAt DateTime @default(now())
+}
+
+enum VerificationStatus {
+  PENDING
+  VERIFIED
+  REJECTED
+}

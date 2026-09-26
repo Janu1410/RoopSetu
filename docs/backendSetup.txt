@@ -1,0 +1,14 @@
+npm i -g @nestjs/cli
+nest new backend
+cd backend
+
+npm install @nestjs/graphql @nestjs/apollo @apollo/server graphql
+npm install @prisma/client
+npm install bcrypt jsonwebtoken
+npm install @nestjs/jwt @nestjs/passport passport passport-jwt
+npm install class-validator class-transformer
+npm install @nestjs/config
+npm install cookie-parser
+npm install -D prisma @types/bcrypt @types/jsonwebtoken @types/cookie-parser
+
+npx prisma init
