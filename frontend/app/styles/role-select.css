@@ -1,0 +1,135 @@
+.role-select {
+  position: relative;
+}
+
+.role-select-trigger {
+  width: 100%;
+  height: 2.7rem;
+  border: 1px solid #ead3d9;
+  border-radius: 0.7rem;
+  background: #fff;
+  color: var(--color-roop-text);
+  padding: 0 0.9rem;
+  font-size: 0.95rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.role-select-trigger span {
+  font-size: 1rem;
+  font-weight: 500;
+  color: #2d2230;
+}
+
+.role-select-trigger svg {
+  width: 1rem;
+  height: 1rem;
+  fill: none;
+  stroke: #6e5d70;
+  stroke-width: 2;
+  transition:
+    transform 0.2s ease,
+    stroke 0.2s ease;
+}
+
+.role-select-trigger:hover {
+  background: #fff8fb;
+}
+
+.role-select-trigger:focus-visible,
+.role-select-trigger.is-open {
+  border-color: #8a1238;
+  box-shadow: 0 0 0 4px rgba(138, 18, 56, 0.12);
+}
+
+.role-select-trigger.is-open svg {
+  transform: rotate(180deg);
+  stroke: #8a1238;
+}
+
+.role-select-menu {
+  position: absolute;
+  z-index: 20;
+  top: calc(100% + 0.42rem);
+  left: 0;
+  right: 0;
+  margin: 0;
+  padding: 0.36rem;
+  list-style: none;
+  border: 1px solid #e7d3d8;
+  border-radius: 0.7rem;
+  background: #fff;
+  box-shadow: 0 16px 30px rgba(90, 0, 31, 0.18);
+}
+
+.role-option {
+  width: 100%;
+  border: 0;
+  border-radius: 0.55rem;
+  background: transparent;
+  color: #2f2330;
+  font-size: 0.95rem;
+  text-align: left;
+  padding: 0.56rem 0.72rem;
+  cursor: pointer;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.role-option:hover {
+  background: #fff1f5;
+  color: #7d0f35;
+}
+
+.role-option.is-active {
+  background: linear-gradient(130deg, #8a1238 0%, #6e0c2d 95%);
+  color: #fff;
+  font-weight: 600;
+}
+
+.role-select-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.75rem;
+}
+
+.role-chip {
+  border: 1px solid #e7d3d8;
+  border-radius: 0.8rem;
+  background: #fff;
+  color: #4b3340;
+  min-height: 2.85rem;
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition:
+    border-color 0.2s ease,
+    box-shadow 0.2s ease,
+    background-color 0.2s ease;
+}
+
+.role-chip:hover {
+  background: #fff7fa;
+  border-color: #d8b3bf;
+}
+
+.role-chip.is-active {
+  border-color: #8a1238;
+  background: linear-gradient(130deg, #8a1238 0%, #6e0c2d 95%);
+  color: #fff;
+  box-shadow: 0 12px 24px rgba(138, 18, 56, 0.16);
+}
+
+@media (max-width: 480px) {
+  .embedded-login-form .role-chip {
+    min-height: 3rem;
+    font-size: 0.95rem;
+  }
+}

@@ -1,0 +1,270 @@
+.auth-page-shell {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  background:
+    radial-gradient(circle at 12% 8%, rgba(122, 0, 38, 0.16), transparent 36%),
+    radial-gradient(
+      circle at 88% 92%,
+      rgba(255, 214, 224, 0.45),
+      transparent 38%
+    ),
+    #fff8f3;
+}
+
+.auth-page-shell--signin {
+  min-height: 118vh;
+  padding-top: 3.25rem;
+  padding-bottom: 3.25rem;
+}
+
+.auth-page-layout {
+  width: 100%;
+  max-width: 1080px;
+  border-radius: 1.4rem;
+  overflow: hidden;
+  border: 1px solid #f1dde3;
+  background: #fffdfc;
+  box-shadow: 0 26px 60px rgba(90, 0, 31, 0.14);
+  display: grid;
+  grid-template-columns: 1fr;
+  animation: authFadeIn 360ms ease;
+}
+
+.auth-page-hero {
+  padding: 2rem 1.4rem 1.4rem;
+  background:
+    linear-gradient(145deg, rgba(122, 0, 38, 0.96), rgba(90, 0, 31, 0.97)),
+    radial-gradient(
+      circle at 75% 25%,
+      rgba(255, 225, 232, 0.35),
+      transparent 40%
+    );
+  color: #fff;
+}
+
+.auth-kicker {
+  margin: 0;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.76rem;
+  color: rgba(255, 239, 244, 0.86);
+}
+
+.auth-page-hero h1 {
+  margin: 0.7rem 0 0;
+  font-size: clamp(1.75rem, 3.8vw, 2.4rem);
+  line-height: 1.15;
+  font-family: var(--font-playfair-nav, Georgia), serif;
+}
+
+.auth-page-hero p {
+  margin: 0.9rem 0 0;
+  max-width: 34ch;
+  color: rgba(255, 239, 244, 0.88);
+  line-height: 1.6;
+}
+
+.register-shell {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  background:
+    radial-gradient(circle at 0% 0%, rgba(138, 18, 56, 0.1), transparent 36%),
+    radial-gradient(
+      circle at 100% 100%,
+      rgba(90, 0, 31, 0.14),
+      transparent 42%
+    ),
+    var(--color-roop-cream);
+}
+
+.register-shell--overlay {
+  min-height: auto;
+  padding-top: 0.5rem;
+  padding-bottom: 2rem;
+  background: linear-gradient(
+    180deg,
+    rgba(255, 248, 243, 0) 0%,
+    rgba(255, 248, 243, 0.7) 28%,
+    rgba(255, 248, 243, 1) 100%
+  );
+}
+
+.register-layout {
+  width: 100%;
+  max-width: 1120px;
+  border: 1px solid #f0d7dd;
+  border-radius: 1.4rem;
+  background: #fffdfc;
+  box-shadow: 0 20px 60px rgba(90, 0, 31, 0.1);
+  overflow: hidden;
+  display: grid;
+  grid-template-columns: 1fr;
+}
+
+.register-brand-panel {
+  display: none;
+  padding: 2rem;
+  background: linear-gradient(155deg, #8a1238 0%, #6f0d2f 42%, #5a001f 100%);
+  color: #fff;
+}
+
+.register-brand-badge {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 0.35rem 0.85rem;
+  background: rgba(255, 255, 255, 0.16);
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+}
+
+.register-brand-panel h1 {
+  margin: 1rem 0 0;
+  font-size: clamp(1.75rem, 2.8vw, 2.3rem);
+  line-height: 1.2;
+}
+
+.register-brand-panel p {
+  margin: 1rem 0 0;
+  color: rgba(255, 255, 255, 0.84);
+  max-width: 34ch;
+  line-height: 1.6;
+}
+
+.register-points {
+  margin: 1.25rem 0 0;
+  padding: 0;
+  list-style: none;
+  display: grid;
+  gap: 0.75rem;
+}
+
+.register-points li {
+  display: flex;
+  gap: 0.65rem;
+  align-items: flex-start;
+  color: rgba(255, 255, 255, 0.94);
+  line-height: 1.4;
+}
+
+.register-points li::before {
+  content: "\2022";
+  color: #ffd7e3;
+  font-size: 1.05rem;
+  margin-top: -1px;
+}
+
+.register-card-wrap {
+  padding: 0;
+  background: transparent;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.register-card-wrap--page {
+  width: min(100%, 1120px);
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.auth-mobile-intro {
+  width: 100%;
+  border: 1px solid #f1e2e7;
+  border-radius: 1.1rem;
+  padding: 1.1rem 1rem 0.95rem;
+  background:
+    radial-gradient(
+      circle at top right,
+      rgba(194, 70, 110, 0.14),
+      transparent 42%
+    ),
+    linear-gradient(180deg, #fff9fb 0%, #fffdfd 100%);
+  text-align: center;
+  box-shadow: 0 10px 26px rgba(90, 0, 31, 0.06);
+}
+
+.auth-mobile-intro p {
+  margin: 0;
+  color: #725f6c;
+  line-height: 1.55;
+}
+
+@keyframes authFadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@media (min-width: 768px) {
+  .auth-page-shell {
+    padding: 2rem;
+  }
+
+  .auth-page-layout {
+    grid-template-columns: 45% 55%;
+  }
+
+  .auth-page-hero {
+    padding: 2.5rem 2rem;
+  }
+
+  .register-brand-panel {
+    display: block;
+  }
+
+  .register-shell {
+    padding: 2rem;
+  }
+
+  .register-card-wrap--page {
+    display: block;
+  }
+
+  .auth-mobile-intro {
+    display: none;
+  }
+}
+
+@media (min-width: 1024px) {
+  .register-layout {
+    grid-template-columns: 44% 56%;
+  }
+
+  .register-brand-panel {
+    padding: 2.65rem 2.35rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .auth-page-shell {
+    padding: 0.8rem;
+  }
+
+  .auth-page-shell--signin {
+    min-height: 100vh;
+    padding-top: 1.5rem;
+    padding-bottom: 1.5rem;
+  }
+
+  .register-card-wrap--page {
+    gap: 0.85rem;
+  }
+
+  .auth-mobile-intro {
+    border-radius: 1rem;
+    padding: 1rem 0.9rem 0.85rem;
+  }
+}
