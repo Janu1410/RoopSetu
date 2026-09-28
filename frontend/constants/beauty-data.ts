@@ -10,7 +10,6 @@ export type LookProduct = {
   platform: "Amazon" | "Nykaa" | "Tira";
   affiliateUrl: string;
   isHeroProduct?: boolean;
-  tag?: string;
 };
 
 export type LookStep = {
