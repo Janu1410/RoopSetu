@@ -18,7 +18,6 @@ import {
   Clock,
   Sparkle,
   AlertCircle,
-  HelpCircle,
   CheckCircle2,
 } from "lucide-react";
 import Navbar from "@/components/home/Navbar/Navbar";
@@ -38,18 +37,6 @@ export default function ArticleDetailView({
   const [isSaved, setIsSaved] = useState(false);
   const [copiedLink, setCopiedLink] = useState(false);
   const [activeTab, setActiveTab] = useState<"story" | "steps" | "shop" | "artist">("story");
-
-  const handlePinterestPin = () => {
-    const currentOrigin =
-      typeof window !== "undefined" ? window.location.origin : "https://roopsetu.com";
-    const shareUrl = encodeURIComponent(`${currentOrigin}/articles/${articleData.id}`);
-    const mediaUrl = encodeURIComponent(`${currentOrigin}${articleData.image}`);
-    const desc = encodeURIComponent(
-      `${articleData.title || articleData.alt} — Recreate this look with exact drugstore products or verified artists on RoopSetu.`
-    );
-    const pinUrl = `https://pinterest.com/pin/create/button/?url=${shareUrl}&media=${mediaUrl}&description=${desc}`;
-    window.open(pinUrl, "_blank", "noopener,noreferrer,width=750,height=600");
-  };
 
   const handleShare = () => {
     const currentOrigin =
@@ -95,27 +82,16 @@ export default function ArticleDetailView({
             <div className="flex items-center gap-2">
               <button
                 type="button"
-                onClick={handlePinterestPin}
-                className="inline-flex items-center gap-1.5 rounded-full bg-[#E60023] px-3.5 py-1.5 text-[11px] font-bold text-white shadow-sm transition hover:bg-[#c9001f] active:scale-95"
-              >
-                <svg className="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24">
-                  <path d="M12 0C5.373 0 0 5.372 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.631-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12 0-6.628-5.373-12-12-12z" />
-                </svg>
-                <span>Save to Pinterest</span>
-              </button>
-
-              <button
-                type="button"
                 onClick={handleShare}
-                className="inline-flex items-center gap-1.5 rounded-full border border-[#EEDFD7] bg-white px-3 py-1.5 text-[11px] font-semibold text-[#2B1B20] hover:bg-[#FDF0F2] transition-colors"
+                className="inline-flex items-center gap-1.5 rounded-full border border-[#EEDFD7] bg-white px-3.5 py-1.5 text-[11px] font-semibold text-[#2B1B20] hover:bg-[#FDF0F2] transition-colors shadow-2xs"
               >
                 {copiedLink ? (
                   <>
-                    <Check size={12} className="text-emerald-600" /> Copied
+                    <Check size={12} className="text-emerald-600" /> Copied Link
                   </>
                 ) : (
                   <>
-                    <Share2 size={12} /> Share
+                    <Share2 size={12} /> Share Look
                   </>
                 )}
               </button>
@@ -123,7 +99,7 @@ export default function ArticleDetailView({
               <button
                 type="button"
                 onClick={() => setIsSaved(!isSaved)}
-                className="flex h-8 w-8 items-center justify-center rounded-full border border-[#EEDFD7] bg-white text-[#2B1B20] hover:scale-105 transition-transform"
+                className="flex h-8 w-8 items-center justify-center rounded-full border border-[#EEDFD7] bg-white text-[#2B1B20] hover:scale-105 transition-transform shadow-2xs"
                 title="Save look"
               >
                 <Heart
@@ -149,8 +125,8 @@ export default function ArticleDetailView({
               )}
 
               {articleData.savesCount && (
-                <span className="text-[10px] font-bold text-[#E60023] bg-[#FDE8EB] px-3 py-1 rounded-full border border-[#FAC7CE] ml-auto sm:ml-0">
-                  🔥 {articleData.savesCount} on Pinterest
+                <span className="text-[10px] font-bold text-[#7A0B2E] bg-[#FAF0E6] px-3 py-1 rounded-full border border-[#EEDFD7] ml-auto sm:ml-0">
+                  ✦ {articleData.savesCount}
                 </span>
               )}
             </div>
@@ -202,7 +178,7 @@ export default function ArticleDetailView({
             {/* Left Column: Visual Showcase & Quick Stats (Sticky on Desktop) */}
             <div className="lg:col-span-5 lg:sticky lg:top-28 space-y-4">
               {/* Main Image Card */}
-              <div className="relative aspect-[4/5] w-full rounded-[24px] sm:rounded-[28px] overflow-hidden shadow-xl border border-[#EEDFD7] bg-[#FDF0F2]">
+              <div className="relative aspect-[4/5] w-full rounded-[24px] sm:rounded-[28px] overflow-hidden shadow-lg border border-[#EEDFD7] bg-[#FDF0F2]">
                 <Image
                   src={articleData.image}
                   alt={articleData.alt}
@@ -213,27 +189,14 @@ export default function ArticleDetailView({
                   style={{ objectPosition: articleData.objectPosition ?? "center" }}
                 />
 
-                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-black/20" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
 
                 {/* Top Badge */}
                 <div className="absolute top-3.5 left-3.5 z-10">
                   <span className="rounded-full bg-white/95 backdrop-blur-md px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[#7A0B2E] shadow-sm">
-                    {articleData.tag || "Viral Pick"}
+                    {articleData.tag || "Editorial Pick"}
                   </span>
                 </div>
-
-                {/* Floating Pinterest Save Button */}
-                <button
-                  type="button"
-                  onClick={handlePinterestPin}
-                  className="absolute top-3.5 right-3.5 z-10 flex items-center gap-1.5 rounded-full bg-[#E60023] px-3.5 py-1.5 text-[11px] font-bold text-white shadow-lg transition hover:scale-105 active:scale-95"
-                  title="Pin this image"
-                >
-                  <svg className="h-3.5 w-3.5 fill-current" viewBox="0 0 24 24">
-                    <path d="M12 0C5.373 0 0 5.372 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.631-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12 0-6.628-5.373-12-12-12z" />
-                  </svg>
-                  <span>Pin Look</span>
-                </button>
 
                 {/* Bottom Overlay Info */}
                 <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5 z-10 text-white">
@@ -339,7 +302,7 @@ export default function ArticleDetailView({
                       <div>
                         <h2 className="font-serif text-2xl text-[#2B1B20] font-medium flex items-center gap-2">
                           <Sparkles size={18} className="text-[#7A0B2E]" />
-                          Why This Look Broke Pinterest
+                          The Story Behind This Look
                         </h2>
                         <p className="mt-3 text-[14px] sm:text-[15px] text-[#4A3B41] leading-relaxed">
                           {articleData.articleStory.intro}
@@ -538,7 +501,7 @@ export default function ArticleDetailView({
                       href="https://www.nykaa.com"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2 rounded-full bg-[#E60023] px-6 py-3 text-[12px] font-bold uppercase tracking-wider text-white shadow-md hover:bg-[#c9001f] transition-all"
+                      className="inline-flex items-center justify-center gap-2 rounded-full bg-[#7A0B2E] px-6 py-3 text-[12px] font-bold uppercase tracking-wider text-white shadow-md hover:bg-[#960E39] transition-all"
                     >
                       <ShoppingBag size={14} /> Buy Full Kit on Nykaa
                     </a>
@@ -599,13 +562,13 @@ export default function ArticleDetailView({
             </div>
           </div>
 
-          {/* Related Looks from Pinterest Feed */}
+          {/* Related Looks Feed */}
           {relatedLooks.length > 0 && (
             <div className="mt-16 sm:mt-24 pt-10 border-t border-[#EEDFD7]">
               <div className="flex items-center justify-between mb-8">
                 <div>
                   <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#7A0B2E]">
-                    More From Our Pinterest Board
+                    Curated Recommendations
                   </span>
                   <h3 className="font-serif text-2xl sm:text-3xl text-[#2B1B20] font-medium mt-1">
                     Trending Looks You&apos;ll Love
@@ -620,7 +583,7 @@ export default function ArticleDetailView({
                 </Link>
               </div>
 
-              {/* 2-Column Mobile Grid for Related Pins */}
+              {/* 2-Column Mobile Grid for Related Looks */}
               <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
                 {relatedLooks.map((look) => (
                   <Link
@@ -678,13 +641,11 @@ export default function ArticleDetailView({
         <div className="flex items-center gap-2">
           <button
             type="button"
-            onClick={handlePinterestPin}
-            className="flex h-10 w-10 items-center justify-center rounded-full bg-[#E60023] text-white shadow-md active:scale-95 shrink-0"
-            title="Pin to Pinterest"
+            onClick={handleShare}
+            className="flex h-10 w-10 items-center justify-center rounded-full bg-[#FAF6F0] border border-[#EEDFD7] text-[#2B1B20] shadow-sm active:scale-95 shrink-0"
+            title="Share Look"
           >
-            <svg className="h-4 w-4 fill-current" viewBox="0 0 24 24">
-              <path d="M12 0C5.373 0 0 5.372 0 12c0 5.084 3.163 9.426 7.627 11.174-.105-.949-.2-2.405.042-3.441.218-.937 1.407-5.965 1.407-5.965s-.359-.719-.359-1.782c0-1.668.967-2.914 2.171-2.914 1.023 0 1.518.769 1.518 1.69 0 1.029-.655 2.568-.994 3.995-.283 1.194.599 2.169 1.777 2.169 2.133 0 3.772-2.249 3.772-5.495 0-2.873-2.064-4.882-5.012-4.882-3.414 0-5.418 2.561-5.418 5.207 0 1.031.397 2.138.893 2.738a.36.36 0 0 1 .083.345l-.333 1.36c-.053.22-.174.267-.402.161-1.499-.698-2.436-2.889-2.436-4.649 0-3.785 2.75-7.262 7.929-7.262 4.163 0 7.398 2.967 7.398 6.931 0 4.136-2.607 7.464-6.227 7.464-1.216 0-2.359-.631-2.75-1.378l-.748 2.853c-.271 1.043-1.002 2.35-1.492 3.146C9.57 23.812 10.763 24 12 24c6.627 0 12-5.373 12-12 0-6.628-5.373-12-12-12z" />
-            </svg>
+            {copiedLink ? <Check size={16} className="text-emerald-600" /> : <Share2 size={16} />}
           </button>
 
           <button

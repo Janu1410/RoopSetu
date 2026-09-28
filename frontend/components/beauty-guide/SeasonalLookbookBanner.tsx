@@ -35,7 +35,7 @@ export default function SeasonalLookbookBanner() {
               </h2>
 
               <p className="mt-3 text-[14px] sm:text-[16px] text-white/85 leading-relaxed max-w-xl">
-                Curated directly from our 1,000,000+ Pinterest community. Get instant access to 45+ viral looks, exact drugstore product dupes, and skin-tone palette matching matrices.
+                Curated directly from our 1,000,000+ beauty community. Get instant access to 45+ viral looks, exact drugstore product dupes, and skin-tone palette matching matrices.
               </p>
 
               <div className="mt-6 grid grid-cols-1 sm:grid-cols-3 gap-3">

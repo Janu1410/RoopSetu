@@ -2,7 +2,6 @@ import { notFound } from "next/navigation";
 import ArticleDetailView from "@/components/beauty-guide/ArticleDetailView";
 import {
   beautyCategories,
-  getLookWithFallbacks,
   type LookItem,
   type LookCategory,
 } from "@/constants/beauty-data";
@@ -20,19 +19,16 @@ export default async function ArticlePage({
   for (const cat of beautyCategories) {
     const item = cat.items.find((i) => i.id === id);
     if (item) {
-      matchedItem = getLookWithFallbacks(item, cat.id);
+      matchedItem = item;
       matchedCategory = cat;
       break;
     }
   }
 
-  // Fallback gracefully to first look if slug not found
-  if (!matchedItem && beautyCategories[0]?.items[0]) {
-    matchedItem = getLookWithFallbacks(
-      beautyCategories[0].items[0],
-      beautyCategories[0].id
-    );
-    matchedCategory = beautyCategories[0];
+  // If not found in beautyCategories, fallback gracefully to the viral pink chrome
+  if (!matchedItem) {
+    matchedItem = beautyCategories[0]?.items[0];
+    matchedCategory = beautyCategories[0] || null;
   }
 
   if (!matchedItem) {

@@ -19,7 +19,6 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://roopsetu.com"),
   title: "RoopSetu",
   description: "RoopSetu - Bridge of Beauty",
   icons: {
@@ -34,7 +33,6 @@ export default function RootLayout({
   return (
     <html
       lang="en"
-      data-scroll-behavior="smooth"
       className={cn("h-full antialiased", inter.variable, playfair.variable)}
     >
       <body className="min-h-full flex flex-col font-sans">{children}</body>
