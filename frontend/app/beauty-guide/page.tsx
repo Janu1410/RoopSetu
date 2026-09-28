@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import Navbar from "@/components/home/Navbar/Navbar";
-import Hero from "@/components/beauty-guide/Hero";
+import BeautyGuideHero from "@/components/beauty-guide/BeautyGuideHero";
 import BeautyDiscovery from "@/components/beauty-guide/BeautyDiscovery";
 import GetTheLook from "@/components/beauty-guide/GetTheLook";
 import ViralMoodboards from "@/components/beauty-guide/ViralMoodboards";
@@ -23,7 +23,7 @@ export default function BeautyGuidePage() {
   return (
     <main className="min-h-screen bg-[#FFF8F3] text-[#2D2230]">
       <Navbar />
-      <Hero />
+      <BeautyGuideHero />
       <BeautyDiscovery />
       <GetTheLook />
       <ViralMoodboards />
