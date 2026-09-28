@@ -8,18 +8,15 @@ import {
   Heart,
   Share2,
   Check,
-  Star,
-  ExternalLink,
   ShoppingBag,
   Sparkles,
-  Palette,
-  ArrowRight,
+  ExternalLink,
   Clock,
-  Sparkle,
-  AlertCircle,
   CheckCircle2,
   Wrench,
   ChevronRight,
+  ShieldCheck,
+  Bookmark,
 } from "lucide-react";
 import Navbar from "@/components/home/Navbar/Navbar";
 import LuxuryFooter from "@/components/home/LuxuryFooter";
@@ -37,7 +34,6 @@ export default function ArticleDetailView({
 }: ArticleDetailViewProps) {
   const [isSaved, setIsSaved] = useState(false);
   const [copiedLink, setCopiedLink] = useState(false);
-  const [activeTab, setActiveTab] = useState<"story" | "steps" | "shop" | "guide">("story");
 
   const handleShare = () => {
     const currentOrigin =
@@ -55,79 +51,80 @@ export default function ArticleDetailView({
   const productsList: LookProduct[] = articleData.products || [];
 
   return (
-    <main className="min-h-screen bg-[#FFF8F3] text-[#2B1B20] pb-24 lg:pb-0">
+    <main className="min-h-screen bg-white text-[#1A1A1A] pb-24 lg:pb-0 font-sans selection:bg-[#FCE7F3] selection:text-[#7A0B2E]">
       <Navbar />
 
-      {/* Persistent Beauty Guide Hub Masthead Sub-Nav Bar */}
-      <div className="pt-20 sm:pt-24 bg-[#7A0B2E] text-white shadow-xs">
-        <div className="mx-auto max-w-7xl px-4 sm:px-8 lg:px-12 py-2.5 flex items-center justify-between flex-wrap gap-2 text-xs">
-          <div className="flex items-center gap-2">
+      {/* Top Breadcrumb & Beauty Guide Hub Strip (Nykaa Beauty Book Style) */}
+      <nav
+        aria-label="Breadcrumb"
+        className="pt-20 sm:pt-24 bg-[#FAFAFA] border-b border-gray-200"
+      >
+        <div className="mx-auto max-w-5xl px-4 sm:px-6 py-2.5 flex items-center justify-between flex-wrap gap-2 text-xs text-gray-500">
+          <div className="flex items-center gap-1.5 flex-wrap">
+            <Link
+              href="/"
+              className="hover:text-[#7A0B2E] transition-colors font-medium"
+            >
+              Home
+            </Link>
+            <span className="text-gray-300">/</span>
             <Link
               href="/beauty-guide"
-              className="flex items-center gap-1.5 text-white hover:text-[#FFE5D0] font-bold tracking-wider uppercase text-[11px] transition-colors"
+              className="hover:text-[#7A0B2E] transition-colors font-medium text-[#7A0B2E]"
             >
-              <ArrowLeft size={14} />
-              <span>RoopSetu Beauty Guide</span>
+              Beauty Guide
             </Link>
-            <span className="text-white/40">/</span>
-            <span className="text-[#FFD6A5] font-medium text-[11px]">
-              {parentCategory ? `${parentCategory.label} Masterclass` : "Look Masterclass"}
+            <span className="text-gray-300">/</span>
+            <span className="text-gray-600 font-medium">
+              {parentCategory ? parentCategory.label : "Masterclass"}
             </span>
           </div>
 
-          <div className="flex items-center gap-1.5 overflow-x-auto py-0.5 scrollbar-none">
+          <div className="flex items-center gap-2">
             <Link
               href="/beauty-guide"
-              className="rounded-full bg-white/10 hover:bg-white/20 px-3 py-1 text-[11px] font-medium text-white transition-colors shrink-0"
+              className="inline-flex items-center gap-1 text-[11px] font-semibold text-[#7A0B2E] hover:underline"
             >
-              ← Hub Feed
+              <ArrowLeft size={12} />
+              <span>Beauty Guide Hub</span>
             </Link>
-            {beautyCategories.map((cat) => {
-              const isActive = parentCategory?.id === cat.id;
-              return (
-                <Link
-                  key={cat.id}
-                  href="/beauty-guide#discovery-feed"
-                  className={`rounded-full px-3 py-1 text-[11px] font-medium transition-colors shrink-0 ${
-                    isActive
-                      ? "bg-[#FFE5D0] text-[#7A0B2E] font-bold"
-                      : "bg-white/10 text-white/90 hover:bg-white/20"
-                  }`}
-                >
-                  {cat.label}
-                </Link>
-              );
-            })}
           </div>
         </div>
-      </div>
+      </nav>
 
-      {/* Top Header & Breadcrumb */}
-      <section className="pt-8 pb-8 sm:pt-10 sm:pb-12 bg-[#FAF6F0] border-b border-[#EEDFD7]">
-        <div className="mx-auto max-w-7xl px-4 sm:px-8 lg:px-12">
-          {/* Top Action Bar */}
-          <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
-            <Link
-              href="/beauty-guide"
-              className="inline-flex items-center gap-2 rounded-full border border-[#EEDFD7] bg-white px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#7A0B2E] hover:bg-[#FDF0F2] transition-colors shadow-2xs"
-            >
-              <ArrowLeft size={14} />
-              <span>Back to Beauty Guide Hub</span>
-            </Link>
+      {/* ARTICLE CONTAINER (Clean Nykaa Editorial Reading Width) */}
+      <article className="mx-auto max-w-4xl px-4 sm:px-6 pt-8 sm:pt-12 pb-16">
+        {/* Category Pill & Reading Time Header */}
+        <header className="space-y-4">
+          <div className="flex flex-wrap items-center justify-between gap-3">
+            <div className="flex items-center gap-2">
+              <span className="rounded-full bg-[#FFF0F5] px-3 py-1 text-[11px] font-bold uppercase tracking-wider text-[#7A0B2E] border border-[#FCDDEC]">
+                {parentCategory ? `${parentCategory.label} Guide` : "Beauty Masterclass"}
+              </span>
+              {articleData.occasion && (
+                <span className="rounded-full bg-gray-100 px-3 py-1 text-[11px] font-medium text-gray-600">
+                  {articleData.occasion}
+                </span>
+              )}
+            </div>
 
+            {/* Save & Share Action Buttons */}
             <div className="flex items-center gap-2">
               <button
                 type="button"
                 onClick={handleShare}
-                className="inline-flex items-center gap-1.5 rounded-full border border-[#EEDFD7] bg-white px-3.5 py-1.5 text-[11px] font-semibold text-[#2B1B20] hover:bg-[#FDF0F2] transition-colors shadow-2xs"
+                className="inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-white px-3 py-1.5 text-xs font-medium text-gray-700 hover:border-gray-300 hover:bg-gray-50 transition-colors shadow-2xs"
+                title="Share this guide"
               >
                 {copiedLink ? (
                   <>
-                    <Check size={12} className="text-emerald-600" /> Copied Link
+                    <Check size={13} className="text-emerald-600" />
+                    <span className="text-emerald-700 font-semibold">Copied</span>
                   </>
                 ) : (
                   <>
-                    <Share2 size={12} /> Share Guide
+                    <Share2 size={13} />
+                    <span>Share</span>
                   </>
                 )}
               </button>
@@ -135,616 +132,497 @@ export default function ArticleDetailView({
               <button
                 type="button"
                 onClick={() => setIsSaved(!isSaved)}
-                className="flex h-8 w-8 items-center justify-center rounded-full border border-[#EEDFD7] bg-white text-[#2B1B20] hover:scale-105 transition-transform shadow-2xs"
-                title="Save look"
+                className={`inline-flex items-center gap-1.5 rounded-full border px-3 py-1.5 text-xs font-medium transition-colors shadow-2xs ${
+                  isSaved
+                    ? "border-[#7A0B2E] bg-[#FFF0F5] text-[#7A0B2E]"
+                    : "border-gray-200 bg-white text-gray-700 hover:bg-gray-50"
+                }`}
+                title={isSaved ? "Saved" : "Save Look"}
               >
                 <Heart
-                  size={14}
+                  size={13}
                   fill={isSaved ? "#7A0B2E" : "none"}
                   className={isSaved ? "text-[#7A0B2E]" : ""}
                 />
+                <span>{isSaved ? "Saved" : "Save"}</span>
               </button>
             </div>
           </div>
 
-          {/* Editorial Title & Badges */}
-          <div className="max-w-4xl">
-            <div className="flex flex-wrap items-center gap-2 mb-3">
-              <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#7A0B2E] bg-[#FDF0F2] px-3 py-1 rounded-full border border-[#F3D7DC]">
-                {parentCategory ? `${parentCategory.label} Masterclass` : "Look Breakdown"}
-              </span>
+          {/* Editorial Headline */}
+          <h1 className="font-serif text-3xl sm:text-4xl lg:text-[44px] font-medium tracking-tight text-gray-900 leading-[1.18]">
+            {articleData.title || articleData.alt}
+          </h1>
 
-              {articleData.occasion && (
-                <span className="text-[10px] font-semibold text-[#6F6267] bg-white px-3 py-1 rounded-full border border-[#EEDFD7]">
-                  ✦ {articleData.occasion}
-                </span>
-              )}
+          {/* Excerpt / Lead Description */}
+          <p className="text-base sm:text-lg text-gray-600 leading-relaxed font-normal">
+            {articleData.description}
+          </p>
 
-              {articleData.difficulty && (
-                <span className="text-[10px] font-semibold text-[#6F6267] bg-white px-3 py-1 rounded-full border border-[#EEDFD7]">
-                  • {articleData.difficulty}
+          {/* Author Byline & Meta Info */}
+          <div className="pt-3 pb-1 border-t border-b border-gray-100 flex flex-wrap items-center justify-between gap-3 text-xs text-gray-500">
+            <div className="flex items-center gap-2.5">
+              <div className="flex h-7 w-7 items-center justify-center rounded-full bg-[#7A0B2E] text-white font-bold text-[10px]">
+                R
+              </div>
+              <div>
+                <span className="font-semibold text-gray-900">
+                  {articleData.author?.name || "RoopSetu Beauty Editorial"}
                 </span>
-              )}
-
-              {articleData.savesCount && (
-                <span className="text-[10px] font-bold text-[#7A0B2E] bg-[#FAF0E6] px-3 py-1 rounded-full border border-[#EEDFD7] ml-auto sm:ml-0">
-                  ✦ {articleData.savesCount}
+                <span className="text-gray-400 mx-1.5">•</span>
+                <span className="text-gray-500">
+                  {articleData.author?.role || "RoopSetu Beauty Editorial Desk"}
                 </span>
-              )}
+              </div>
             </div>
 
-            <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-medium tracking-tight text-[#2B1B20] leading-[1.12]">
-              {articleData.title || articleData.alt}
-            </h1>
-
-            <p className="mt-3 text-[14px] sm:text-[16px] text-[#6F6267] leading-relaxed max-w-3xl">
-              {articleData.description}
-            </p>
-
-            {/* Human Author Byline Bar */}
-            <div className="mt-5 pt-4 border-t border-[#EADAD0] flex flex-wrap items-center justify-between gap-3 text-xs text-[#6F6267]">
-              <div className="flex items-center gap-2.5">
-                <div className="flex h-8 w-8 items-center justify-center rounded-full bg-[#7A0B2E] text-white font-bold text-[11px] shadow-xs">
-                  {articleData.author?.name ? articleData.author.name[0] : "R"}
-                </div>
-                <div>
-                  <p className="font-bold text-[#2B1B20]">
-                    {articleData.author?.name || "RoopSetu Beauty Editorial"}
-                  </p>
-                  <p className="text-[10px] text-[#8C7A81]">
-                    RoopSetu Beauty Editorial Desk
-                  </p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-4 text-[11px] text-[#6F6267]">
-                <span className="flex items-center gap-1">
-                  <Clock size={12} className="text-[#7A0B2E]" />
-                  Read: {articleData.readTime || "3 min read"}
+            <div className="flex items-center gap-4 text-gray-500">
+              <span className="flex items-center gap-1">
+                <Clock size={13} className="text-[#7A0B2E]" />
+                {articleData.readTime || "3 min read"}
+              </span>
+              <span className="flex items-center gap-1">
+                <Sparkles size={13} className="text-[#7A0B2E]" />
+                DIY: {articleData.estimatedTime || "25 mins"}
+              </span>
+              {articleData.kitPrice && (
+                <span className="font-bold text-[#7A0B2E]">
+                  Kit: {articleData.kitPrice}
                 </span>
-                <span className="flex items-center gap-1">
-                  <Sparkles size={12} className="text-[#7A0B2E]" />
-                  DIY Time: {articleData.estimatedTime || "25 mins"}
-                </span>
-                <span className="flex items-center gap-1 text-[#7A0B2E] font-semibold">
-                  <ShoppingBag size={12} />
-                  Kit: {articleData.kitPrice || "₹1,499"}
-                </span>
-              </div>
+              )}
             </div>
           </div>
+        </header>
+
+        {/* HERO FEATURED IMAGE (Nykaa Clean Full Banner) */}
+        <figure className="mt-6 mb-10">
+          <div className="relative aspect-[16/10] sm:aspect-[16/9] w-full overflow-hidden rounded-2xl bg-gray-100 border border-gray-200">
+            <Image
+              src={articleData.image}
+              alt={articleData.alt}
+              fill
+              priority
+              sizes="(max-width: 1024px) 100vw, 896px"
+              className="object-cover"
+              style={{ objectPosition: articleData.objectPosition ?? "center" }}
+            />
+          </div>
+          <figcaption className="mt-2 text-center text-xs text-gray-400 italic">
+            Curated look: {articleData.title || articleData.alt} • RoopSetu Editorial Edition
+          </figcaption>
+        </figure>
+
+        {/* AT-A-GLANCE QUICK STATS BAR (Nykaa Info Strip) */}
+        <div className="mb-10 grid grid-cols-2 sm:grid-cols-4 gap-3 p-4 rounded-xl bg-[#FAFAFA] border border-gray-200 text-center">
+          <div className="p-2">
+            <p className="text-[10px] uppercase font-bold tracking-wider text-gray-400">
+              Difficulty
+            </p>
+            <p className="mt-1 text-sm font-semibold text-gray-800">
+              {articleData.difficulty || "Intermediate"}
+            </p>
+          </div>
+          <div className="p-2 border-l border-gray-200">
+            <p className="text-[10px] uppercase font-bold tracking-wider text-gray-400">
+              Est. Time
+            </p>
+            <p className="mt-1 text-sm font-semibold text-gray-800">
+              {articleData.estimatedTime || "25 mins"}
+            </p>
+          </div>
+          <div className="p-2 border-l-0 sm:border-l border-gray-200">
+            <p className="text-[10px] uppercase font-bold tracking-wider text-gray-400">
+              Occasion
+            </p>
+            <p className="mt-1 text-sm font-semibold text-gray-800 truncate">
+              {articleData.occasion || "Celebration"}
+            </p>
+          </div>
+          <div className="p-2 border-l border-gray-200">
+            <p className="text-[10px] uppercase font-bold tracking-wider text-gray-400">
+              Kit Estimate
+            </p>
+            <p className="mt-1 text-sm font-bold text-[#7A0B2E]">
+              {articleData.kitPrice || "₹1,499"}
+            </p>
+          </div>
         </div>
-      </section>
 
-      {/* Main Content Area */}
-      <section className="py-10 sm:py-14">
-        <div className="mx-auto max-w-7xl px-4 sm:px-8 lg:px-12">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-            {/* Left Column (Desktop Sticky): High-Res Look Card */}
-            <div className="lg:col-span-5 lg:sticky lg:top-28">
-              <div className="relative aspect-[3/4] w-full rounded-[28px] overflow-hidden bg-white border border-[#EEDFD7] shadow-md p-2">
-                <div className="relative h-full w-full rounded-[22px] overflow-hidden bg-[#FDF0F2]">
-                  <Image
-                    src={articleData.image}
-                    alt={articleData.title || articleData.alt}
-                    fill
-                    priority
-                    sizes="(max-width: 1024px) 100vw, 480px"
-                    className="object-cover"
-                    style={{ objectPosition: articleData.objectPosition ?? "center" }}
-                  />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-90" />
+        {/* SECTION 1: EDITORIAL STORY ("Why We Love This Look") */}
+        <section className="prose prose-gray max-w-none mb-12">
+          <h2 className="font-serif text-2xl sm:text-3xl font-medium text-gray-900 tracking-tight mb-4">
+            Why This Look Is Trending
+          </h2>
+          <p className="text-base text-gray-700 leading-relaxed">
+            {articleData.articleStory?.intro ||
+              `The "${articleData.title || articleData.alt}" has become a sensation for modern celebrations. It pairs effortlessly with both contemporary outfits and festive attire, creating a balanced, high-reflect finish that captures natural light seamlessly.`}
+          </p>
+          {articleData.articleStory?.whyViral && (
+            <p className="mt-4 text-base text-gray-700 leading-relaxed">
+              {articleData.articleStory.whyViral}
+            </p>
+          )}
 
-                  {/* Top Floating Badge */}
-                  <div className="absolute top-3.5 left-3.5 z-10">
-                    <span className="rounded-full bg-white/95 backdrop-blur-md px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[#7A0B2E] shadow-sm">
-                      {articleData.tag || parentCategory?.label || "Editorial Masterclass"}
-                    </span>
-                  </div>
+          {/* Nykaa-Style Editorial Pullquote */}
+          <div className="my-6 rounded-r-xl border-l-4 border-[#7A0B2E] bg-[#FFF5F7] p-4 text-gray-800">
+            <p className="font-serif italic text-base sm:text-lg text-[#7A0B2E]">
+              &ldquo;
+              {articleData.technique
+                ? `The key is the ${articleData.technique.toLowerCase()}: creating clean reflective dimension without harsh contrast.`
+                : "Flawless prep is 80% of the result. When the base canvas is hydrated and primed, the finish remains pristine for weeks."}
+              &rdquo;
+            </p>
+            <span className="block mt-2 text-xs font-bold uppercase tracking-wider text-gray-500">
+              — RoopSetu Beauty Editorial Desk
+            </span>
+          </div>
+        </section>
 
-                  {/* Bottom Quick Look Card Overlay */}
-                  <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5 z-10 text-white">
-                    <p className="text-[11px] font-bold text-[#FFD6A5] uppercase tracking-wider">
-                      ✦ {articleData.technique || "Pro Technique Breakdown"}
-                    </p>
-                    <h3 className="font-serif text-xl sm:text-2xl font-medium text-white leading-tight mt-1">
-                      {articleData.title || articleData.alt}
-                    </h3>
-                    <p className="text-[12px] text-white/80 mt-1 line-clamp-2">
-                      {articleData.description}
-                    </p>
-
-                    <div className="mt-3 pt-3 border-t border-white/20 flex items-center justify-between text-[11px]">
-                      <span className="text-[#FFD6A5] font-semibold">
-                        Drugstore Kit: {articleData.kitPrice || "₹1,499"}
-                      </span>
-                      <button
-                        type="button"
-                        onClick={handleShare}
-                        className="inline-flex items-center gap-1 font-bold text-white hover:text-[#FFD6A5] transition-colors"
-                      >
-                        {copiedLink ? "Link Copied" : "Share Guide"}
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Shoppable Kit Quick Box under image */}
-              <div className="mt-4 rounded-2xl bg-white p-4 border border-[#EEDFD7] shadow-2xs">
-                <div className="flex items-center justify-between">
-                  <div>
-                    <p className="text-[10px] font-bold uppercase tracking-wider text-[#7A0B2E]">
-                      Drugstore Formulation
-                    </p>
-                    <p className="text-[13px] font-bold text-[#2B1B20]">
-                      {productsList.length} Verified Products • {articleData.kitPrice || "₹1,499"}
-                    </p>
-                  </div>
-                  <a
-                    href="https://www.nykaa.com"
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="inline-flex items-center gap-1 rounded-full bg-[#7A0B2E] px-3.5 py-1.5 text-[11px] font-bold text-white shadow-2xs hover:bg-[#960E39] transition-colors"
-                  >
-                    <span>Shop All</span>
-                    <ExternalLink size={11} />
-                  </a>
-                </div>
-              </div>
+        {/* SECTION 2: SHOP THE PRODUCTS (Signature Nykaa Product Shelf) */}
+        <section className="mb-14 pt-8 border-t border-gray-200">
+          <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-6">
+            <div>
+              <span className="text-[11px] font-bold uppercase tracking-wider text-[#7A0B2E]">
+                What You&apos;ll Need
+              </span>
+              <h2 className="font-serif text-2xl sm:text-3xl font-medium text-gray-900 tracking-tight mt-0.5">
+                Shop The Recreate Kit
+              </h2>
+              <p className="text-xs sm:text-sm text-gray-500 mt-1">
+                Formulations verified by RoopSetu beauty editors for performance and longevity.
+              </p>
             </div>
 
-            {/* Right Column: Editorial Masterclass & Interactive Tabs */}
-            <div className="lg:col-span-7 space-y-6">
-              {/* Tab Selector Bar (Pure Editorial Knowledge) */}
-              <div className="inline-flex items-center rounded-2xl bg-[#EDE1D9] p-1.5 border border-[#E3D3C9] shadow-2xs w-full overflow-x-auto [scrollbar-width:none]">
-                <button
-                  type="button"
-                  onClick={() => setActiveTab("story")}
-                  className={`flex items-center gap-1.5 rounded-xl px-4 py-2 text-[11px] sm:text-[12px] font-bold uppercase tracking-wider transition-all shrink-0 ${
-                    activeTab === "story"
-                      ? "bg-white text-[#7A0B2E] shadow-xs"
-                      : "text-[#6F6267] hover:text-[#2B1B20]"
-                  }`}
-                >
-                  <Sparkles size={13} /> The Story
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => setActiveTab("steps")}
-                  className={`flex items-center gap-1.5 rounded-xl px-4 py-2 text-[11px] sm:text-[12px] font-bold uppercase tracking-wider transition-all shrink-0 ${
-                    activeTab === "steps"
-                      ? "bg-white text-[#7A0B2E] shadow-xs"
-                      : "text-[#6F6267] hover:text-[#2B1B20]"
-                  }`}
-                >
-                  <Sparkle size={13} /> 3-Step Blueprint
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => setActiveTab("shop")}
-                  className={`flex items-center gap-1.5 rounded-xl px-4 py-2 text-[11px] sm:text-[12px] font-bold uppercase tracking-wider transition-all shrink-0 ${
-                    activeTab === "shop"
-                      ? "bg-white text-[#7A0B2E] shadow-xs"
-                      : "text-[#6F6267] hover:text-[#2B1B20]"
-                  }`}
-                >
-                  <ShoppingBag size={13} /> Products &amp; Dupes
-                </button>
-
-                <button
-                  type="button"
-                  onClick={() => setActiveTab("guide")}
-                  className={`flex items-center gap-1.5 rounded-xl px-4 py-2 text-[11px] sm:text-[12px] font-bold uppercase tracking-wider transition-all shrink-0 ${
-                    activeTab === "guide"
-                      ? "bg-white text-[#7A0B2E] shadow-xs"
-                      : "text-[#6F6267] hover:text-[#2B1B20]"
-                  }`}
-                >
-                  <Palette size={13} /> Shade Matrix
-                </button>
+            {articleData.kitPrice && (
+              <div className="shrink-0 flex items-center gap-2">
+                <span className="text-xs text-gray-500">Complete Kit:</span>
+                <span className="text-base font-bold text-[#7A0B2E]">
+                  {articleData.kitPrice}
+                </span>
               </div>
+            )}
+          </div>
 
-              {/* TAB 1: THE HUMAN-WRITTEN EDITORIAL STORY */}
-              {(activeTab === "story" || activeTab === "steps") && (
-                <div className="space-y-6">
-                  {articleData.articleStory && (
-                    <div className="space-y-5 rounded-[24px] bg-white p-6 sm:p-8 border border-[#EEDFD7] shadow-sm">
-                      <div>
-                        <h2 className="font-serif text-2xl text-[#2B1B20] font-medium flex items-center gap-2">
-                          <Sparkles size={18} className="text-[#7A0B2E]" />
-                          The Story Behind This Look
-                        </h2>
-                        <p className="mt-3 text-[14px] sm:text-[15px] text-[#4A3B41] leading-relaxed">
-                          {articleData.articleStory.intro}
-                        </p>
-                        <p className="mt-3 text-[14px] sm:text-[15px] text-[#4A3B41] leading-relaxed">
-                          {articleData.articleStory.whyViral}
-                        </p>
-                      </div>
-
-                      {/* Skin Tone & Styling Advice Callout */}
-                      <div className="rounded-2xl bg-[#FFF8F3] p-4 sm:p-5 border border-[#F0DFD7] flex items-start gap-3">
-                        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-[#F5E6E8] text-[#7A0B2E]">
-                          <CheckCircle2 size={16} />
-                        </div>
-                        <div>
-                          <h4 className="text-[13px] font-bold text-[#2B1B20] uppercase tracking-wider">
-                            Skin Tone &amp; Outfit Styling Guide
-                          </h4>
-                          <p className="mt-1 text-[13px] text-[#6F6267] leading-relaxed">
-                            {articleData.articleStory.skinToneTips}
-                          </p>
-                        </div>
-                      </div>
-
-                      {/* Common Rookie Mistakes Box */}
-                      <div className="rounded-2xl bg-[#FFF5F5] p-4 sm:p-5 border border-[#FED7D7] flex items-start gap-3">
-                        <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-xl bg-[#FDE8E8] text-[#C53030]">
-                          <AlertCircle size={16} />
-                        </div>
-                        <div>
-                          <h4 className="text-[13px] font-bold text-[#9B2C2C] uppercase tracking-wider">
-                            Rookie Mistakes to Avoid
-                          </h4>
-                          <p className="mt-1 text-[13px] text-[#742A2A] leading-relaxed">
-                            {articleData.articleStory.mistakesToAvoid}
-                          </p>
-                        </div>
-                      </div>
-                    </div>
-                  )}
-
-                  {/* STEP-BY-STEP TECHNIQUE CARDS */}
-                  {articleData.steps && articleData.steps.length > 0 && (
-                    <div className="space-y-4">
-                      <div className="flex items-center justify-between">
-                        <h2 className="font-serif text-2xl text-[#2B1B20] font-medium flex items-center gap-2">
-                          <Sparkle size={18} className="text-[#7A0B2E]" />
-                          Step-by-Step Recreate Technique
-                        </h2>
-                        <span className="text-xs font-semibold text-[#8C7A81]">
-                          {articleData.steps.length} Pro Steps
+          {/* Product Cards Grid (Clean Nykaa White Cards) */}
+          {productsList.length > 0 ? (
+            <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-3 sm:gap-4">
+              {productsList.map((product) => (
+                <div
+                  key={product.id}
+                  className="group flex flex-col justify-between rounded-xl bg-white border border-gray-200 p-3 hover:border-gray-400 hover:shadow-md transition-all duration-200"
+                >
+                  <div>
+                    {/* Product Image */}
+                    <div className="relative aspect-square w-full rounded-lg bg-gray-50 overflow-hidden mb-2.5 p-2 flex items-center justify-center">
+                      <Image
+                        src={product.image}
+                        alt={product.name}
+                        fill
+                        sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 220px"
+                        className="object-contain p-1 group-hover:scale-105 transition-transform"
+                      />
+                      {product.tag && (
+                        <span className="absolute top-1.5 left-1.5 rounded bg-gray-900/80 px-1.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-white">
+                          {product.tag}
                         </span>
-                      </div>
-
-                      {articleData.steps.map((step) => (
-                        <div
-                          key={step.id}
-                          className="flex flex-col sm:flex-row gap-4 p-5 rounded-[22px] bg-white border border-[#EEDFD7] shadow-sm hover:border-[#7A0B2E]/40 transition-colors"
-                        >
-                          <div className="relative h-28 w-full sm:w-32 shrink-0 rounded-[14px] overflow-hidden bg-[#FDF0F2]">
-                            <Image
-                              src={step.image}
-                              alt={step.title}
-                              fill
-                              sizes="130px"
-                              className="object-cover"
-                            />
-                            {step.time && (
-                              <span className="absolute top-2 left-2 rounded-full bg-black/70 px-2 py-0.5 text-[9px] font-bold text-white">
-                                {step.time}
-                              </span>
-                            )}
-                          </div>
-
-                          <div className="flex-1">
-                            <div className="flex items-center gap-2 mb-1">
-                              <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[#7A0B2E] text-[10px] font-bold text-white">
-                                {step.id}
-                              </span>
-                              <h3 className="font-serif text-[16px] sm:text-[17px] font-medium text-[#2B1B20]">
-                                {step.title}
-                              </h3>
-                            </div>
-
-                            <p className="text-[13px] text-[#6F6267] leading-relaxed mt-1">
-                              {step.description}
-                            </p>
-
-                            {step.proTip && (
-                              <div className="mt-3 rounded-xl bg-[#FFF8F3] p-2.5 border border-[#F0DFD7] flex items-start gap-2">
-                                <Sparkles size={14} className="text-[#7A0B2E] shrink-0 mt-0.5" />
-                                <p className="text-[12px] text-[#7A0B2E] font-medium">
-                                  Editorial Pro Tip: {step.proTip}
-                                </p>
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {/* TAB 2: SHOPPABLE PRODUCT KIT & DUPES */}
-              {(activeTab === "shop" || activeTab === "story") && (
-                <div className="space-y-4">
-                  <div className="flex items-center justify-between">
-                    <div>
-                      <h2 className="font-serif text-2xl text-[#2B1B20] font-medium flex items-center gap-2">
-                        <ShoppingBag size={18} className="text-[#7A0B2E]" />
-                        Exact Products &amp; Verified Dupes
-                      </h2>
-                      <p className="text-xs text-[#6F6267] mt-1">
-                        Formulations verified by RoopSetu beauty editors for performance and longevity.
-                      </p>
+                      )}
                     </div>
 
-                    <span className="text-xs font-bold text-[#7A0B2E] bg-[#FDF0F2] px-3 py-1 rounded-full border border-[#F3D7DC]">
-                      Total: {articleData.kitPrice || "₹1,499"}
-                    </span>
+                    {/* Brand */}
+                    <p className="text-[10px] font-bold uppercase tracking-wider text-[#7A0B2E] truncate">
+                      {product.brand}
+                    </p>
+
+                    {/* Product Name */}
+                    <h3 className="mt-0.5 text-xs font-semibold text-gray-900 line-clamp-2 leading-tight">
+                      {product.name}
+                    </h3>
                   </div>
 
-                  <div className="space-y-3">
-                    {productsList.map((product) => (
-                      <div
-                        key={product.id}
-                        className="flex items-center gap-4 p-4 rounded-[20px] bg-white border border-[#EEDFD7] shadow-sm hover:shadow-md transition-all"
-                      >
-                        <div className="relative h-16 w-16 shrink-0 rounded-[12px] overflow-hidden bg-[#FAF6F0] p-1 border border-[#EEDFD7]">
-                          <Image
-                            src={product.image}
-                            alt={product.name}
-                            fill
-                            sizes="64px"
-                            className="object-contain"
-                          />
-                        </div>
-
-                        <div className="flex-1 min-w-0">
-                          <div className="flex items-center gap-2">
-                            <span className="text-[10px] font-bold uppercase tracking-wider text-[#7A0B2E]">
-                              {product.brand}
-                            </span>
-                            <span className="text-[10px] text-[#6F6267]">•</span>
-                            <span className="text-[10px] text-[#6F6267] flex items-center gap-0.5">
-                              <Star size={11} fill="#F59E0B" className="text-amber-500" />
-                              {product.rating} ({product.reviewsCount || 1200})
-                            </span>
-                          </div>
-
-                          <h4 className="text-[14px] font-semibold text-[#2B1B20] truncate mt-0.5">
-                            {product.name}
-                          </h4>
-
-                          <div className="flex items-center gap-2 mt-1">
-                            <span className="text-[14px] font-bold text-[#2B1B20]">
-                              {product.price}
-                            </span>
-                            {product.originalPrice && (
-                              <span className="text-[12px] text-[#8C7A81] line-through">
-                                {product.originalPrice}
-                              </span>
-                            )}
-                            <span className="text-[10px] font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
-                              Available on {product.platform}
-                            </span>
-                          </div>
-                        </div>
-
-                        <a
-                          href={product.affiliateUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="shrink-0 flex items-center gap-1.5 rounded-full bg-[#7A0B2E] px-4 py-2 text-[11px] font-bold text-white shadow-sm hover:bg-[#960E39] transition-colors"
-                        >
-                          <span>Buy</span>
-                          <ExternalLink size={12} />
-                        </a>
-                      </div>
-                    ))}
-                  </div>
-
-                  {/* Bundle Box */}
-                  <div className="rounded-[22px] bg-gradient-to-r from-[#FAF0E6] to-[#FDF5EE] p-5 border border-[#E8D4C8] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+                  {/* Price & Buy Button */}
+                  <div className="mt-3 pt-2.5 border-t border-gray-100 flex items-center justify-between gap-2">
                     <div>
-                      <p className="text-[11px] font-bold uppercase tracking-wider text-[#7A0B2E]">
-                        Complete Recreate Bundle
+                      <p className="text-xs font-bold text-gray-900">
+                        {product.price}
                       </p>
-                      <p className="text-lg font-bold text-[#2B1B20]">
-                        Get all {productsList.length} verified products for {articleData.kitPrice || "₹1,499"}
+                      <p className="text-[9px] text-gray-400">
+                        on {product.platform || "Nykaa"}
                       </p>
                     </div>
 
                     <a
-                      href="https://www.nykaa.com"
+                      href={product.affiliateUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center justify-center gap-2 rounded-full bg-[#7A0B2E] px-6 py-3 text-[12px] font-bold uppercase tracking-wider text-white shadow-md hover:bg-[#960E39] transition-all"
+                      className="inline-flex items-center gap-1 rounded-full bg-[#7A0B2E] hover:bg-[#960E39] px-2.5 py-1 text-[10px] font-bold uppercase tracking-wider text-white shadow-2xs transition-colors shrink-0"
                     >
-                      <ShoppingBag size={14} /> Buy Full Kit on Nykaa
+                      <span>Shop</span>
+                      <ExternalLink size={10} />
                     </a>
                   </div>
                 </div>
-              )}
+              ))}
+            </div>
+          ) : (
+            <p className="text-xs text-gray-500 py-4">
+              Products to recreate this look will be listed shortly.
+            </p>
+          )}
 
-              {/* TAB 3: SHADE MATRIX & PRO SECRETS (Pure Informative Formulation) */}
-              {(activeTab === "guide" || activeTab === "story") && (
-                <div className="rounded-[26px] bg-white p-6 sm:p-8 border border-[#EEDFD7] shadow-sm space-y-5">
-                  <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-[#7A0B2E]">
-                    <Palette size={16} />
-                    Editorial Formulation &amp; Longevity Secrets
+          {/* Buy All Bundle Banner */}
+          <div className="mt-6 p-4 rounded-xl bg-[#FAFAFA] border border-gray-200 flex flex-col sm:flex-row items-center justify-between gap-3 text-center sm:text-left">
+            <div>
+              <p className="text-xs font-bold uppercase tracking-wider text-gray-900">
+                Want to buy the whole set in one place?
+              </p>
+              <p className="text-xs text-gray-500 mt-0.5">
+                All {productsList.length} verified products for this look • Est. {articleData.kitPrice || "₹1,499"}
+              </p>
+            </div>
+            <a
+              href="https://www.nykaa.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 rounded-full bg-[#7A0B2E] hover:bg-[#960E39] px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white shadow transition-all"
+            >
+              <ShoppingBag size={14} /> Shop All on Nykaa
+            </a>
+          </div>
+        </section>
+
+        {/* SECTION 3: STEP-BY-STEP TUTORIAL (Continuous Clean Reading) */}
+        <section className="mb-14 pt-8 border-t border-gray-200">
+          <div className="mb-8">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-[#7A0B2E]">
+              Easy Application Guide
+            </span>
+            <h2 className="font-serif text-2xl sm:text-3xl font-medium text-gray-900 tracking-tight mt-0.5">
+              How To Recreate The Look: Step-by-Step
+            </h2>
+            <p className="text-xs sm:text-sm text-gray-500 mt-1">
+              Follow these simple steps for durable high-gloss results at home.
+            </p>
+          </div>
+
+          {articleData.steps && articleData.steps.length > 0 ? (
+            <div className="space-y-8">
+              {articleData.steps.map((step, index) => (
+                <div
+                  key={step.id || index}
+                  className="rounded-2xl border border-gray-200 bg-white p-5 sm:p-6 shadow-2xs space-y-4"
+                >
+                  {/* Step Header */}
+                  <div className="flex items-center justify-between flex-wrap gap-2">
+                    <div className="flex items-center gap-2.5">
+                      <span className="flex h-7 w-7 items-center justify-center rounded-full bg-[#7A0B2E] text-white font-bold text-xs">
+                        {step.id || `0${index + 1}`}
+                      </span>
+                      <h3 className="font-serif text-lg sm:text-xl font-medium text-gray-900">
+                        {step.title}
+                      </h3>
+                    </div>
+
+                    {step.time && (
+                      <span className="inline-flex items-center gap-1 rounded-full bg-gray-100 px-2.5 py-0.5 text-[11px] font-medium text-gray-600">
+                        <Clock size={11} /> {step.time}
+                      </span>
+                    )}
                   </div>
 
-                  <h3 className="font-serif text-2xl text-[#2B1B20] font-medium">
-                    Masterclass Longevity &amp; Undertone Compatibility
-                  </h3>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                    {/* Undertone Suitability */}
-                    <div className="rounded-2xl bg-[#FFF8F3] p-4 sm:p-5 border border-[#F0DFD7] space-y-2">
-                      <div className="flex items-center gap-2 text-[#7A0B2E]">
-                        <CheckCircle2 size={16} />
-                        <h4 className="text-[13px] font-bold uppercase tracking-wider">
-                          Undertone Harmony
-                        </h4>
+                  {/* Step Visual & Instructions */}
+                  <div className="grid grid-cols-1 md:grid-cols-12 gap-5 items-start">
+                    {step.image && (
+                      <div className="md:col-span-5 relative aspect-[4/3] w-full rounded-xl overflow-hidden bg-gray-100 border border-gray-200">
+                        <Image
+                          src={step.image}
+                          alt={step.title}
+                          fill
+                          sizes="(max-width: 768px) 100vw, 320px"
+                          className="object-cover"
+                        />
                       </div>
-                      <p className="text-[13px] text-[#6F6267] leading-relaxed">
-                        {articleData.skinToneSuitability ||
-                          "Engineered specifically for warm golden and olive South Asian complexions. The base tones neutralize dullness and stay vibrant under high-flash photography."}
-                      </p>
-                    </div>
+                    )}
 
-                    {/* Longevity Secret */}
-                    <div className="rounded-2xl bg-[#FAF6F0] p-4 sm:p-5 border border-[#EEDFD7] space-y-2">
-                      <div className="flex items-center gap-2 text-[#7A0B2E]">
-                        <Sparkles size={16} />
-                        <h4 className="text-[13px] font-bold uppercase tracking-wider">
-                          Application Retention Secret
-                        </h4>
-                      </div>
-                      <p className="text-[13px] text-[#6F6267] leading-relaxed">
-                        {articleData.longevityTip ||
-                          "Take extra time on the prep and dehydration step. Eliminating surface oils ensures up to 3 weeks of durable high-gloss retention without lifting or chipping."}
+                    <div className={step.image ? "md:col-span-7 space-y-3" : "md:col-span-12 space-y-3"}>
+                      <p className="text-sm sm:text-base text-gray-700 leading-relaxed">
+                        {step.description}
                       </p>
+
+                      {/* Nykaa Pro Tip Box */}
+                      {step.proTip && (
+                        <div className="rounded-lg border-l-4 border-[#7A0B2E] bg-[#FFF5F7] p-3 text-xs sm:text-sm text-gray-800">
+                          <p className="font-semibold text-[#7A0B2E] flex items-center gap-1 mb-0.5">
+                            <Sparkles size={13} /> Editorial Pro Tip:
+                          </p>
+                          <p className="text-gray-700 leading-relaxed">
+                            {step.proTip}
+                          </p>
+                        </div>
+                      )}
                     </div>
                   </div>
-
-                  {/* Key Tools Required */}
-                  {articleData.keyTools && articleData.keyTools.length > 0 && (
-                    <div className="pt-3 border-t border-[#F0DFD7]">
-                      <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-[#8C7A81] mb-2.5">
-                        <Wrench size={13} className="text-[#7A0B2E]" />
-                        <span>Recommended Pro Application Tools:</span>
-                      </div>
-                      <div className="flex flex-wrap items-center gap-2">
-                        {articleData.keyTools.map((tool) => (
-                          <span
-                            key={tool}
-                            className="rounded-full bg-[#FAF6F0] border border-[#EEDFD7] px-3 py-1 text-[11px] font-medium text-[#2B1B20]"
-                          >
-                            ✦ {tool}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  )}
                 </div>
-              )}
+              ))}
+            </div>
+          ) : (
+            <p className="text-xs text-gray-500 py-4">
+              Step-by-step instructions available in the Beauty Guide feed.
+            </p>
+          )}
+        </section>
+
+        {/* SECTION 4: UNDERTONE & LONGEVITY SECRETS */}
+        <section className="mb-14 pt-8 border-t border-gray-200">
+          <div className="mb-6">
+            <span className="text-[11px] font-bold uppercase tracking-wider text-[#7A0B2E]">
+              Pro Knowledge
+            </span>
+            <h2 className="font-serif text-2xl sm:text-3xl font-medium text-gray-900 tracking-tight mt-0.5">
+              Undertone Harmony &amp; Longevity
+            </h2>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            {/* Undertone Suitability */}
+            <div className="rounded-xl bg-[#FAFAFA] p-5 border border-gray-200 space-y-2">
+              <div className="flex items-center gap-2 text-[#7A0B2E]">
+                <CheckCircle2 size={16} />
+                <h3 className="text-xs font-bold uppercase tracking-wider text-gray-900">
+                  Undertone Compatibility
+                </h3>
+              </div>
+              <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                {articleData.skinToneSuitability ||
+                  "Engineered specifically for warm golden, honey, and olive South Asian complexions. The warm undertones prevent ashy cast under flash photography."}
+              </p>
+            </div>
+
+            {/* Retention Secret */}
+            <div className="rounded-xl bg-[#FAFAFA] p-5 border border-gray-200 space-y-2">
+              <div className="flex items-center gap-2 text-[#7A0B2E]">
+                <ShieldCheck size={16} />
+                <h3 className="text-xs font-bold uppercase tracking-wider text-gray-900">
+                  Application Retention Secret
+                </h3>
+              </div>
+              <p className="text-xs sm:text-sm text-gray-600 leading-relaxed">
+                {articleData.longevityTip ||
+                  "Take extra time on the prep and dehydration step. Eliminating surface oils ensures up to 3 weeks of durable high-gloss retention without lifting or chipping."}
+              </p>
             </div>
           </div>
 
-          {/* Related Looks from Same Category */}
-          {relatedLooks.length > 0 && (
-            <div className="mt-16 sm:mt-24 pt-10 border-t border-[#EEDFD7]">
-              <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-8">
-                <div>
-                  <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#7A0B2E]">
-                    Explore More Masterclasses
-                  </span>
-                  <h3 className="font-serif text-2xl sm:text-3xl text-[#2B1B20] font-medium mt-1">
-                    Related {parentCategory?.label || "Beauty"} Masterclasses
-                  </h3>
-                </div>
-
-                <Link
-                  href="/beauty-guide"
-                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#7A0B2E] hover:underline"
+          {/* Key Tools Pills */}
+          {articleData.keyTools && articleData.keyTools.length > 0 && (
+            <div className="mt-5 pt-4 border-t border-gray-100 flex flex-wrap items-center gap-2">
+              <span className="text-xs font-semibold text-gray-500 flex items-center gap-1.5 mr-1">
+                <Wrench size={13} className="text-[#7A0B2E]" /> Key Tools Needed:
+              </span>
+              {articleData.keyTools.map((tool) => (
+                <span
+                  key={tool}
+                  className="rounded-full bg-white border border-gray-200 px-3 py-1 text-xs font-medium text-gray-700"
                 >
-                  View All Looks <ArrowRight size={13} />
-                </Link>
-              </div>
-
-              <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
-                {relatedLooks.map((look) => (
-                  <Link
-                    key={look.id}
-                    href={`/articles/${look.id}`}
-                    className="group relative flex flex-col rounded-[20px] overflow-hidden bg-white border border-[#EEDFD7] shadow-2xs hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
-                  >
-                    <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#FDF0F2]">
-                      <Image
-                        src={look.image}
-                        alt={look.alt}
-                        fill
-                        sizes="(max-width: 640px) 50vw, 25vw"
-                        className="object-cover transition-transform duration-500 group-hover:scale-105"
-                      />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-75" />
-
-                      <div className="absolute top-2.5 left-2.5 z-10">
-                        <span className="rounded-full bg-white/90 backdrop-blur-md px-2.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-[#2B1B20]">
-                          {look.tag || "Trending"}
-                        </span>
-                      </div>
-
-                      <div className="absolute inset-x-0 bottom-0 p-3 z-10 text-white">
-                        <p className="text-[9px] font-bold text-[#FFD6A5]">
-                          ✦ {look.savesCount || "90k saves"}
-                        </p>
-                        <h4 className="font-serif text-[13px] sm:text-[15px] font-medium leading-snug line-clamp-1 mt-0.5 group-hover:text-[#FFD6A5] transition-colors">
-                          {look.title || look.alt}
-                        </h4>
-                        <p className="text-[10px] text-white/80 mt-1 font-semibold">
-                          Kit: {look.kitPrice || "₹1,499"}
-                        </p>
-                      </div>
-                    </div>
-                  </Link>
-                ))}
-              </div>
+                  ✦ {tool}
+                </span>
+              ))}
             </div>
           )}
+        </section>
 
-          {/* Bridge to Beauty Guide Main Hub */}
-          <div className="mt-14 rounded-[28px] bg-gradient-to-br from-[#7A0B2E] to-[#4A051B] p-6 sm:p-10 text-white shadow-lg">
-            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
-              <div className="max-w-xl">
-                <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#FFD6A5]">
-                  RoopSetu Editorial Collective
+        {/* SECTION 5: RELATED MASTERCLASSES (Nykaa "You May Also Like") */}
+        {relatedLooks.length > 0 && (
+          <section className="mb-14 pt-8 border-t border-gray-200">
+            <div className="flex items-end justify-between gap-3 mb-6">
+              <div>
+                <span className="text-[11px] font-bold uppercase tracking-wider text-[#7A0B2E]">
+                  Continue Exploring
                 </span>
-                <h3 className="font-serif text-2xl sm:text-3xl font-medium text-white mt-1">
-                  Discover More Recreatable Looks
-                </h3>
-                <p className="mt-2 text-sm text-white/80 leading-relaxed">
-                  Browse over 30+ step-by-step masterclasses, drugstore duplicate formulas, and undertone matrices across all categories in our interactive handbook.
-                </p>
+                <h2 className="font-serif text-2xl sm:text-3xl font-medium text-gray-900 tracking-tight mt-0.5">
+                  Related {parentCategory?.label || "Beauty"} Masterclasses
+                </h2>
               </div>
-
-              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
-                <Link
-                  href="/beauty-guide"
-                  className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-xs font-bold uppercase tracking-wider text-[#7A0B2E] shadow hover:bg-[#FFE5D0] transition-colors"
-                >
-                  <ArrowLeft size={14} /> Back to Beauty Guide Hub
-                </Link>
-                <Link
-                  href="/beauty-guide#discovery-feed"
-                  className="inline-flex items-center justify-center gap-2 rounded-full border border-white/30 bg-white/10 px-6 py-3 text-xs font-bold uppercase tracking-wider text-white hover:bg-white/20 transition-colors"
-                >
-                  Explore Feed <ArrowRight size={14} />
-                </Link>
-              </div>
+              <Link
+                href="/beauty-guide"
+                className="text-xs font-bold text-[#7A0B2E] hover:underline inline-flex items-center gap-1"
+              >
+                <span>View All</span>
+                <ChevronRight size={13} />
+              </Link>
             </div>
 
-            {/* Quick Category Jump Links */}
-            <div className="mt-8 pt-6 border-t border-white/15 grid grid-cols-2 sm:grid-cols-4 gap-3">
-              {beautyCategories.map((cat) => (
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4">
+              {relatedLooks.map((look) => (
                 <Link
-                  key={cat.id}
-                  href="/beauty-guide#discovery-feed"
-                  className="flex items-center justify-between p-3 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10 transition-colors text-white text-xs font-semibold"
+                  key={look.id}
+                  href={`/articles/${look.id}`}
+                  className="group flex flex-col rounded-xl overflow-hidden bg-white border border-gray-200 hover:border-gray-400 hover:shadow-md transition-all"
                 >
-                  <span>{cat.label}</span>
-                  <ChevronRight size={14} className="text-white/60" />
+                  <div className="relative aspect-[3/4] w-full overflow-hidden bg-gray-100">
+                    <Image
+                      src={look.image}
+                      alt={look.alt}
+                      fill
+                      sizes="(max-width: 640px) 50vw, 220px"
+                      className="object-cover group-hover:scale-105 transition-transform duration-300"
+                    />
+                    <div className="absolute top-2 left-2">
+                      <span className="rounded bg-black/70 backdrop-blur-xs px-2 py-0.5 text-[9px] font-bold uppercase tracking-wider text-white">
+                        {look.tag || "Trending"}
+                      </span>
+                    </div>
+                  </div>
+
+                  <div className="p-3 flex-1 flex flex-col justify-between">
+                    <h3 className="font-serif text-xs sm:text-sm font-medium text-gray-900 group-hover:text-[#7A0B2E] transition-colors line-clamp-2">
+                      {look.title || look.alt}
+                    </h3>
+                    <p className="mt-2 text-[11px] font-bold text-[#7A0B2E]">
+                      Kit: {look.kitPrice || "₹1,499"}
+                    </p>
+                  </div>
                 </Link>
               ))}
             </div>
+          </section>
+        )}
+
+        {/* SECTION 6: BEAUTY GUIDE HUB BRIDGE (Nykaa Footer Banner Style) */}
+        <div className="rounded-2xl bg-[#FAFAFA] border border-gray-200 p-6 sm:p-8 text-center sm:text-left flex flex-col sm:flex-row items-center justify-between gap-6">
+          <div className="max-w-xl">
+            <span className="text-[10px] font-bold uppercase tracking-wider text-[#7A0B2E]">
+              RoopSetu Beauty Guide
+            </span>
+            <h3 className="font-serif text-xl sm:text-2xl font-medium text-gray-900 mt-1">
+              Explore 30+ Complete Masterclasses
+            </h3>
+            <p className="mt-1.5 text-xs sm:text-sm text-gray-600 leading-relaxed">
+              Find step-by-step DIY techniques, verified drugstore product dupes, and undertone guides across Nails, Hair, Makeup, and Bridal.
+            </p>
+          </div>
+
+          <div className="flex items-center gap-3 shrink-0">
+            <Link
+              href="/beauty-guide"
+              className="inline-flex items-center gap-1.5 rounded-full bg-[#7A0B2E] hover:bg-[#960E39] px-5 py-2.5 text-xs font-bold uppercase tracking-wider text-white shadow transition-all"
+            >
+              <ArrowLeft size={13} />
+              <span>Back to Beauty Guide</span>
+            </Link>
           </div>
         </div>
-      </section>
+      </article>
 
-      {/* MOBILE STICKY BOTTOM ACTION BAR (Screens < 1024px) */}
-      <div className="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-t border-[#EEDFD7] p-3 px-4 shadow-2xl flex items-center justify-between gap-3">
-        <div>
-          <p className="text-[10px] font-bold uppercase tracking-wider text-[#8C7A81]">
-            Drugstore Kit
+      {/* MOBILE STICKY BOTTOM SHOPPING BAR (Nykaa Signature Mobile UX) */}
+      <aside
+        aria-label="Mobile kit buy bar"
+        className="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-t border-gray-200 px-4 py-2.5 shadow-lg flex items-center justify-between gap-3"
+      >
+        <div className="min-w-0">
+          <p className="text-[10px] uppercase font-bold text-gray-400 truncate">
+            Recreate Kit
           </p>
-          <p className="text-[15px] font-bold text-[#7A0B2E]">
+          <p className="text-sm font-bold text-[#7A0B2E]">
             {articleData.kitPrice || "₹1,499"}
           </p>
         </div>
@@ -752,31 +630,32 @@ export default function ArticleDetailView({
         <div className="flex items-center gap-2">
           <button
             type="button"
-            onClick={handleShare}
-            className="flex h-10 w-10 items-center justify-center rounded-full bg-[#FAF6F0] border border-[#EEDFD7] text-[#2B1B20] shadow-sm active:scale-95 shrink-0"
-            title="Share Guide"
+            onClick={() => setIsSaved(!isSaved)}
+            className={`flex h-9 w-9 items-center justify-center rounded-full border text-xs transition-colors shrink-0 ${
+              isSaved
+                ? "border-[#7A0B2E] bg-[#FFF0F5] text-[#7A0B2E]"
+                : "border-gray-200 bg-white text-gray-700"
+            }`}
+            title="Save Look"
           >
-            {copiedLink ? <Check size={16} className="text-emerald-600" /> : <Share2 size={16} />}
-          </button>
-
-          <button
-            type="button"
-            onClick={() => setActiveTab("steps")}
-            className="flex items-center gap-1.5 rounded-full bg-[#FAF6F0] border border-[#EEDFD7] px-4 py-2.5 text-[11px] font-bold uppercase tracking-wider text-[#2B1B20] shadow-sm active:scale-95"
-          >
-            <Sparkle size={13} /> Steps
+            <Heart
+              size={15}
+              fill={isSaved ? "#7A0B2E" : "none"}
+              className={isSaved ? "text-[#7A0B2E]" : ""}
+            />
           </button>
 
           <a
             href="https://www.nykaa.com"
             target="_blank"
             rel="noopener noreferrer"
-            className="flex items-center gap-1.5 rounded-full bg-[#7A0B2E] px-4 py-2.5 text-[11px] font-bold uppercase tracking-wider text-white shadow-md active:scale-95"
+            className="inline-flex items-center gap-1.5 rounded-full bg-[#7A0B2E] hover:bg-[#960E39] px-4 py-2 text-xs font-bold uppercase tracking-wider text-white shadow transition-all"
           >
-            <ShoppingBag size={13} /> Shop Kit
+            <ShoppingBag size={13} />
+            <span>Shop Kit</span>
           </a>
         </div>
-      </div>
+      </aside>
 
       <LuxuryFooter />
     </main>
