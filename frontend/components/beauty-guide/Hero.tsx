@@ -8,8 +8,10 @@ import {
   Sparkles,
   ShoppingBag,
   ArrowRight,
-  ShieldCheck,
   ChevronRight,
+  BookOpen,
+  Palette,
+  Clock,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
@@ -18,44 +20,52 @@ const FEATURED_HERO_LOOKS = [
     id: "pink-chrome",
     category: "Nail Art",
     title: "Soft Pink Chrome Finish",
-    subtitle: "High-shine pearl glaze over milky blush gel base.",
+    subtitle: "High-shine iridescent pearl glaze over a milky blush gel base.",
+    technique: "Non-Wipe Glaze & 30s Flash Cure",
+    difficulty: "Intermediate",
+    time: "25 mins DIY",
     image: "/images/nails/nai-10.jpg",
     saves: "148k saves",
     kitPrice: "₹1,898",
-    artist: "Priya Sharma (Ahmedabad)",
     tag: "Trending #1",
   },
   {
     id: "bridal-makeup",
-    category: "Bridal Makeup",
+    category: "Bridal & Festive",
     title: "Royal Heritage HD Bridal",
-    subtitle: "Sweat-proof HD base, kohl eyes & scarlet pout.",
+    subtitle: "Sweat-proof 24H HD airbrush finish, kohl eyes & scarlet pout.",
+    technique: "Micro-Layered HD Matte Foundation",
+    difficulty: "Advanced DIY",
+    time: "60 mins DIY",
     image: "/images/makeup/mak-14.jpg",
     saves: "320k saves",
     kitPrice: "₹3,400",
-    artist: "Meera Trivedi (Bodakdev)",
-    tag: "Wedding Favorite",
+    tag: "Bridal Classic",
   },
   {
     id: "easy-waves",
     category: "Hairstyles",
     title: "Old Money Brushed Waves",
-    subtitle: "Voluminous S-curls with mirror shine.",
+    subtitle: "Voluminous, glossy S-curls with mirror shine and 24H hold.",
+    technique: "Titanium S-Wave & Humidity Shield",
+    difficulty: "Easy DIY",
+    time: "20 mins DIY",
     image: "/images/hair/hai-22.jpg",
     saves: "128k saves",
     kitPrice: "₹1,499",
-    artist: "Kavita Patel (Surat)",
     tag: "Reception Chic",
   },
   {
-    id: "rose-pattern",
-    category: "Mehndi Art",
-    title: "Hyper-Real Rose Henna",
-    subtitle: "Dark mahogany stain with shaded botanical roses.",
-    image: "/images/nails/nai-11.jpg",
-    saves: "155k saves",
+    id: "organic-henna-look",
+    category: "Henna Art",
+    title: "Organic Rajasthani Henna",
+    subtitle: "Dark mahogany stain with shaded botanical roses and lace cuffs.",
+    technique: "100% Organic Sojat Triple-Sifted Henna",
+    difficulty: "Intermediate",
+    time: "45 mins DIY",
+    image: "/images/hero/desktop/mehndi-generated.jpg",
+    saves: "165k saves",
     kitPrice: "₹650",
-    artist: "Riddhi Shah (Surat)",
     tag: "Festive Pick",
   },
 ];
@@ -96,36 +106,38 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative overflow-hidden bg-[#FAF6F0] pt-24 pb-10 sm:pt-28 sm:pb-16 border-b border-[#EEDFD7]">
+    <section className="relative overflow-hidden bg-[#FAF6F0] pt-24 pb-10 sm:pt-28 sm:pb-14 border-b border-[#EEDFD7]">
       <div className="mx-auto max-w-7xl px-4 sm:px-8 lg:px-12">
-        {/* Subtle Top Status */}
+        {/* Editorial Masthead Bar */}
         <div className="flex flex-wrap items-center justify-between gap-2 mb-6 pb-3 border-b border-[#EADAD0] text-[10px] sm:text-[11px] font-bold uppercase tracking-[0.2em] text-[#8C7A81]">
           <div className="flex items-center gap-2">
             <span className="h-1.5 w-1.5 rounded-full bg-[#7A0B2E]" />
-            <span>RoopSetu Editorial Beauty Guide</span>
+            <span>RoopSetu Editorial Beauty Journal &amp; Handbook</span>
           </div>
 
           <div className="flex items-center gap-1.5 text-[#7A0B2E] bg-[#F7E8EB] px-3 py-0.5 rounded-full border border-[#ECCCD3]">
-            <span>Festive &amp; Bridal 2026 Collection</span>
+            <span>2026 Masterclass Edition • DIY Blueprints</span>
           </div>
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          {/* Left Column: Prestigious Editorial Typography & Search Console */}
+          {/* Left Column: Informative Editorial Content & Search */}
           <div className="lg:col-span-7">
-            <span className="inline-block text-[10px] font-bold uppercase tracking-[0.25em] text-[#7A0B2E] bg-[#F5E6E8] px-3 py-1 rounded-full mb-3">
-              ✦ Curated Style Playbook
-            </span>
+            <div className="inline-flex items-center gap-2 mb-3">
+              <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#7A0B2E] bg-[#F5E6E8] px-3 py-1 rounded-full border border-[#ECCCD3]">
+                ✦ The Beauty Handbook
+              </span>
+            </div>
 
-            <h1 className="font-serif text-3xl sm:text-4xl lg:text-[54px] font-medium leading-[1.08] tracking-tight text-[#2B1B20]">
-              Where Viral Looks <br />
+            <h1 className="font-serif text-3xl sm:text-4xl lg:text-[50px] font-medium leading-[1.1] tracking-tight text-[#2B1B20]">
+              Curated Beauty Masterclasses, <br />
               <span className="italic font-normal text-[#7A0B2E]">
-                Become Your Reality.
+                Formulas &amp; Shade Blueprints.
               </span>
             </h1>
 
             <p className="mt-3 text-[14px] sm:text-[15px] text-[#6F6267] leading-relaxed max-w-lg">
-              Curated beauty lookbooks with human-written step-by-step masterclasses, shoppable drugstore kits, and verified local artists in Ahmedabad and Surat.
+              Explore step-by-step masterclasses, pro application timing, exact drugstore product dupes, and South Asian skin-tone shade matching curated exclusively by the RoopSetu beauty editorial collective.
             </p>
 
             {/* Compact Search Console */}
@@ -142,7 +154,7 @@ export default function Hero() {
                   type="text"
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  placeholder="Search looks (e.g. 'Pink Chrome', 'Smokey')..."
+                  placeholder="Search masterclasses (e.g. 'Pink Chrome', 'Smokey', 'Braid')..."
                   className="w-full rounded-full border border-[#D9C8BE] bg-white py-2.5 pl-10 pr-4 text-[13px] text-[#2B1B20] placeholder-[#8C7A81] shadow-2xs outline-none transition focus:border-[#7A0B2E] focus:ring-1 focus:ring-[#7A0B2E]"
                 />
               </div>
@@ -150,19 +162,19 @@ export default function Hero() {
                 type="submit"
                 className="inline-flex items-center justify-center gap-1.5 rounded-full bg-[#7A0B2E] px-5 py-2.5 text-[11px] font-bold uppercase tracking-wider text-white shadow-sm transition hover:bg-[#960E39]"
               >
-                <span>Browse Looks</span>
+                <span>Browse Guides</span>
                 <ArrowRight size={13} />
               </button>
             </form>
 
-            {/* Trending Quick Tag Chips */}
+            {/* Trending Quick Jump Tags */}
             <div className="mt-3 flex flex-wrap items-center gap-1.5">
               <span className="text-[10px] font-bold uppercase tracking-wider text-[#8C7A81]">Quick Jump:</span>
               {[
                 { label: "Pink Chrome Nails", query: "Pink Chrome" },
                 { label: "Smokey Eyes", query: "Smokey" },
                 { label: "Bridal Braid", query: "Braid" },
-                { label: "Rose Henna", query: "Rose" },
+                { label: "Rose Henna", query: "Henna" },
               ].map((tag) => (
                 <button
                   key={tag.label}
@@ -175,41 +187,41 @@ export default function Hero() {
               ))}
             </div>
 
-            {/* 3 Trust Props Strip */}
+            {/* 3 Informative Knowledge Pillars (No Beauticians) */}
             <div className="mt-6 pt-4 border-t border-[#EADAD0] grid grid-cols-3 gap-2">
+              <div className="flex items-center gap-2">
+                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white border border-[#E3D3C9] text-[#7A0B2E]">
+                  <BookOpen size={13} />
+                </div>
+                <div>
+                  <p className="text-[10px] font-bold text-[#2B1B20]">3-Step Guides</p>
+                  <p className="text-[9px] text-[#6F6267] hidden sm:block">Pro Prep &amp; Curing</p>
+                </div>
+              </div>
+
               <div className="flex items-center gap-2">
                 <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white border border-[#E3D3C9] text-[#7A0B2E]">
                   <ShoppingBag size={13} />
                 </div>
                 <div>
-                  <p className="text-[10px] font-bold text-[#2B1B20]">Shoppable Kits</p>
-                  <p className="text-[9px] text-[#6F6267] hidden sm:block">Nykaa &amp; Amazon</p>
+                  <p className="text-[10px] font-bold text-[#2B1B20]">Drugstore Kits</p>
+                  <p className="text-[9px] text-[#6F6267] hidden sm:block">Affordable Dupes</p>
                 </div>
               </div>
 
               <div className="flex items-center gap-2">
                 <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white border border-[#E3D3C9] text-[#7A0B2E]">
-                  <Sparkles size={13} />
+                  <Palette size={13} />
                 </div>
                 <div>
-                  <p className="text-[10px] font-bold text-[#2B1B20]">Pro Masterclasses</p>
-                  <p className="text-[9px] text-[#6F6267] hidden sm:block">3-Step DIY</p>
-                </div>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white border border-[#E3D3C9] text-[#7A0B2E]">
-                  <ShieldCheck size={13} />
-                </div>
-                <div>
-                  <p className="text-[10px] font-bold text-[#2B1B20]">Verified Artists</p>
-                  <p className="text-[9px] text-[#6F6267] hidden sm:block">Doorstep Service</p>
+                  <p className="text-[10px] font-bold text-[#2B1B20]">Shade Matrix</p>
+                  <p className="text-[9px] text-[#6F6267] hidden sm:block">Warm &amp; Olive Tones</p>
                 </div>
               </div>
             </div>
           </div>
 
-          {/* Right Column: Refined Featured Look Showcase */}
+          {/* Right Column: Informative Spotlight Card */}
           <div className="lg:col-span-5 flex flex-col items-center">
             <div className="relative w-full max-w-[380px] rounded-[24px] overflow-hidden bg-white border border-[#E3D3C9] shadow-md p-2.5">
               <div className="relative aspect-[4/5] w-full rounded-[18px] overflow-hidden bg-[#FDF0F2]">
@@ -230,7 +242,7 @@ export default function Hero() {
                       sizes="(max-width: 1024px) 90vw, 380px"
                       className="object-cover"
                     />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/20 to-transparent" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/85 via-black/25 to-black/10" />
                   </motion.div>
                 </AnimatePresence>
 
@@ -243,31 +255,39 @@ export default function Hero() {
 
                 {/* Bottom Content Card on Image */}
                 <div className="absolute inset-x-0 bottom-0 p-4 z-10 text-white">
-                  <span className="text-[9px] font-bold uppercase tracking-widest text-[#FFD6A5]">
-                    {activeLook.category}
-                  </span>
-                  <h3 className="font-serif text-lg sm:text-xl font-medium leading-tight text-white mt-0.5">
+                  <div className="flex items-center gap-2 mb-1">
+                    <span className="text-[9px] font-bold uppercase tracking-widest text-[#FFD6A5]">
+                      {activeLook.category}
+                    </span>
+                    <span className="text-[9px] text-white/70">•</span>
+                    <span className="text-[9px] text-white/80 flex items-center gap-0.5">
+                      <Clock size={10} /> {activeLook.time}
+                    </span>
+                  </div>
+
+                  <h3 className="font-serif text-lg sm:text-xl font-medium leading-tight text-white">
                     {activeLook.title}
                   </h3>
-                  <p className="text-[11px] text-white/80 line-clamp-1 mt-0.5">
-                    {activeLook.subtitle}
+
+                  <p className="text-[11px] text-[#FFD6A5] mt-1 font-medium line-clamp-1">
+                    ✦ {activeLook.technique}
                   </p>
 
                   <div className="mt-2.5 pt-2 border-t border-white/20 flex items-center justify-between text-[11px]">
-                    <span className="font-semibold text-[#FFD6A5]">
+                    <span className="font-semibold text-white/90">
                       Kit: {activeLook.kitPrice}
                     </span>
                     <Link
                       href={`/articles/${activeLook.id}`}
-                      className="inline-flex items-center gap-1 font-bold text-white hover:text-[#FFD6A5] transition-colors"
+                      className="inline-flex items-center gap-1 font-bold text-[#FFD6A5] hover:text-white transition-colors"
                     >
-                      Read Full Article <ChevronRight size={12} />
+                      Read Masterclass <ChevronRight size={12} />
                     </Link>
                   </div>
                 </div>
               </div>
 
-              {/* Interactive Category Selector Pills */}
+              {/* Interactive Category Selector Pills under the hero card */}
               <div className="mt-2 grid grid-cols-4 gap-1 p-1 rounded-xl bg-[#F7EFE9] border border-[#EADAD0]">
                 {FEATURED_HERO_LOOKS.map((look, index) => {
                   const isActive = index === selectedLookIndex;

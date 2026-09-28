@@ -9,16 +9,16 @@ import {
   Share2,
   Check,
   Star,
-  ShieldCheck,
   ExternalLink,
   ShoppingBag,
   Sparkles,
-  Calendar,
+  Palette,
   ArrowRight,
   Clock,
   Sparkle,
   AlertCircle,
   CheckCircle2,
+  Wrench,
 } from "lucide-react";
 import Navbar from "@/components/home/Navbar/Navbar";
 import LuxuryFooter from "@/components/home/LuxuryFooter";
@@ -36,7 +36,7 @@ export default function ArticleDetailView({
 }: ArticleDetailViewProps) {
   const [isSaved, setIsSaved] = useState(false);
   const [copiedLink, setCopiedLink] = useState(false);
-  const [activeTab, setActiveTab] = useState<"story" | "steps" | "shop" | "artist">("story");
+  const [activeTab, setActiveTab] = useState<"story" | "steps" | "shop" | "guide">("story");
 
   const handleShare = () => {
     const currentOrigin =
@@ -44,15 +44,6 @@ export default function ArticleDetailView({
     navigator.clipboard.writeText(`${currentOrigin}/articles/${articleData.id}`);
     setCopiedLink(true);
     setTimeout(() => setCopiedLink(false), 2000);
-  };
-
-  const handleWhatsAppBooking = () => {
-    const artist = articleData.artistRecommendation;
-    const phone = artist?.whatsappNumber || "919876543210";
-    const text = encodeURIComponent(
-      `Hi RoopSetu! I was reading the "${articleData.title || articleData.alt}" guide on RoopSetu and would love to book a verified artist to recreate this for my upcoming event in Ahmedabad/Surat. Could you share available dates?`
-    );
-    window.open(`https://wa.me/${phone}?text=${text}`, "_blank");
   };
 
   // Find related looks from the same category
@@ -91,7 +82,7 @@ export default function ArticleDetailView({
                   </>
                 ) : (
                   <>
-                    <Share2 size={12} /> Share Look
+                    <Share2 size={12} /> Share Guide
                   </>
                 )}
               </button>
@@ -121,6 +112,12 @@ export default function ArticleDetailView({
               {articleData.occasion && (
                 <span className="text-[10px] font-semibold text-[#6F6267] bg-white px-3 py-1 rounded-full border border-[#EEDFD7]">
                   ✦ {articleData.occasion}
+                </span>
+              )}
+
+              {articleData.difficulty && (
+                <span className="text-[10px] font-semibold text-[#6F6267] bg-white px-3 py-1 rounded-full border border-[#EEDFD7]">
+                  • {articleData.difficulty}
                 </span>
               )}
 
@@ -158,12 +155,15 @@ export default function ArticleDetailView({
               <div className="flex items-center gap-4 text-[11px] text-[#6F6267]">
                 <span className="flex items-center gap-1">
                   <Clock size={12} className="text-[#7A0B2E]" />
-                  {articleData.readTime || "3 min read"}
+                  Read: {articleData.readTime || "3 min read"}
                 </span>
-                <span className="hidden sm:inline">•</span>
-                <span className="flex items-center gap-1 text-emerald-700 font-medium">
-                  <ShieldCheck size={13} />
-                  Cosmetologist Verified
+                <span className="flex items-center gap-1">
+                  <Sparkles size={12} className="text-[#7A0B2E]" />
+                  DIY Time: {articleData.estimatedTime || "25 mins"}
+                </span>
+                <span className="flex items-center gap-1 text-[#7A0B2E] font-semibold">
+                  <ShoppingBag size={12} />
+                  Kit: {articleData.kitPrice || "₹1,499"}
                 </span>
               </div>
             </div>
@@ -171,84 +171,92 @@ export default function ArticleDetailView({
         </div>
       </section>
 
-      {/* Main Content Layout */}
-      <section className="py-8 sm:py-12 lg:py-16">
+      {/* Main Content Area */}
+      <section className="py-10 sm:py-14">
         <div className="mx-auto max-w-7xl px-4 sm:px-8 lg:px-12">
           <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-start">
-            {/* Left Column: Visual Showcase & Quick Stats (Sticky on Desktop) */}
-            <div className="lg:col-span-5 lg:sticky lg:top-28 space-y-4">
-              {/* Main Image Card */}
-              <div className="relative aspect-[4/5] w-full rounded-[24px] sm:rounded-[28px] overflow-hidden shadow-lg border border-[#EEDFD7] bg-[#FDF0F2]">
-                <Image
-                  src={articleData.image}
-                  alt={articleData.alt}
-                  fill
-                  priority
-                  sizes="(max-width: 1024px) 100vw, 450px"
-                  className="object-cover"
-                  style={{ objectPosition: articleData.objectPosition ?? "center" }}
-                />
+            {/* Left Column (Desktop Sticky): High-Res Look Card */}
+            <div className="lg:col-span-5 lg:sticky lg:top-28">
+              <div className="relative aspect-[3/4] w-full rounded-[28px] overflow-hidden bg-white border border-[#EEDFD7] shadow-md p-2">
+                <div className="relative h-full w-full rounded-[22px] overflow-hidden bg-[#FDF0F2]">
+                  <Image
+                    src={articleData.image}
+                    alt={articleData.title || articleData.alt}
+                    fill
+                    priority
+                    sizes="(max-width: 1024px) 100vw, 480px"
+                    className="object-cover"
+                    style={{ objectPosition: articleData.objectPosition ?? "center" }}
+                  />
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-90" />
 
-                <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
+                  {/* Top Floating Badge */}
+                  <div className="absolute top-3.5 left-3.5 z-10">
+                    <span className="rounded-full bg-white/95 backdrop-blur-md px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[#7A0B2E] shadow-sm">
+                      {articleData.tag || parentCategory?.label || "Editorial Masterclass"}
+                    </span>
+                  </div>
 
-                {/* Top Badge */}
-                <div className="absolute top-3.5 left-3.5 z-10">
-                  <span className="rounded-full bg-white/95 backdrop-blur-md px-3 py-1 text-[10px] font-bold uppercase tracking-wider text-[#7A0B2E] shadow-sm">
-                    {articleData.tag || "Editorial Pick"}
-                  </span>
-                </div>
+                  {/* Bottom Quick Look Card Overlay */}
+                  <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5 z-10 text-white">
+                    <p className="text-[11px] font-bold text-[#FFD6A5] uppercase tracking-wider">
+                      ✦ {articleData.technique || "Pro Technique Breakdown"}
+                    </p>
+                    <h3 className="font-serif text-xl sm:text-2xl font-medium text-white leading-tight mt-1">
+                      {articleData.title || articleData.alt}
+                    </h3>
+                    <p className="text-[12px] text-white/80 mt-1 line-clamp-2">
+                      {articleData.description}
+                    </p>
 
-                {/* Bottom Overlay Info */}
-                <div className="absolute inset-x-0 bottom-0 p-4 sm:p-5 z-10 text-white">
-                  <p className="text-[10px] font-bold uppercase tracking-wider text-[#FFD6A5]">
-                    {articleData.occasion || "Signature Look"}
-                  </p>
-                  <p className="text-[14px] sm:text-[15px] font-serif font-medium text-white line-clamp-1 mt-0.5">
-                    {articleData.title}
-                  </p>
+                    <div className="mt-3 pt-3 border-t border-white/20 flex items-center justify-between text-[11px]">
+                      <span className="text-[#FFD6A5] font-semibold">
+                        Drugstore Kit: {articleData.kitPrice || "₹1,499"}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={handleShare}
+                        className="inline-flex items-center gap-1 font-bold text-white hover:text-[#FFD6A5] transition-colors"
+                      >
+                        {copiedLink ? "Link Copied" : "Share Guide"}
+                      </button>
+                    </div>
+                  </div>
                 </div>
               </div>
 
-              {/* 4-Stat At A Glance Grid */}
-              <div className="grid grid-cols-2 gap-2.5">
-                <div className="rounded-2xl bg-white p-3 border border-[#EEDFD7] shadow-2xs">
-                  <p className="text-[10px] uppercase font-bold text-[#8C7A81]">⏱️ Time</p>
-                  <p className="text-[13px] font-bold text-[#2B1B20] mt-0.5">
-                    {articleData.estimatedTime || "25 mins"}
-                  </p>
-                </div>
-
-                <div className="rounded-2xl bg-white p-3 border border-[#EEDFD7] shadow-2xs">
-                  <p className="text-[10px] uppercase font-bold text-[#8C7A81]">🎨 Skill Level</p>
-                  <p className="text-[13px] font-bold text-[#2B1B20] mt-0.5">
-                    {articleData.difficulty || "Intermediate"}
-                  </p>
-                </div>
-
-                <div className="rounded-2xl bg-white p-3 border border-[#EEDFD7] shadow-2xs">
-                  <p className="text-[10px] uppercase font-bold text-[#8C7A81]">🛍️ Est. Kit Cost</p>
-                  <p className="text-[13px] font-bold text-[#7A0B2E] mt-0.5">
-                    {articleData.kitPrice || "₹1,499"}
-                  </p>
-                </div>
-
-                <div className="rounded-2xl bg-white p-3 border border-[#EEDFD7] shadow-2xs">
-                  <p className="text-[10px] uppercase font-bold text-[#8C7A81]">📍 Pro Booking</p>
-                  <p className="text-[13px] font-bold text-emerald-700 mt-0.5 truncate">
-                    Ahmedabad &amp; Surat
-                  </p>
+              {/* Shoppable Kit Quick Box under image */}
+              <div className="mt-4 rounded-2xl bg-white p-4 border border-[#EEDFD7] shadow-2xs">
+                <div className="flex items-center justify-between">
+                  <div>
+                    <p className="text-[10px] font-bold uppercase tracking-wider text-[#7A0B2E]">
+                      Drugstore Formulation
+                    </p>
+                    <p className="text-[13px] font-bold text-[#2B1B20]">
+                      {productsList.length} Verified Products • {articleData.kitPrice || "₹1,499"}
+                    </p>
+                  </div>
+                  <a
+                    href="https://www.nykaa.com"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-1 rounded-full bg-[#7A0B2E] px-3.5 py-1.5 text-[11px] font-bold text-white shadow-2xs hover:bg-[#960E39] transition-colors"
+                  >
+                    <span>Shop All</span>
+                    <ExternalLink size={11} />
+                  </a>
                 </div>
               </div>
             </div>
 
-            {/* Right Column: Interactive Tabbed Editorial Guide */}
-            <div className="lg:col-span-7 space-y-8">
-              {/* Tab Navigation Pill Switcher */}
-              <div className="flex items-center gap-1.5 p-1 rounded-2xl bg-[#F7EFE9] border border-[#EADAD0] overflow-x-auto [scrollbar-width:none]">
+            {/* Right Column: Editorial Masterclass & Interactive Tabs */}
+            <div className="lg:col-span-7 space-y-6">
+              {/* Tab Selector Bar (Pure Editorial Knowledge, No Beauticians) */}
+              <div className="inline-flex items-center rounded-2xl bg-[#EDE1D9] p-1.5 border border-[#E3D3C9] shadow-2xs w-full overflow-x-auto [scrollbar-width:none]">
                 <button
                   type="button"
                   onClick={() => setActiveTab("story")}
-                  className={`flex items-center gap-1.5 rounded-xl px-4 py-2.5 text-[11px] sm:text-[12px] font-bold uppercase tracking-wider transition-all shrink-0 ${
+                  className={`flex items-center gap-1.5 rounded-xl px-4 py-2 text-[11px] sm:text-[12px] font-bold uppercase tracking-wider transition-all shrink-0 ${
                     activeTab === "story"
                       ? "bg-white text-[#7A0B2E] shadow-xs"
                       : "text-[#6F6267] hover:text-[#2B1B20]"
@@ -260,37 +268,37 @@ export default function ArticleDetailView({
                 <button
                   type="button"
                   onClick={() => setActiveTab("steps")}
-                  className={`flex items-center gap-1.5 rounded-xl px-4 py-2.5 text-[11px] sm:text-[12px] font-bold uppercase tracking-wider transition-all shrink-0 ${
+                  className={`flex items-center gap-1.5 rounded-xl px-4 py-2 text-[11px] sm:text-[12px] font-bold uppercase tracking-wider transition-all shrink-0 ${
                     activeTab === "steps"
                       ? "bg-white text-[#7A0B2E] shadow-xs"
                       : "text-[#6F6267] hover:text-[#2B1B20]"
                   }`}
                 >
-                  <Sparkle size={13} /> 3-Step DIY
+                  <Sparkle size={13} /> 3-Step Blueprint
                 </button>
 
                 <button
                   type="button"
                   onClick={() => setActiveTab("shop")}
-                  className={`flex items-center gap-1.5 rounded-xl px-4 py-2.5 text-[11px] sm:text-[12px] font-bold uppercase tracking-wider transition-all shrink-0 ${
+                  className={`flex items-center gap-1.5 rounded-xl px-4 py-2 text-[11px] sm:text-[12px] font-bold uppercase tracking-wider transition-all shrink-0 ${
                     activeTab === "shop"
                       ? "bg-white text-[#7A0B2E] shadow-xs"
                       : "text-[#6F6267] hover:text-[#2B1B20]"
                   }`}
                 >
-                  <ShoppingBag size={13} /> Shop Kit ({articleData.kitPrice || "₹1,499"})
+                  <ShoppingBag size={13} /> Products &amp; Dupes
                 </button>
 
                 <button
                   type="button"
-                  onClick={() => setActiveTab("artist")}
-                  className={`flex items-center gap-1.5 rounded-xl px-4 py-2.5 text-[11px] sm:text-[12px] font-bold uppercase tracking-wider transition-all shrink-0 ${
-                    activeTab === "artist"
+                  onClick={() => setActiveTab("guide")}
+                  className={`flex items-center gap-1.5 rounded-xl px-4 py-2 text-[11px] sm:text-[12px] font-bold uppercase tracking-wider transition-all shrink-0 ${
+                    activeTab === "guide"
                       ? "bg-white text-[#7A0B2E] shadow-xs"
                       : "text-[#6F6267] hover:text-[#2B1B20]"
                   }`}
                 >
-                  <Calendar size={13} /> Book Artist
+                  <Palette size={13} /> Shade Matrix
                 </button>
               </div>
 
@@ -407,17 +415,17 @@ export default function ArticleDetailView({
                 </div>
               )}
 
-              {/* TAB 3: SHOPPABLE PRODUCT KIT */}
+              {/* TAB 2: SHOPPABLE PRODUCT KIT & DUPES */}
               {(activeTab === "shop" || activeTab === "story") && (
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
                     <div>
                       <h2 className="font-serif text-2xl text-[#2B1B20] font-medium flex items-center gap-2">
                         <ShoppingBag size={18} className="text-[#7A0B2E]" />
-                        Exact Products Used in This Look
+                        Exact Products &amp; Verified Dupes
                       </h2>
                       <p className="text-xs text-[#6F6267] mt-1">
-                        Drugstore and salon professional products verified by our editorial stylists.
+                        Formulations verified by our editorial stylists for performance and longevity.
                       </p>
                     </div>
 
@@ -468,7 +476,7 @@ export default function ArticleDetailView({
                               </span>
                             )}
                             <span className="text-[10px] font-semibold text-emerald-800 bg-emerald-50 px-2 py-0.5 rounded-full border border-emerald-200">
-                              Verified on {product.platform}
+                              Available on {product.platform}
                             </span>
                           </div>
                         </div>
@@ -490,10 +498,10 @@ export default function ArticleDetailView({
                   <div className="rounded-[22px] bg-gradient-to-r from-[#FAF0E6] to-[#FDF5EE] p-5 border border-[#E8D4C8] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
                     <div>
                       <p className="text-[11px] font-bold uppercase tracking-wider text-[#7A0B2E]">
-                        Complete Recreate Kit
+                        Complete Recreate Bundle
                       </p>
                       <p className="text-lg font-bold text-[#2B1B20]">
-                        Get all {productsList.length} products for {articleData.kitPrice || "₹1,499"}
+                        Get all {productsList.length} verified products for {articleData.kitPrice || "₹1,499"}
                       </p>
                     </div>
 
@@ -509,52 +517,65 @@ export default function ArticleDetailView({
                 </div>
               )}
 
-              {/* TAB 4: VERIFIED ARTIST BOOKING */}
-              {(activeTab === "artist" || activeTab === "story") && (
-                <div className="rounded-[26px] bg-white p-6 sm:p-8 border border-[#EEDFD7] shadow-sm">
-                  <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-[#7A0B2E] mb-2">
-                    <ShieldCheck size={16} />
-                    Verified Local Artist Booking
+              {/* TAB 3: SHADE MATRIX & PRO SECRETS (Pure Informative, No Beauticians) */}
+              {(activeTab === "guide" || activeTab === "story") && (
+                <div className="rounded-[26px] bg-white p-6 sm:p-8 border border-[#EEDFD7] shadow-sm space-y-5">
+                  <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-[#7A0B2E]">
+                    <Palette size={16} />
+                    Editorial Formulation &amp; Longevity Secrets
                   </div>
 
                   <h3 className="font-serif text-2xl text-[#2B1B20] font-medium">
-                    Prefer salon perfection at your home?
+                    Masterclass Longevity &amp; Undertone Compatibility
                   </h3>
 
-                  <p className="mt-2 text-[14px] text-[#6F6267] leading-relaxed">
-                    Skip buying equipment. Connect directly with our vetted top-tier cosmetologists in Ahmedabad and Surat who arrive with salon-grade LED tools, sterile hygiene kits, and exact shade matches.
-                  </p>
-
-                  {articleData.artistRecommendation && (
-                    <div className="mt-6 rounded-2xl bg-[#FFF8F3] p-5 border border-[#EEDFD7] flex flex-col sm:flex-row sm:items-center justify-between gap-4">
-                      <div>
-                        <div className="flex items-center gap-2">
-                          <h4 className="font-serif text-lg font-semibold text-[#2B1B20]">
-                            {articleData.artistRecommendation.name}
-                          </h4>
-                          <span className="flex items-center gap-1 rounded-full bg-white px-2 py-0.5 text-[10px] font-bold text-amber-700 border border-amber-200">
-                            <Star size={11} fill="currentColor" />
-                            {articleData.artistRecommendation.rating} (
-                            {articleData.artistRecommendation.reviews} reviews)
-                          </span>
-                        </div>
-
-                        <p className="text-[12px] text-[#7A0B2E] font-medium mt-0.5">
-                          {articleData.artistRecommendation.speciality}
-                        </p>
-
-                        <p className="text-[12px] text-[#6F6267] mt-1">
-                          📍 {articleData.artistRecommendation.city} • Doorstep Service
-                        </p>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    {/* Undertone Suitability */}
+                    <div className="rounded-2xl bg-[#FFF8F3] p-4 sm:p-5 border border-[#F0DFD7] space-y-2">
+                      <div className="flex items-center gap-2 text-[#7A0B2E]">
+                        <CheckCircle2 size={16} />
+                        <h4 className="text-[13px] font-bold uppercase tracking-wider">
+                          Undertone Harmony
+                        </h4>
                       </div>
+                      <p className="text-[13px] text-[#6F6267] leading-relaxed">
+                        {articleData.skinToneSuitability ||
+                          "Engineered specifically for warm golden and olive South Asian complexions. The base tones neutralize dullness and stay vibrant under high-flash photography."}
+                      </p>
+                    </div>
 
-                      <button
-                        type="button"
-                        onClick={handleWhatsAppBooking}
-                        className="inline-flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-6 py-3 text-[12px] font-bold uppercase tracking-wider text-black shadow-md hover:bg-[#20ba59] transition-all"
-                      >
-                        <Calendar size={14} /> Book via WhatsApp
-                      </button>
+                    {/* Longevity Secret */}
+                    <div className="rounded-2xl bg-[#FAF6F0] p-4 sm:p-5 border border-[#EEDFD7] space-y-2">
+                      <div className="flex items-center gap-2 text-[#7A0B2E]">
+                        <Sparkles size={16} />
+                        <h4 className="text-[13px] font-bold uppercase tracking-wider">
+                          Application Retention Secret
+                        </h4>
+                      </div>
+                      <p className="text-[13px] text-[#6F6267] leading-relaxed">
+                        {articleData.longevityTip ||
+                          "Take extra time on the prep and dehydration step. Eliminating surface oils ensures up to 3 weeks of salon-grade retention without lifting or chipping."}
+                      </p>
+                    </div>
+                  </div>
+
+                  {/* Key Tools Required */}
+                  {articleData.keyTools && articleData.keyTools.length > 0 && (
+                    <div className="pt-3 border-t border-[#F0DFD7]">
+                      <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-[#8C7A81] mb-2.5">
+                        <Wrench size={13} className="text-[#7A0B2E]" />
+                        <span>Recommended Pro Application Tools:</span>
+                      </div>
+                      <div className="flex flex-wrap items-center gap-2">
+                        {articleData.keyTools.map((tool) => (
+                          <span
+                            key={tool}
+                            className="rounded-full bg-[#FAF6F0] border border-[#EEDFD7] px-3 py-1 text-[11px] font-medium text-[#2B1B20]"
+                          >
+                            ✦ {tool}
+                          </span>
+                        ))}
+                      </div>
                     </div>
                   )}
                 </div>
@@ -562,34 +583,33 @@ export default function ArticleDetailView({
             </div>
           </div>
 
-          {/* Related Looks Feed */}
+          {/* Related Looks from Same Category */}
           {relatedLooks.length > 0 && (
             <div className="mt-16 sm:mt-24 pt-10 border-t border-[#EEDFD7]">
-              <div className="flex items-center justify-between mb-8">
+              <div className="flex flex-col sm:flex-row sm:items-end justify-between gap-3 mb-8">
                 <div>
-                  <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#7A0B2E]">
-                    Curated Recommendations
+                  <span className="text-[10px] font-bold uppercase tracking-[0.22em] text-[#7A0B2E]">
+                    Explore More Masterclasses
                   </span>
                   <h3 className="font-serif text-2xl sm:text-3xl text-[#2B1B20] font-medium mt-1">
-                    Trending Looks You&apos;ll Love
+                    Related {parentCategory?.label || "Beauty"} Masterclasses
                   </h3>
                 </div>
 
                 <Link
                   href="/beauty-guide"
-                  className="text-xs font-bold uppercase tracking-wider text-[#7A0B2E] hover:underline flex items-center gap-1"
+                  className="inline-flex items-center gap-1.5 text-xs font-bold text-[#7A0B2E] hover:underline"
                 >
                   View All Looks <ArrowRight size={13} />
                 </Link>
               </div>
 
-              {/* 2-Column Mobile Grid for Related Looks */}
-              <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6">
+              <div className="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5">
                 {relatedLooks.map((look) => (
                   <Link
                     key={look.id}
                     href={`/articles/${look.id}`}
-                    className="group relative flex flex-col rounded-[20px] overflow-hidden bg-white border border-[#EEDFD7] shadow-sm hover:shadow-lg transition-all"
+                    className="group relative flex flex-col rounded-[20px] overflow-hidden bg-white border border-[#EEDFD7] shadow-2xs hover:shadow-lg transition-all duration-300 hover:-translate-y-1"
                   >
                     <div className="relative aspect-[3/4] w-full overflow-hidden bg-[#FDF0F2]">
                       <Image
@@ -631,7 +651,7 @@ export default function ArticleDetailView({
       <div className="lg:hidden fixed bottom-0 inset-x-0 z-40 bg-white/95 backdrop-blur-md border-t border-[#EEDFD7] p-3 px-4 shadow-2xl flex items-center justify-between gap-3">
         <div>
           <p className="text-[10px] font-bold uppercase tracking-wider text-[#8C7A81]">
-            Shoppable Kit
+            Drugstore Kit
           </p>
           <p className="text-[15px] font-bold text-[#7A0B2E]">
             {articleData.kitPrice || "₹1,499"}
@@ -643,17 +663,17 @@ export default function ArticleDetailView({
             type="button"
             onClick={handleShare}
             className="flex h-10 w-10 items-center justify-center rounded-full bg-[#FAF6F0] border border-[#EEDFD7] text-[#2B1B20] shadow-sm active:scale-95 shrink-0"
-            title="Share Look"
+            title="Share Guide"
           >
             {copiedLink ? <Check size={16} className="text-emerald-600" /> : <Share2 size={16} />}
           </button>
 
           <button
             type="button"
-            onClick={handleWhatsAppBooking}
-            className="flex items-center gap-1.5 rounded-full bg-[#25D366] px-4 py-2.5 text-[11px] font-bold uppercase tracking-wider text-black shadow-md active:scale-95"
+            onClick={() => setActiveTab("steps")}
+            className="flex items-center gap-1.5 rounded-full bg-[#FAF6F0] border border-[#EEDFD7] px-4 py-2.5 text-[11px] font-bold uppercase tracking-wider text-[#2B1B20] shadow-sm active:scale-95"
           >
-            <Calendar size={13} /> Book Artist
+            <Sparkle size={13} /> Steps
           </button>
 
           <a
@@ -662,7 +682,7 @@ export default function ArticleDetailView({
             rel="noopener noreferrer"
             className="flex items-center gap-1.5 rounded-full bg-[#7A0B2E] px-4 py-2.5 text-[11px] font-bold uppercase tracking-wider text-white shadow-md active:scale-95"
           >
-            <ShoppingBag size={13} /> Shop
+            <ShoppingBag size={13} /> Shop Kit
           </a>
         </div>
       </div>

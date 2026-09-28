@@ -100,7 +100,7 @@ export default function BeautyDiscovery() {
               Explore Curated Looks &amp; Kits
             </h2>
             <p className="mt-1 text-[13px] text-[#6F6267] max-w-xl">
-              Tap any look to read the human-written tutorial, see exact products used, or book local artists.
+              Tap any look to explore the complete masterclass, pro application tips, and drugstore product breakdowns.
             </p>
           </div>
 

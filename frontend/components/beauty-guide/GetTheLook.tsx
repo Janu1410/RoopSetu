@@ -6,22 +6,27 @@ import Link from "next/link";
 import {
   Sparkles,
   ShoppingBag,
-  Calendar,
+  Palette,
   ExternalLink,
   Star,
-  ShieldCheck,
   ArrowRight,
   Share2,
   Check,
   Sparkle,
+  Clock,
+  CheckCircle2,
+  AlertCircle,
 } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const tutorialData = {
   heroImage: "/images/nails/nai-10.jpg",
   title: "The Viral Pink Chrome",
-  desc: "A sheer blush-pink gel foundation sealed with an ultra-reflective pearl glaze. The #1 viral trend for weddings and celebrations.",
-  saves: "148,000+ Saves",
+  desc: "A sheer blush-pink gel foundation sealed with an ultra-reflective pearl glaze. The #1 requested manicure for modern celebrations.",
+  saves: "148,000+ Community Saves",
+  difficulty: "Intermediate",
+  estimatedTime: "25 mins",
+  kitPrice: "₹1,898",
   steps: [
     {
       id: "01",
@@ -89,19 +94,18 @@ const tutorialData = {
       affiliateUrl: "https://www.amazon.in",
     },
   ],
-  artist: {
-    name: "Priya Sharma",
-    speciality: "Senior Nail & Bridal Gel Artist",
-    city: "Ahmedabad & Surat",
-    rating: 4.95,
-    reviews: 142,
-    rate: "₹1,200 for full set",
-    whatsapp: "919876543210",
+  guideDetails: {
+    undertoneCompatibility:
+      "Flattering for warm, golden, and olive Indian complexions. Use a warm petal-peach base instead of cool pink to avoid an ashy contrast under bright festive halogen lighting.",
+    commonMistakes:
+      "Curing the top coat for full 60 seconds before buffing chrome. Once 100% cured and cooled, the powder will slip off rather than fusing into a mirror glaze.",
+    longevitySecret:
+      "Always swipe free edges with primer and cap with top coat. Chrome edge chipping happens when the free edge is left exposed.",
   },
 };
 
 export default function GetTheLook() {
-  const [activeMode, setActiveMode] = useState<"tutorial" | "shop" | "artist">("tutorial");
+  const [activeMode, setActiveMode] = useState<"tutorial" | "shop" | "guide">("tutorial");
   const [copied, setCopied] = useState(false);
 
   const handleShare = () => {
@@ -112,22 +116,14 @@ export default function GetTheLook() {
     setTimeout(() => setCopied(false), 2000);
   };
 
-  const handleArtistWhatsApp = () => {
-    const phone = tutorialData.artist.whatsapp;
-    const text = encodeURIComponent(
-      `Hi Priya! I saw the Viral Pink Chrome Nails tutorial on RoopSetu and would like to book a doorstep appointment in Ahmedabad/Surat for my upcoming event. Could you share your available dates?`
-    );
-    window.open(`https://wa.me/${phone}?text=${text}`, "_blank");
-  };
-
   return (
     <section id="get-the-look" className="relative overflow-hidden bg-[#FAF6F0] py-12 sm:py-16 border-b border-[#EEDFD7]">
       <div className="mx-auto max-w-7xl px-4 sm:px-8 lg:px-12">
         {/* Section Header */}
         <div className="flex flex-col items-center text-center max-w-2xl mx-auto mb-8 sm:mb-10">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-[#F5E6E8] px-3.5 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-[#7A0B2E] mb-2">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-[#F5E6E8] px-3.5 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-[#7A0B2E] mb-2 border border-[#ECCCD3]">
             <Sparkle size={12} />
-            Recreate The Look Spotlight
+            Masterclass Spotlight
           </span>
 
           <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-medium tracking-tight text-[#2B1B20]">
@@ -135,10 +131,10 @@ export default function GetTheLook() {
           </h2>
 
           <p className="mt-1.5 text-[13px] text-[#6F6267] leading-relaxed">
-            The exact 3-step pro technique, shoppable drugstore product dupes, or 1-click booking with a verified local artist.
+            The exact 3-step pro technique, verified drugstore product dupes, and undertone formulation secrets.
           </p>
 
-          {/* 3-Mode Switcher Buttons */}
+          {/* 3-Mode Switcher Buttons (Pure Informative, No Beautician Suggestions) */}
           <div className="mt-4 inline-flex items-center rounded-full bg-[#EDE1D9] p-1 border border-[#E3D3C9] shadow-2xs max-w-full overflow-x-auto">
             <button
               type="button"
@@ -163,25 +159,25 @@ export default function GetTheLook() {
               }`}
             >
               <ShoppingBag size={13} />
-              Shop Kit (₹1,898)
+              Shoppable Kit ({tutorialData.kitPrice})
             </button>
 
             <button
               type="button"
-              onClick={() => setActiveMode("artist")}
+              onClick={() => setActiveMode("guide")}
               className={`flex items-center gap-1.5 rounded-full px-4 sm:px-5 py-1.5 text-[11px] sm:text-[12px] font-bold uppercase tracking-wider transition-all shrink-0 ${
-                activeMode === "artist"
+                activeMode === "guide"
                   ? "bg-white text-[#7A0B2E] shadow-xs"
                   : "text-[#6F6267] hover:text-[#2B1B20]"
               }`}
             >
-              <Calendar size={13} />
-              Book Local Artist
+              <Palette size={13} />
+              Shade &amp; Undertone Guide
             </button>
           </div>
         </div>
 
-        {/* Dynamic Interactive Container */}
+        {/* 2-Column Showcase */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center">
           {/* Left Column: Photo Showcase */}
           <div className="lg:col-span-5 flex flex-col items-center">
@@ -197,32 +193,40 @@ export default function GetTheLook() {
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
 
-                {/* Top Badge */}
-                <div className="absolute top-3 left-3 z-10">
+                <div className="absolute top-3 left-3">
                   <span className="rounded-full bg-white/95 backdrop-blur-md px-2.5 py-0.5 text-[9px] font-bold uppercase tracking-wider text-[#7A0B2E] shadow-2xs">
-                    ✦ Trending Technique
+                    Curated Masterclass
                   </span>
                 </div>
 
-                {/* Bottom Overlay Controls */}
-                <div className="absolute inset-x-0 bottom-0 p-3.5 z-10 flex items-center justify-between text-white">
-                  <div>
-                    <p className="text-[10px] font-bold uppercase tracking-wider text-[#FFD6A5]">
-                      Longevity: 3+ Weeks
-                    </p>
-                    <p className="text-[12px] font-medium text-white">
-                      Time Needed: 25 Mins
-                    </p>
-                  </div>
+                <div className="absolute inset-x-0 bottom-0 p-3.5 text-white">
+                  <p className="text-[10px] text-[#FFD6A5] font-bold uppercase tracking-wider flex items-center gap-1">
+                    <Clock size={11} /> {tutorialData.estimatedTime} • {tutorialData.difficulty}
+                  </p>
+                  <h3 className="font-serif text-lg font-medium text-white leading-tight mt-0.5">
+                    {tutorialData.title}
+                  </h3>
 
-                  <button
-                    type="button"
-                    onClick={handleShare}
-                    className="flex h-8 w-8 items-center justify-center rounded-full bg-white/20 backdrop-blur-md text-white shadow hover:scale-105 transition-transform"
-                    title="Share look"
-                  >
-                    {copied ? <Check size={14} className="text-emerald-400" /> : <Share2 size={14} />}
-                  </button>
+                  <div className="mt-2 pt-2 border-t border-white/20 flex items-center justify-between text-[11px]">
+                    <span className="text-white/85 font-semibold">
+                      Complete Kit: {tutorialData.kitPrice}
+                    </span>
+                    <button
+                      type="button"
+                      onClick={handleShare}
+                      className="inline-flex items-center gap-1 font-bold text-[#FFD6A5] hover:text-white transition-colors"
+                    >
+                      {copied ? (
+                        <>
+                          <Check size={12} className="text-emerald-400" /> Copied
+                        </>
+                      ) : (
+                        <>
+                          <Share2 size={12} /> Share Look
+                        </>
+                      )}
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
@@ -236,18 +240,18 @@ export default function GetTheLook() {
             </Link>
           </div>
 
-          {/* Right Column: 3 Interactive Tabs */}
+          {/* Right Column: Dynamic Panel based on activeMode */}
           <div className="lg:col-span-7">
             <AnimatePresence mode="wait">
-              {/* TAB 1: 3-STEP MASTERCLASS */}
+              {/* MODE 1: PRO TECHNIQUE (3-Step Masterclass) */}
               {activeMode === "tutorial" && (
                 <motion.div
-                  key="tutorial"
+                  key="tutorial-panel"
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -8 }}
                   transition={{ duration: 0.25 }}
-                  className="space-y-3"
+                  className="space-y-2.5"
                 >
                   {tutorialData.steps.map((step) => (
                     <div
@@ -259,25 +263,25 @@ export default function GetTheLook() {
                           src={step.image}
                           alt={step.title}
                           fill
-                          sizes="100px"
-                          className="object-cover group-hover:scale-105 transition-transform duration-500"
+                          sizes="96px"
+                          className="object-cover"
                         />
-                        <span className="absolute top-1.5 left-1.5 rounded-full bg-black/70 px-1.5 py-0.5 text-[8px] font-bold text-white">
+                        <span className="absolute top-1.5 left-1.5 rounded-full bg-black/75 px-1.5 py-0.5 text-[8px] font-bold text-white">
                           {step.time}
                         </span>
                       </div>
 
                       <div className="flex-1 min-w-0">
-                        <div className="flex items-center gap-1.5 mb-0.5">
+                        <div className="flex items-center gap-2">
                           <span className="flex h-4 w-4 items-center justify-center rounded-full bg-[#7A0B2E] text-[9px] font-bold text-white">
                             {step.id}
                           </span>
-                          <h4 className="font-serif text-[15px] font-medium text-[#2B1B20]">
+                          <h4 className="font-serif text-[14px] font-medium text-[#2B1B20]">
                             {step.title}
                           </h4>
                         </div>
 
-                        <p className="text-[12px] text-[#6F6267] leading-relaxed">
+                        <p className="mt-1 text-[12px] text-[#6F6267] leading-relaxed">
                           {step.description}
                         </p>
 
@@ -298,18 +302,19 @@ export default function GetTheLook() {
                     <button
                       type="button"
                       onClick={() => setActiveMode("shop")}
-                      className="rounded-full bg-[#7A0B2E] px-4 py-1.5 text-[11px] font-bold uppercase tracking-wider text-white shadow-2xs transition hover:bg-[#960E39]"
+                      className="inline-flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider text-[#7A0B2E] hover:underline"
                     >
-                      View 3-Product Kit (₹1,898) →
+                      <span>View Full Product Kit</span>
+                      <ArrowRight size={12} />
                     </button>
                   </div>
                 </motion.div>
               )}
 
-              {/* TAB 2: SHOPPING KIT */}
+              {/* MODE 2: SHOPPING KIT (Exact verified products) */}
               {activeMode === "shop" && (
                 <motion.div
-                  key="shop"
+                  key="shop-panel"
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -8 }}
@@ -321,20 +326,19 @@ export default function GetTheLook() {
                       <p className="text-[10px] font-bold uppercase tracking-wider text-[#7A0B2E]">
                         Complete Recreate Bundle
                       </p>
-                      <p className="text-lg font-bold text-[#2B1B20] mt-0.5">
-                        ₹1,898{" "}
-                        <span className="text-xs text-[#8C7A81] line-through font-normal">
-                          ₹2,299
-                        </span>
+                      <p className="text-[13px] font-bold text-[#2B1B20]">
+                        All 3 verified products: {tutorialData.kitPrice}
                       </p>
                     </div>
+
                     <a
                       href="https://www.nykaa.com"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="inline-flex items-center gap-1.5 rounded-full bg-[#7A0B2E] px-4 py-2 text-[11px] font-bold uppercase tracking-wider text-white shadow-2xs transition hover:bg-[#960E39]"
+                      className="inline-flex items-center gap-1.5 rounded-full bg-[#7A0B2E] px-4 py-2 text-[11px] font-bold text-white shadow-2xs hover:bg-[#960E39] transition-all"
                     >
-                      <ShoppingBag size={13} /> Buy on Nykaa
+                      <ShoppingBag size={13} />
+                      Buy Kit on Nykaa
                     </a>
                   </div>
 
@@ -355,11 +359,10 @@ export default function GetTheLook() {
 
                       <div className="flex-1 min-w-0">
                         <div className="flex items-center gap-2">
-                          <span className="text-[10px] font-bold uppercase tracking-wider text-[#7A0B2E]">
+                          <span className="text-[9px] font-bold uppercase tracking-wider text-[#7A0B2E]">
                             {product.brand}
                           </span>
-                          <span className="text-[10px] text-[#6F6267]">•</span>
-                          <span className="text-[10px] text-[#6F6267] flex items-center gap-0.5">
+                          <span className="text-[9px] text-[#6F6267] flex items-center gap-0.5">
                             <Star size={10} fill="#F59E0B" className="text-amber-500" />
                             {product.rating} ({product.reviews})
                           </span>
@@ -373,9 +376,11 @@ export default function GetTheLook() {
                           <span className="text-[13px] font-bold text-[#2B1B20]">
                             {product.price}
                           </span>
-                          <span className="text-[11px] text-[#8C7A81] line-through">
-                            {product.originalPrice}
-                          </span>
+                          {product.originalPrice && (
+                            <span className="text-[11px] text-[#8C7A81] line-through">
+                              {product.originalPrice}
+                            </span>
+                          )}
                           <span className="text-[9px] font-semibold text-emerald-800 bg-emerald-50 px-1.5 py-0.2 rounded-full border border-emerald-200">
                             {product.platform}
                           </span>
@@ -386,7 +391,7 @@ export default function GetTheLook() {
                         href={product.affiliateUrl}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="shrink-0 flex items-center gap-1 rounded-full bg-[#FAF6F0] border border-[#EEDFD7] px-3 py-1.5 text-[11px] font-semibold text-[#2B1B20] hover:bg-[#FDF0F2] transition-colors"
+                        className="shrink-0 flex items-center gap-1 rounded-full bg-[#FAF6F0] border border-[#EEDFD7] px-3 py-1.5 text-[11px] font-bold text-[#2B1B20] hover:bg-[#7A0B2E] hover:text-white transition-all"
                       >
                         <span>Buy</span>
                         <ExternalLink size={11} />
@@ -396,74 +401,72 @@ export default function GetTheLook() {
                 </motion.div>
               )}
 
-              {/* TAB 3: VERIFIED LOCAL ARTIST BOOKING */}
-              {activeMode === "artist" && (
+              {/* MODE 3: SHADE & LONGEVITY GUIDE (Deeply Informative, No Beauticians) */}
+              {activeMode === "guide" && (
                 <motion.div
-                  key="artist"
+                  key="guide-panel"
                   initial={{ opacity: 0, y: 8 }}
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -8 }}
                   transition={{ duration: 0.25 }}
-                  className="rounded-[20px] bg-white p-5 border border-[#EEDFD7] shadow-2xs"
+                  className="rounded-[20px] bg-white p-5 border border-[#EEDFD7] shadow-2xs space-y-4"
                 >
-                  <div className="flex items-center gap-1.5 text-[#7A0B2E] text-[10px] font-bold uppercase tracking-wider mb-2">
-                    <ShieldCheck size={15} />
-                    Verified Local Artist Booking
+                  <div className="flex items-center gap-2 text-[#7A0B2E] text-[10px] font-bold uppercase tracking-wider">
+                    <Palette size={15} />
+                    Editorial Formulation &amp; Undertone Matrix
                   </div>
 
-                  <h3 className="font-serif text-xl sm:text-2xl text-[#2B1B20] font-medium">
-                    Recreate it at home with Priya Sharma.
-                  </h3>
-
-                  <p className="mt-1 text-[13px] text-[#6F6267] leading-relaxed">
-                    Skip buying equipment. Priya is our top-rated nail stylist in Ahmedabad &amp; Surat, specializing in salon-grade chrome applications, Russian cuticle prep, and wedding sets.
-                  </p>
-
-                  <div className="mt-4 rounded-xl bg-[#FAF6F0] p-3 border border-[#EEDFD7] grid grid-cols-2 sm:grid-cols-4 gap-2 text-center">
-                    <div>
-                      <p className="text-[9px] uppercase font-bold text-[#8C7A81]">Rating</p>
-                      <p className="text-[13px] font-bold text-[#2B1B20] flex items-center justify-center gap-0.5 mt-0.5">
-                        <Star size={11} fill="#F59E0B" className="text-amber-500" />
-                        {tutorialData.artist.rating}
-                      </p>
+                  {/* Undertone Harmony */}
+                  <div className="rounded-xl bg-[#FFF8F3] p-3.5 border border-[#F0DFD7] flex items-start gap-2.5">
+                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-[#F5E6E8] text-[#7A0B2E]">
+                      <CheckCircle2 size={15} />
                     </div>
-
                     <div>
-                      <p className="text-[9px] uppercase font-bold text-[#8C7A81]">Appointments</p>
-                      <p className="text-[13px] font-bold text-[#2B1B20] mt-0.5">
-                        {tutorialData.artist.reviews}+ Verified
-                      </p>
-                    </div>
-
-                    <div>
-                      <p className="text-[9px] uppercase font-bold text-[#8C7A81]">Location</p>
-                      <p className="text-[12px] font-semibold text-[#2B1B20] mt-0.5 truncate">
-                        Ahmedabad &amp; Surat
-                      </p>
-                    </div>
-
-                    <div>
-                      <p className="text-[9px] uppercase font-bold text-[#8C7A81]">Service Rate</p>
-                      <p className="text-[13px] font-bold text-[#7A0B2E] mt-0.5">
-                        {tutorialData.artist.rate}
+                      <h4 className="text-[12px] font-bold text-[#2B1B20] uppercase tracking-wider">
+                        South Asian Undertone Harmony
+                      </h4>
+                      <p className="mt-1 text-[12px] text-[#6F6267] leading-relaxed">
+                        {tutorialData.guideDetails.undertoneCompatibility}
                       </p>
                     </div>
                   </div>
 
-                  <div className="mt-4 flex flex-col sm:flex-row items-center gap-2.5">
-                    <button
-                      type="button"
-                      onClick={handleArtistWhatsApp}
-                      className="w-full sm:w-auto flex-1 flex items-center justify-center gap-2 rounded-full bg-[#25D366] px-5 py-2.5 text-[11px] font-bold uppercase tracking-wider text-black shadow-2xs hover:bg-[#20ba59] transition-all"
-                    >
-                      <Calendar size={13} /> Book on WhatsApp
-                    </button>
+                  {/* Longevity Secret */}
+                  <div className="rounded-xl bg-[#FAF6F0] p-3.5 border border-[#EEDFD7] flex items-start gap-2.5">
+                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white border border-[#EEDFD7] text-[#7A0B2E]">
+                      <Sparkles size={15} />
+                    </div>
+                    <div>
+                      <h4 className="text-[12px] font-bold text-[#2B1B20] uppercase tracking-wider">
+                        3-Week Retention Secret
+                      </h4>
+                      <p className="mt-1 text-[12px] text-[#6F6267] leading-relaxed">
+                        {tutorialData.guideDetails.longevitySecret}
+                      </p>
+                    </div>
+                  </div>
 
+                  {/* Mistakes to Avoid */}
+                  <div className="rounded-xl bg-[#FFF5F5] p-3.5 border border-[#FED7D7] flex items-start gap-2.5">
+                    <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-[#FDE8E8] text-[#C53030]">
+                      <AlertCircle size={15} />
+                    </div>
+                    <div>
+                      <h4 className="text-[12px] font-bold text-[#9B2C2C] uppercase tracking-wider">
+                        Critical Curing Mistake to Avoid
+                      </h4>
+                      <p className="mt-1 text-[12px] text-[#742A2A] leading-relaxed">
+                        {tutorialData.guideDetails.commonMistakes}
+                      </p>
+                    </div>
+                  </div>
+
+                  <div className="pt-1 flex items-center justify-between">
                     <Link
                       href="/articles/pink-chrome"
-                      className="w-full sm:w-auto rounded-full border border-[#EEDFD7] bg-white px-5 py-2.5 text-[11px] font-semibold text-center text-[#2B1B20] hover:bg-[#FDF0F2] transition-colors"
+                      className="inline-flex items-center gap-1.5 text-xs font-bold text-[#7A0B2E] hover:underline"
                     >
-                      View Complete Guide
+                      Read In-Depth Masterclass Article <ArrowRight size={13} />
                     </Link>
                   </div>
                 </motion.div>

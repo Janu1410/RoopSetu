@@ -8,13 +8,13 @@ import SeasonalLookbookBanner from "@/components/beauty-guide/SeasonalLookbookBa
 import LuxuryFooter from "@/components/home/LuxuryFooter";
 
 export const metadata: Metadata = {
-  title: "The Editorial Beauty Guide | RoopSetu — Curated Looks, Masterclasses & Verified Artists",
+  title: "The Editorial Beauty Guide | RoopSetu — Masterclasses, Formulas & Shade Blueprints",
   description:
-    "Curated beauty inspiration with step-by-step masterclasses, drugstore product kits, and hand-verified local artists in Ahmedabad and Surat.",
+    "Curated beauty inspiration with step-by-step masterclasses, drugstore product kits, and South Asian skin-tone shade matrices.",
   openGraph: {
-    title: "RoopSetu Beauty Guide — Curated Looks & Shoppable Kits",
+    title: "RoopSetu Beauty Guide — Masterclasses & Shoppable Kits",
     description:
-      "Explore 30+ curated looks, 3-step masterclasses, and verified local artists to recreate your dream look.",
+      "Explore 30+ curated looks, 3-step masterclasses, and exact drugstore formulations to recreate your dream look.",
     images: ["/images/nails/nai-10.jpg"],
   },
 };

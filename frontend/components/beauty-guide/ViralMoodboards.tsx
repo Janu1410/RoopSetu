@@ -2,15 +2,23 @@
 
 import { useState } from "react";
 import Image from "next/image";
-import { Sparkles, Calendar, Share2, Check } from "lucide-react";
+import { Sparkles, Share2, Check, Palette, Eye } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 
 const MOODBOARDS = [
   {
     id: "pastel-sangeet",
     title: "The Pastel Gujarati Sangeet",
-    tagline: "Blush silk, diamond dewdrop skin & cascade curls.",
+    tagline: "Blush silk, champagne dewdrop skin & cascading sculpted curls.",
     saves: "240k Saves",
+    palette: [
+      { name: "Peach Blush", hex: "#F5D0C5" },
+      { name: "Champagne Glow", hex: "#F7E7CE" },
+      { name: "Antique Polki", hex: "#D4AF37" },
+      { name: "Ivory Organza", hex: "#FFF8F3" },
+    ],
+    editorialNote:
+      "Pair lightweight organza or tissue silk with a dewy, translucent champagne complexion. Keep jewelry in unpolished polki diamonds to allow the delicate pastel color accents to glow under dancefloor lighting.",
     images: [
       {
         label: "Tissue Silk Drape",
@@ -21,7 +29,7 @@ const MOODBOARDS = [
         src: "/images/makeup/mak-19.jpg",
       },
       {
-        label: "Minimalist Henna",
+        label: "Minimalist Henna Cuffs",
         src: "/images/nails/nai-2.jpg",
       },
       {
@@ -29,21 +37,27 @@ const MOODBOARDS = [
         src: "/images/hair/hai-23.jpg",
       },
     ],
-    whatsappText:
-      "Hi RoopSetu! I love the 'Pastel Gujarati Sangeet' moodboard from your Beauty Guide. Can you help coordinate a verified hair, makeup, and draping team for my event in Ahmedabad/Surat?",
   },
   {
     id: "royal-heritage",
     title: "The Royal Heritage Wedding",
-    tagline: "Crimson zardozi, kohl eyes & fresh Mogra architectural bun.",
+    tagline: "Crimson zardozi, kohl eyes & fresh Madurai Mogra architectural bun.",
     saves: "310k Saves",
+    palette: [
+      { name: "Crimson Velvet", hex: "#7A0B2E" },
+      { name: "Antique Temple Gold", hex: "#C5A059" },
+      { name: "Carbon Kohl", hex: "#1C1618" },
+      { name: "Mogra Blossom", hex: "#FBF9F5" },
+    ],
+    editorialNote:
+      "Heavy velvet zardozi requires a high-definition matte airbrush base to resist venue heat and photography flash. Concentric Mogra rings anchored around an architectural low bun support heavy bridal dupattas with zero slip.",
     images: [
       {
-        label: "Heritage Velvet",
+        label: "Heritage Velvet Ensemble",
         src: "/images/makeup/mak-14.jpg",
       },
       {
-        label: "Regal Kohl Eyes",
+        label: "Regal Kohl Rimmed Eyes",
         src: "/images/makeup/mak-20.jpg",
       },
       {
@@ -51,12 +65,10 @@ const MOODBOARDS = [
         src: "/images/nails/nai-11.jpg",
       },
       {
-        label: "Architectural Bun",
+        label: "Architectural Gajra Bun",
         src: "/images/makeup/mak-13.jpg",
       },
     ],
-    whatsappText:
-      "Hi RoopSetu! I want to recreate the 'Royal Heritage Wedding' moodboard from your Beauty Guide. Could you check artist availability for my wedding date?",
   },
 ];
 
@@ -72,11 +84,6 @@ export default function ViralMoodboards() {
     navigator.clipboard.writeText(`${origin}/beauty-guide#moodboards`);
     setCopied(true);
     setTimeout(() => setCopied(false), 2000);
-  };
-
-  const handleWhatsAppBooking = (text: string) => {
-    const phone = "919876543210";
-    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, "_blank");
   };
 
   return (
@@ -95,7 +102,7 @@ export default function ViralMoodboards() {
               Curated Event Moodboards
             </h2>
             <p className="mt-1 text-[13px] text-[#6F6267] max-w-xl">
-              Complete harmony between complexion, hair styling, jewellery, and draping for Gujarati celebrations.
+              Complete harmony between complexion, hair styling, jewellery, and draping for modern celebrations.
             </p>
           </div>
 
@@ -150,15 +157,6 @@ export default function ViralMoodboards() {
                   {copied ? <Check size={13} className="text-emerald-600" /> : <Share2 size={13} />}
                   <span>{copied ? "Link Copied" : "Share Moodboard"}</span>
                 </button>
-
-                <button
-                  type="button"
-                  onClick={() => handleWhatsAppBooking(activeBoard.whatsappText)}
-                  className="inline-flex items-center gap-1.5 rounded-full bg-[#7A0B2E] px-4 py-1.5 text-[11px] font-bold uppercase tracking-wider text-white shadow-2xs transition hover:bg-[#960E39]"
-                >
-                  <Calendar size={13} />
-                  <span>Book Team</span>
-                </button>
               </div>
             </div>
 
@@ -182,6 +180,37 @@ export default function ViralMoodboards() {
                   </span>
                 </div>
               ))}
+            </div>
+
+            {/* Color Palette & Editorial Harmony Note Strip */}
+            <div className="mt-5 pt-4 border-t border-[#F0DFD7] flex flex-col md:flex-row md:items-center justify-between gap-4">
+              {/* Color Swatches */}
+              <div className="flex items-center gap-3">
+                <div className="flex items-center gap-1 text-[11px] font-bold uppercase tracking-wider text-[#8C7A81]">
+                  <Palette size={13} className="text-[#7A0B2E]" />
+                  <span>Harmonized Palette:</span>
+                </div>
+                <div className="flex items-center gap-1.5">
+                  {activeBoard.palette.map((color) => (
+                    <div
+                      key={color.name}
+                      title={color.name}
+                      className="group relative flex items-center"
+                    >
+                      <span
+                        className="h-6 w-6 rounded-full border border-black/15 shadow-2xs inline-block transition-transform group-hover:scale-110"
+                        style={{ backgroundColor: color.hex }}
+                      />
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* Editorial Advice Note */}
+              <p className="text-[12px] text-[#6F6267] leading-relaxed max-w-xl">
+                <span className="font-semibold text-[#2B1B20]">Editorial Note: </span>
+                {activeBoard.editorialNote}
+              </p>
             </div>
           </motion.div>
         </AnimatePresence>

@@ -21,16 +21,6 @@ export type LookStep = {
   proTip?: string;
 };
 
-export type LookArtist = {
-  name: string;
-  city: string;
-  rating: number;
-  reviews: number;
-  speciality: string;
-  whatsappNumber: string;
-  experience?: string;
-};
-
 export type ArticleStory = {
   intro: string;
   whyViral: string;
@@ -51,6 +41,10 @@ export type LookItem = {
   estimatedTime?: string;
   savesCount?: string;
   kitPrice?: string;
+  technique?: string;
+  skinToneSuitability?: string;
+  longevityTip?: string;
+  keyTools?: string[];
   author?: {
     name: string;
     role: string;
@@ -60,7 +54,6 @@ export type LookItem = {
   articleStory?: ArticleStory;
   steps?: LookStep[];
   products?: LookProduct[];
-  artistRecommendation?: LookArtist;
 };
 
 export type LookCategory = {
@@ -233,47 +226,6 @@ export const bridalProductsKit: LookProduct[] = [
   },
 ];
 
-// Verified Artists
-export const defaultNailArtist: LookArtist = {
-  name: "Priya Sharma",
-  city: "Ahmedabad & Surat",
-  rating: 4.95,
-  reviews: 142,
-  speciality: "Senior Bridal & Editorial Gel Specialist",
-  whatsappNumber: "919876543210",
-  experience: "8+ Years • 1,200+ Sets Created",
-};
-
-export const defaultMakeupArtist: LookArtist = {
-  name: "Meera Trivedi",
-  city: "Ahmedabad (Bodakdev & Prahlad Nagar)",
-  rating: 5.0,
-  reviews: 340,
-  speciality: "Master Gujarati Bridal & HD Airbrush",
-  whatsappNumber: "919876543210",
-  experience: "11+ Years • Bollywood & Royal Weddings",
-};
-
-export const defaultHairArtist: LookArtist = {
-  name: "Kavita Patel",
-  city: "Surat (Vesu & City Light)",
-  rating: 4.9,
-  reviews: 185,
-  speciality: "Textured Braids & Red Carpet Updos",
-  whatsappNumber: "919876543210",
-  experience: "7+ Years • Bridal Hair Collective",
-};
-
-export const defaultBridalArtist: LookArtist = {
-  name: "Meera Trivedi",
-  city: "Ahmedabad & Surat",
-  rating: 5.0,
-  reviews: 340,
-  speciality: "Complete Royal Gujarati Bridal Styling",
-  whatsappNumber: "919876543210",
-  experience: "11+ Years • 500+ Heritage Brides",
-};
-
 export const beautyCategories: LookCategory[] = [
   {
     id: "nail-art",
@@ -341,7 +293,6 @@ export const beautyCategories: LookCategory[] = [
           },
         ],
         products: nailProductsKit,
-        artistRecommendation: defaultNailArtist,
       },
       {
         id: "lavender-marble",
@@ -373,7 +324,6 @@ export const beautyCategories: LookCategory[] = [
           },
         ],
         products: nailProductsKit,
-        artistRecommendation: defaultNailArtist,
       },
       {
         id: "french-tips",
@@ -389,7 +339,6 @@ export const beautyCategories: LookCategory[] = [
         savesCount: "115k saves",
         kitPrice: "₹1,299",
         products: nailProductsKit,
-        artistRecommendation: defaultNailArtist,
       },
       {
         id: "rose-quartz",
@@ -405,7 +354,6 @@ export const beautyCategories: LookCategory[] = [
         savesCount: "86k saves",
         kitPrice: "₹1,580",
         products: nailProductsKit,
-        artistRecommendation: defaultNailArtist,
       },
       {
         id: "floral-nails",
@@ -421,7 +369,6 @@ export const beautyCategories: LookCategory[] = [
         savesCount: "64k saves",
         kitPrice: "₹1,320",
         products: nailProductsKit,
-        artistRecommendation: defaultNailArtist,
       },
       {
         id: "glazed-nude",
@@ -437,7 +384,6 @@ export const beautyCategories: LookCategory[] = [
         savesCount: "108k saves",
         kitPrice: "₹1,199",
         products: nailProductsKit,
-        artistRecommendation: defaultNailArtist,
       },
       {
         id: "gold-foil-accent",
@@ -453,7 +399,6 @@ export const beautyCategories: LookCategory[] = [
         savesCount: "78k saves",
         kitPrice: "₹1,350",
         products: nailProductsKit,
-        artistRecommendation: defaultNailArtist,
       },
     ],
   },
@@ -480,7 +425,6 @@ export const beautyCategories: LookCategory[] = [
         savesCount: "210k saves",
         kitPrice: "₹2,150",
         products: makeupProductsKit,
-        artistRecommendation: defaultMakeupArtist,
       },
       {
         id: "espresso-glam",
@@ -496,7 +440,6 @@ export const beautyCategories: LookCategory[] = [
         savesCount: "135k saves",
         kitPrice: "₹1,850",
         products: makeupProductsKit,
-        artistRecommendation: defaultMakeupArtist,
       },
       {
         id: "fairy-makeup",
@@ -512,7 +455,6 @@ export const beautyCategories: LookCategory[] = [
         savesCount: "98k saves",
         kitPrice: "₹1,650",
         products: makeupProductsKit,
-        artistRecommendation: defaultMakeupArtist,
       },
       {
         id: "bridal-makeup",
@@ -529,7 +471,6 @@ export const beautyCategories: LookCategory[] = [
         savesCount: "320k saves",
         kitPrice: "₹3,400",
         products: makeupProductsKit,
-        artistRecommendation: defaultMakeupArtist,
       },
       {
         id: "blush-saree",
@@ -546,7 +487,6 @@ export const beautyCategories: LookCategory[] = [
         savesCount: "175k saves",
         kitPrice: "₹2,299",
         products: makeupProductsKit,
-        artistRecommendation: defaultMakeupArtist,
       },
       {
         id: "rose-glam",
@@ -563,7 +503,6 @@ export const beautyCategories: LookCategory[] = [
         savesCount: "120k saves",
         kitPrice: "₹1,950",
         products: makeupProductsKit,
-        artistRecommendation: defaultMakeupArtist,
       },
       {
         id: "bronzed-glow",
@@ -579,7 +518,6 @@ export const beautyCategories: LookCategory[] = [
         savesCount: "110k saves",
         kitPrice: "₹1,750",
         products: makeupProductsKit,
-        artistRecommendation: defaultMakeupArtist,
       },
       {
         id: "winged-liner",
@@ -595,7 +533,6 @@ export const beautyCategories: LookCategory[] = [
         savesCount: "94k saves",
         kitPrice: "₹1,250",
         products: makeupProductsKit,
-        artistRecommendation: defaultMakeupArtist,
       },
       {
         id: "berry-lip",
@@ -611,7 +548,6 @@ export const beautyCategories: LookCategory[] = [
         savesCount: "82k saves",
         kitPrice: "₹1,450",
         products: makeupProductsKit,
-        artistRecommendation: defaultMakeupArtist,
       },
     ],
   },
@@ -637,7 +573,6 @@ export const beautyCategories: LookCategory[] = [
         savesCount: "128k saves",
         kitPrice: "₹1,499",
         products: hairProductsKit,
-        artistRecommendation: defaultHairArtist,
       },
       {
         id: "braided-style",
@@ -653,7 +588,6 @@ export const beautyCategories: LookCategory[] = [
         savesCount: "162k saves",
         kitPrice: "₹950",
         products: hairProductsKit,
-        artistRecommendation: defaultHairArtist,
       },
       {
         id: "long-hair",
@@ -669,7 +603,6 @@ export const beautyCategories: LookCategory[] = [
         savesCount: "74k saves",
         kitPrice: "₹1,200",
         products: hairProductsKit,
-        artistRecommendation: defaultHairArtist,
       },
       {
         id: "party-updo",
@@ -685,7 +618,6 @@ export const beautyCategories: LookCategory[] = [
         savesCount: "105k saves",
         kitPrice: "₹899",
         products: hairProductsKit,
-        artistRecommendation: defaultHairArtist,
       },
       {
         id: "half-up",
@@ -702,7 +634,6 @@ export const beautyCategories: LookCategory[] = [
         savesCount: "190k saves",
         kitPrice: "₹1,150",
         products: hairProductsKit,
-        artistRecommendation: defaultHairArtist,
       },
       {
         id: "bubble-braid",
@@ -718,7 +649,6 @@ export const beautyCategories: LookCategory[] = [
         savesCount: "88k saves",
         kitPrice: "₹750",
         products: hairProductsKit,
-        artistRecommendation: defaultHairArtist,
       },
       {
         id: "bridal-braid",
@@ -735,7 +665,6 @@ export const beautyCategories: LookCategory[] = [
         savesCount: "195k saves",
         kitPrice: "₹1,650",
         products: hairProductsKit,
-        artistRecommendation: defaultHairArtist,
       },
       {
         id: "low-chignon",
@@ -751,7 +680,6 @@ export const beautyCategories: LookCategory[] = [
         savesCount: "114k saves",
         kitPrice: "₹990",
         products: hairProductsKit,
-        artistRecommendation: defaultHairArtist,
       },
       {
         id: "retro-waves",
@@ -767,7 +695,6 @@ export const beautyCategories: LookCategory[] = [
         savesCount: "96k saves",
         kitPrice: "₹1,350",
         products: hairProductsKit,
-        artistRecommendation: defaultHairArtist,
       },
     ],
   },
@@ -794,7 +721,6 @@ export const beautyCategories: LookCategory[] = [
         savesCount: "380k saves",
         kitPrice: "₹3,800",
         products: bridalProductsKit,
-        artistRecommendation: defaultBridalArtist,
       },
       {
         id: "sangeet-reception-look",
@@ -810,7 +736,6 @@ export const beautyCategories: LookCategory[] = [
         savesCount: "220k saves",
         kitPrice: "₹2,400",
         products: bridalProductsKit,
-        artistRecommendation: defaultBridalArtist,
       },
       {
         id: "pastel-lehenga-bride",
@@ -826,7 +751,6 @@ export const beautyCategories: LookCategory[] = [
         savesCount: "245k saves",
         kitPrice: "₹2,800",
         products: bridalProductsKit,
-        artistRecommendation: defaultBridalArtist,
       },
       {
         id: "golden-zari-saree",
@@ -842,7 +766,6 @@ export const beautyCategories: LookCategory[] = [
         savesCount: "170k saves",
         kitPrice: "₹1,850",
         products: bridalProductsKit,
-        artistRecommendation: defaultBridalArtist,
       },
       {
         id: "organza-festive-drape",
@@ -858,7 +781,6 @@ export const beautyCategories: LookCategory[] = [
         savesCount: "130k saves",
         kitPrice: "₹1,450",
         products: bridalProductsKit,
-        artistRecommendation: defaultBridalArtist,
       },
       {
         id: "sindoor-ceremony",
@@ -874,7 +796,6 @@ export const beautyCategories: LookCategory[] = [
         savesCount: "290k saves",
         kitPrice: "₹3,100",
         products: bridalProductsKit,
-        artistRecommendation: defaultBridalArtist,
       },
       {
         id: "organic-henna-look",
@@ -890,7 +811,6 @@ export const beautyCategories: LookCategory[] = [
         savesCount: "165k saves",
         kitPrice: "₹650",
         products: bridalProductsKit,
-        artistRecommendation: defaultBridalArtist,
       },
     ],
   },
@@ -905,13 +825,6 @@ export function getLookWithFallbacks(look: LookItem, categoryId?: string): LookI
       : cat === "hairstyles"
       ? hairProductsKit
       : nailProductsKit;
-
-  const defaultArtist =
-    cat === "makeup" || cat === "bridal"
-      ? defaultMakeupArtist
-      : cat === "hairstyles"
-      ? defaultHairArtist
-      : defaultNailArtist;
 
   const defaultSteps: LookStep[] =
     cat === "makeup" || cat === "bridal"
@@ -1000,6 +913,42 @@ export function getLookWithFallbacks(look: LookItem, categoryId?: string): LookI
 
   return {
     ...look,
+    technique:
+      look.technique ||
+      (cat === "nail-art"
+        ? "2-Coat Milky Sheer with 30s Flash-Cured Mirror Pearl Glaze"
+        : cat === "makeup"
+        ? "Micro-Layered 24H HD Matte Base with Smudged Velvet Contour"
+        : cat === "hairstyles"
+        ? "Ceramic S-Wave Sculpting with Anti-Humidity Hold"
+        : "Royal Heritage Coordination: Complexion, Saree Drape & Henna"),
+    skinToneSuitability:
+      look.skinToneSuitability ||
+      (cat === "nail-art"
+        ? "Flattering for warm, golden and olive undertones — peach undertone prevents ashy cast"
+        : cat === "makeup"
+        ? "Warm terracotta and gold undertones tailored for South Asian event lighting"
+        : cat === "hairstyles"
+        ? "Face-framing curtain tendrils structured for all face shapes"
+        : "Engineered for 4K video photography and high-heat indoor/outdoor celebrations"),
+    longevityTip:
+      look.longevityTip ||
+      (cat === "nail-art"
+        ? "Cap free edges and seal with dual-layer non-wipe top coat for 3-week retention"
+        : cat === "makeup"
+        ? "Lock T-zone with micro-fine silica powder and setting mist for zero flashback"
+        : cat === "hairstyles"
+        ? "Puff root-volumizing powder before pinning for all-day grip"
+        : "Apply barrier primer 20 mins prior to foundation to resist sweat and humidity"),
+    keyTools:
+      look.keyTools ||
+      (cat === "nail-art"
+        ? ["240-Grit Buffer", "Silicone Applicator", "48W LED Lamp", "Fan Brush"]
+        : cat === "makeup"
+        ? ["Damp Beauty Sponge", "Angled Contour Brush", "Fine Felt-Tip Liner", "Fluffy Blending Brush"]
+        : cat === "hairstyles"
+        ? ["Titanium Deep Wave Wand", "Boar-Bristle Brush", "Sectioning Clips", "Matte U-Pins"]
+        : ["Airbrush Compressor / HD Puff", "Veil Anchor Combs", "Jewelry Tape", "Sojat Henna Applicator"]),
     author: look.author || {
       name: "RoopSetu Beauty Editorial",
       role: "Certified Stylist Collective",
@@ -1019,7 +968,6 @@ export function getLookWithFallbacks(look: LookItem, categoryId?: string): LookI
     },
     steps: look.steps && look.steps.length > 0 ? look.steps : defaultSteps,
     products: look.products && look.products.length > 0 ? look.products : defaultProducts,
-    artistRecommendation: look.artistRecommendation || defaultArtist,
   };
 }
 
