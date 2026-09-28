@@ -121,29 +121,29 @@ export default function GetTheLook() {
   };
 
   return (
-    <section id="get-the-look" className="relative overflow-hidden bg-[#FAF6F0] py-14 sm:py-20 border-b border-[#EEDFD7]">
+    <section id="get-the-look" className="relative overflow-hidden bg-[#FAF6F0] py-12 sm:py-16 border-b border-[#EEDFD7]">
       <div className="mx-auto max-w-7xl px-4 sm:px-8 lg:px-12">
         {/* Section Header */}
-        <div className="flex flex-col items-center text-center max-w-2xl mx-auto mb-8 sm:mb-12">
-          <span className="inline-flex items-center gap-1.5 rounded-full bg-[#F5E6E8] px-3.5 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-[#7A0B2E] mb-2.5">
+        <div className="flex flex-col items-center text-center max-w-2xl mx-auto mb-8 sm:mb-10">
+          <span className="inline-flex items-center gap-1.5 rounded-full bg-[#F5E6E8] px-3.5 py-1 text-[10px] font-bold uppercase tracking-[0.2em] text-[#7A0B2E] mb-2">
             <Sparkle size={12} />
             Recreate The Look Spotlight
           </span>
 
-          <h2 className="font-serif text-2xl sm:text-4xl lg:text-4xl font-medium tracking-tight text-[#2B1B20]">
+          <h2 className="font-serif text-2xl sm:text-3xl lg:text-4xl font-medium tracking-tight text-[#2B1B20]">
             Anatomy of the Pink Chrome
           </h2>
 
-          <p className="mt-2 text-[13px] sm:text-[14px] text-[#6F6267] leading-relaxed">
+          <p className="mt-1.5 text-[13px] text-[#6F6267] leading-relaxed">
             The exact 3-step pro technique, shoppable drugstore product dupes, or 1-click booking with a verified local artist.
           </p>
 
           {/* 3-Mode Switcher Buttons */}
-          <div className="mt-5 inline-flex items-center rounded-full bg-[#EDE1D9] p-1 border border-[#E3D3C9] shadow-2xs max-w-full overflow-x-auto">
+          <div className="mt-4 inline-flex items-center rounded-full bg-[#EDE1D9] p-1 border border-[#E3D3C9] shadow-2xs max-w-full overflow-x-auto">
             <button
               type="button"
               onClick={() => setActiveMode("tutorial")}
-              className={`flex items-center gap-1.5 rounded-full px-4 sm:px-5 py-2 text-[11px] sm:text-[12px] font-bold uppercase tracking-wider transition-all shrink-0 ${
+              className={`flex items-center gap-1.5 rounded-full px-4 sm:px-5 py-1.5 text-[11px] sm:text-[12px] font-bold uppercase tracking-wider transition-all shrink-0 ${
                 activeMode === "tutorial"
                   ? "bg-white text-[#7A0B2E] shadow-xs"
                   : "text-[#6F6267] hover:text-[#2B1B20]"
@@ -156,7 +156,7 @@ export default function GetTheLook() {
             <button
               type="button"
               onClick={() => setActiveMode("shop")}
-              className={`flex items-center gap-1.5 rounded-full px-4 sm:px-5 py-2 text-[11px] sm:text-[12px] font-bold uppercase tracking-wider transition-all shrink-0 ${
+              className={`flex items-center gap-1.5 rounded-full px-4 sm:px-5 py-1.5 text-[11px] sm:text-[12px] font-bold uppercase tracking-wider transition-all shrink-0 ${
                 activeMode === "shop"
                   ? "bg-white text-[#7A0B2E] shadow-xs"
                   : "text-[#6F6267] hover:text-[#2B1B20]"
@@ -169,7 +169,7 @@ export default function GetTheLook() {
             <button
               type="button"
               onClick={() => setActiveMode("artist")}
-              className={`flex items-center gap-1.5 rounded-full px-4 sm:px-5 py-2 text-[11px] sm:text-[12px] font-bold uppercase tracking-wider transition-all shrink-0 ${
+              className={`flex items-center gap-1.5 rounded-full px-4 sm:px-5 py-1.5 text-[11px] sm:text-[12px] font-bold uppercase tracking-wider transition-all shrink-0 ${
                 activeMode === "artist"
                   ? "bg-white text-[#7A0B2E] shadow-xs"
                   : "text-[#6F6267] hover:text-[#2B1B20]"
@@ -185,14 +185,14 @@ export default function GetTheLook() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 sm:gap-8 items-center">
           {/* Left Column: Photo Showcase */}
           <div className="lg:col-span-5 flex flex-col items-center">
-            <div className="relative aspect-[4/5] w-full max-w-[360px] rounded-[24px] overflow-hidden shadow-lg border border-[#EEDFD7] bg-white p-2">
-              <div className="relative h-full w-full rounded-[18px] overflow-hidden bg-[#FDF0F2]">
+            <div className="relative aspect-[4/5] w-full max-w-[340px] rounded-[22px] overflow-hidden shadow-md border border-[#EEDFD7] bg-white p-2">
+              <div className="relative h-full w-full rounded-[16px] overflow-hidden bg-[#FDF0F2]">
                 <Image
                   src={tutorialData.heroImage}
                   alt="Viral pink chrome manicure"
                   fill
                   priority
-                  sizes="(max-width: 1024px) 100vw, 360px"
+                  sizes="(max-width: 1024px) 100vw, 340px"
                   className="object-cover"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/75 via-transparent to-transparent" />
@@ -230,7 +230,7 @@ export default function GetTheLook() {
             {/* Read Complete Full Article Link */}
             <Link
               href="/articles/pink-chrome"
-              className="mt-3.5 inline-flex items-center gap-1.5 text-xs font-bold text-[#7A0B2E] hover:underline"
+              className="mt-3 inline-flex items-center gap-1.5 text-xs font-bold text-[#7A0B2E] hover:underline"
             >
               Read Full Step-by-Step Article <ArrowRight size={13} />
             </Link>
@@ -252,7 +252,7 @@ export default function GetTheLook() {
                   {tutorialData.steps.map((step) => (
                     <div
                       key={step.id}
-                      className="group flex flex-col sm:flex-row gap-3 sm:gap-4 rounded-[20px] bg-white p-3.5 sm:p-4 border border-[#EEDFD7] shadow-2xs hover:border-[#7A0B2E]/40 transition-all"
+                      className="group flex flex-col sm:flex-row gap-3 sm:gap-4 rounded-[18px] bg-white p-3.5 border border-[#EEDFD7] shadow-2xs hover:border-[#7A0B2E]/40 transition-all"
                     >
                       <div className="relative h-20 w-full sm:w-24 shrink-0 rounded-[12px] overflow-hidden bg-[#FDF0F2]">
                         <Image
@@ -281,7 +281,7 @@ export default function GetTheLook() {
                           {step.description}
                         </p>
 
-                        <div className="mt-2 rounded-lg bg-[#FFF8F3] p-1.5 px-2 border border-[#F0DFD7] flex items-start gap-1.5">
+                        <div className="mt-1.5 rounded-lg bg-[#FFF8F3] p-1.5 px-2 border border-[#F0DFD7] flex items-start gap-1.5">
                           <Sparkles size={12} className="text-[#7A0B2E] shrink-0 mt-0.5" />
                           <p className="text-[11px] text-[#7A0B2E] font-medium">
                             Pro Artist Tip: {step.tip}
@@ -291,7 +291,7 @@ export default function GetTheLook() {
                     </div>
                   ))}
 
-                  <div className="pt-2 flex flex-col sm:flex-row items-center justify-between gap-2.5">
+                  <div className="pt-1.5 flex flex-col sm:flex-row items-center justify-between gap-2">
                     <p className="text-[12px] text-[#6F6267]">
                       Shop the exact 3 products used in this look:
                     </p>
@@ -316,7 +316,7 @@ export default function GetTheLook() {
                   transition={{ duration: 0.25 }}
                   className="space-y-3"
                 >
-                  <div className="rounded-[20px] bg-white p-3.5 sm:p-4 border border-[#EEDFD7] shadow-2xs flex items-center justify-between">
+                  <div className="rounded-[18px] bg-white p-3.5 border border-[#EEDFD7] shadow-2xs flex items-center justify-between">
                     <div>
                       <p className="text-[10px] font-bold uppercase tracking-wider text-[#7A0B2E]">
                         Complete Recreate Bundle
@@ -341,7 +341,7 @@ export default function GetTheLook() {
                   {tutorialData.products.map((product) => (
                     <div
                       key={product.id}
-                      className="flex items-center gap-3.5 rounded-[18px] bg-white p-3 sm:p-3.5 border border-[#EEDFD7] shadow-2xs hover:shadow-sm transition-all"
+                      className="flex items-center gap-3.5 rounded-[16px] bg-white p-3 border border-[#EEDFD7] shadow-2xs hover:shadow-sm transition-all"
                     >
                       <div className="relative h-14 w-14 shrink-0 rounded-[10px] overflow-hidden bg-[#FAF6F0] p-1 border border-[#EEDFD7]">
                         <Image
@@ -404,7 +404,7 @@ export default function GetTheLook() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -8 }}
                   transition={{ duration: 0.25 }}
-                  className="rounded-[22px] bg-white p-5 sm:p-6 border border-[#EEDFD7] shadow-2xs"
+                  className="rounded-[20px] bg-white p-5 border border-[#EEDFD7] shadow-2xs"
                 >
                   <div className="flex items-center gap-1.5 text-[#7A0B2E] text-[10px] font-bold uppercase tracking-wider mb-2">
                     <ShieldCheck size={15} />
@@ -415,11 +415,11 @@ export default function GetTheLook() {
                     Recreate it at home with Priya Sharma.
                   </h3>
 
-                  <p className="mt-1.5 text-[13px] text-[#6F6267] leading-relaxed">
+                  <p className="mt-1 text-[13px] text-[#6F6267] leading-relaxed">
                     Skip buying equipment. Priya is our top-rated nail stylist in Ahmedabad &amp; Surat, specializing in salon-grade chrome applications, Russian cuticle prep, and wedding sets.
                   </p>
 
-                  <div className="mt-4 rounded-xl bg-[#FAF6F0] p-3.5 border border-[#EEDFD7] grid grid-cols-2 sm:grid-cols-4 gap-2 text-center">
+                  <div className="mt-4 rounded-xl bg-[#FAF6F0] p-3 border border-[#EEDFD7] grid grid-cols-2 sm:grid-cols-4 gap-2 text-center">
                     <div>
                       <p className="text-[9px] uppercase font-bold text-[#8C7A81]">Rating</p>
                       <p className="text-[13px] font-bold text-[#2B1B20] flex items-center justify-center gap-0.5 mt-0.5">
@@ -450,7 +450,7 @@ export default function GetTheLook() {
                     </div>
                   </div>
 
-                  <div className="mt-5 flex flex-col sm:flex-row items-center gap-2.5">
+                  <div className="mt-4 flex flex-col sm:flex-row items-center gap-2.5">
                     <button
                       type="button"
                       onClick={handleArtistWhatsApp}
