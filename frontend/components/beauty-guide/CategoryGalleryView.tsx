@@ -48,7 +48,7 @@ export default function CategoryGalleryView({ categoryData }: Props) {
             className="inline-flex items-center gap-2 text-[12px] font-bold uppercase tracking-[0.15em] text-[#6F6267] transition-colors hover:text-[#7A0B2E]"
           >
             <ArrowLeft size={16} strokeWidth={2} />
-            Back to Home
+            Back to Beauty Guide
           </Link>
           <span className="text-[10px] font-bold uppercase tracking-[0.2em] text-[#7A0B2E] bg-[#FDF0F2] px-3 py-1.5 rounded-full">
             {categoryData.items.length} LOOKS
