@@ -1,9 +1,10 @@
 import Navbar from "@/components/home/Navbar/Navbar";
 import { beautyCategories } from "@/constants/beauty-data";
 import CategoryHubSection from "@/components/beauty-guide/CategoryHubSection";
+import LuxuryFooter from "@/components/home/LuxuryFooter";
 
 export const metadata = {
-  title: "Beauty Categories | RoopSetu",
+  title: "Beauty Categories | RoopSetu — Editorial Collections",
   description: "Explore all beauty categories from Nails to Bridal looks.",
 };
 
@@ -35,6 +36,8 @@ export default function BeautyCategoriesHubPage() {
           />
         ))}
       </div>
+
+      <LuxuryFooter />
     </main>
   );
 }
