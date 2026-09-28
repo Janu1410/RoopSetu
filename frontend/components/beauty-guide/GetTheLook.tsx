@@ -32,7 +32,7 @@ const tutorialData = {
       id: "01",
       title: "The Flawless Canvas Prep",
       description:
-        "Push cuticles back gently, buff nail plate to 240-grit texture, and apply self-leveling rubber base. Dehydrate with 99% isopropyl alcohol for 3-week salon retention.",
+        "Push cuticles back gently, buff nail plate to 240-grit texture, and apply self-leveling rubber base. Dehydrate with 99% isopropyl alcohol for 3-week durable high-gloss retention.",
       image: "/images/nails/nai-1.jpg",
       time: "2 mins",
       tip: "Alcohol dehydration removes natural surface oils that cause lifting within 72 hours.",
@@ -134,7 +134,7 @@ export default function GetTheLook() {
             The exact 3-step pro technique, verified drugstore product dupes, and undertone formulation secrets.
           </p>
 
-          {/* 3-Mode Switcher Buttons (Pure Informative, No Beautician Suggestions) */}
+          {/* 3-Mode Switcher Buttons (Pure Editorial Blueprint) */}
           <div className="mt-4 inline-flex items-center rounded-full bg-[#EDE1D9] p-1 border border-[#E3D3C9] shadow-2xs max-w-full overflow-x-auto">
             <button
               type="button"
@@ -288,7 +288,7 @@ export default function GetTheLook() {
                         <div className="mt-1.5 rounded-lg bg-[#FFF8F3] p-1.5 px-2 border border-[#F0DFD7] flex items-start gap-1.5">
                           <Sparkles size={12} className="text-[#7A0B2E] shrink-0 mt-0.5" />
                           <p className="text-[11px] text-[#7A0B2E] font-medium">
-                            Pro Artist Tip: {step.tip}
+                            Editorial Pro Tip: {step.tip}
                           </p>
                         </div>
                       </div>
@@ -401,7 +401,7 @@ export default function GetTheLook() {
                 </motion.div>
               )}
 
-              {/* MODE 3: SHADE & LONGEVITY GUIDE (Deeply Informative, No Beauticians) */}
+              {/* MODE 3: SHADE & LONGEVITY GUIDE (Deeply Informative Formulation) */}
               {activeMode === "guide" && (
                 <motion.div
                   key="guide-panel"

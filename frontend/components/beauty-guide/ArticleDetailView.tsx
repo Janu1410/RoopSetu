@@ -19,6 +19,7 @@ import {
   AlertCircle,
   CheckCircle2,
   Wrench,
+  ChevronRight,
 } from "lucide-react";
 import Navbar from "@/components/home/Navbar/Navbar";
 import LuxuryFooter from "@/components/home/LuxuryFooter";
@@ -57,17 +58,61 @@ export default function ArticleDetailView({
     <main className="min-h-screen bg-[#FFF8F3] text-[#2B1B20] pb-24 lg:pb-0">
       <Navbar />
 
+      {/* Persistent Beauty Guide Hub Masthead Sub-Nav Bar */}
+      <div className="pt-20 sm:pt-24 bg-[#7A0B2E] text-white shadow-xs">
+        <div className="mx-auto max-w-7xl px-4 sm:px-8 lg:px-12 py-2.5 flex items-center justify-between flex-wrap gap-2 text-xs">
+          <div className="flex items-center gap-2">
+            <Link
+              href="/beauty-guide"
+              className="flex items-center gap-1.5 text-white hover:text-[#FFE5D0] font-bold tracking-wider uppercase text-[11px] transition-colors"
+            >
+              <ArrowLeft size={14} />
+              <span>RoopSetu Beauty Guide</span>
+            </Link>
+            <span className="text-white/40">/</span>
+            <span className="text-[#FFD6A5] font-medium text-[11px]">
+              {parentCategory ? `${parentCategory.label} Masterclass` : "Look Masterclass"}
+            </span>
+          </div>
+
+          <div className="flex items-center gap-1.5 overflow-x-auto py-0.5 scrollbar-none">
+            <Link
+              href="/beauty-guide"
+              className="rounded-full bg-white/10 hover:bg-white/20 px-3 py-1 text-[11px] font-medium text-white transition-colors shrink-0"
+            >
+              ← Hub Feed
+            </Link>
+            {beautyCategories.map((cat) => {
+              const isActive = parentCategory?.id === cat.id;
+              return (
+                <Link
+                  key={cat.id}
+                  href="/beauty-guide#discovery-feed"
+                  className={`rounded-full px-3 py-1 text-[11px] font-medium transition-colors shrink-0 ${
+                    isActive
+                      ? "bg-[#FFE5D0] text-[#7A0B2E] font-bold"
+                      : "bg-white/10 text-white/90 hover:bg-white/20"
+                  }`}
+                >
+                  {cat.label}
+                </Link>
+              );
+            })}
+          </div>
+        </div>
+      </div>
+
       {/* Top Header & Breadcrumb */}
-      <section className="pt-24 pb-8 sm:pt-32 sm:pb-12 bg-[#FAF6F0] border-b border-[#EEDFD7]">
+      <section className="pt-8 pb-8 sm:pt-10 sm:pb-12 bg-[#FAF6F0] border-b border-[#EEDFD7]">
         <div className="mx-auto max-w-7xl px-4 sm:px-8 lg:px-12">
           {/* Top Action Bar */}
           <div className="flex flex-wrap items-center justify-between gap-3 mb-6">
             <Link
               href="/beauty-guide"
-              className="inline-flex items-center gap-1.5 text-xs font-bold uppercase tracking-wider text-[#6F6267] hover:text-[#7A0B2E] transition-colors"
+              className="inline-flex items-center gap-2 rounded-full border border-[#EEDFD7] bg-white px-4 py-2 text-xs font-bold uppercase tracking-wider text-[#7A0B2E] hover:bg-[#FDF0F2] transition-colors shadow-2xs"
             >
               <ArrowLeft size={14} />
-              Back to Beauty Guide
+              <span>Back to Beauty Guide Hub</span>
             </Link>
 
             <div className="flex items-center gap-2">
@@ -106,7 +151,7 @@ export default function ArticleDetailView({
           <div className="max-w-4xl">
             <div className="flex flex-wrap items-center gap-2 mb-3">
               <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#7A0B2E] bg-[#FDF0F2] px-3 py-1 rounded-full border border-[#F3D7DC]">
-                {parentCategory ? parentCategory.label : "Look Breakdown"}
+                {parentCategory ? `${parentCategory.label} Masterclass` : "Look Breakdown"}
               </span>
 
               {articleData.occasion && (
@@ -147,7 +192,7 @@ export default function ArticleDetailView({
                     {articleData.author?.name || "RoopSetu Beauty Editorial"}
                   </p>
                   <p className="text-[10px] text-[#8C7A81]">
-                    {articleData.author?.role || "Certified Stylist Collective"}
+                    RoopSetu Beauty Editorial Desk
                   </p>
                 </div>
               </div>
@@ -251,7 +296,7 @@ export default function ArticleDetailView({
 
             {/* Right Column: Editorial Masterclass & Interactive Tabs */}
             <div className="lg:col-span-7 space-y-6">
-              {/* Tab Selector Bar (Pure Editorial Knowledge, No Beauticians) */}
+              {/* Tab Selector Bar (Pure Editorial Knowledge) */}
               <div className="inline-flex items-center rounded-2xl bg-[#EDE1D9] p-1.5 border border-[#E3D3C9] shadow-2xs w-full overflow-x-auto [scrollbar-width:none]">
                 <button
                   type="button"
@@ -403,7 +448,7 @@ export default function ArticleDetailView({
                               <div className="mt-3 rounded-xl bg-[#FFF8F3] p-2.5 border border-[#F0DFD7] flex items-start gap-2">
                                 <Sparkles size={14} className="text-[#7A0B2E] shrink-0 mt-0.5" />
                                 <p className="text-[12px] text-[#7A0B2E] font-medium">
-                                  Pro Artist Tip: {step.proTip}
+                                  Editorial Pro Tip: {step.proTip}
                                 </p>
                               </div>
                             )}
@@ -425,7 +470,7 @@ export default function ArticleDetailView({
                         Exact Products &amp; Verified Dupes
                       </h2>
                       <p className="text-xs text-[#6F6267] mt-1">
-                        Formulations verified by our editorial stylists for performance and longevity.
+                        Formulations verified by RoopSetu beauty editors for performance and longevity.
                       </p>
                     </div>
 
@@ -517,7 +562,7 @@ export default function ArticleDetailView({
                 </div>
               )}
 
-              {/* TAB 3: SHADE MATRIX & PRO SECRETS (Pure Informative, No Beauticians) */}
+              {/* TAB 3: SHADE MATRIX & PRO SECRETS (Pure Informative Formulation) */}
               {(activeTab === "guide" || activeTab === "story") && (
                 <div className="rounded-[26px] bg-white p-6 sm:p-8 border border-[#EEDFD7] shadow-sm space-y-5">
                   <div className="flex items-center gap-2 text-[11px] font-bold uppercase tracking-wider text-[#7A0B2E]">
@@ -554,7 +599,7 @@ export default function ArticleDetailView({
                       </div>
                       <p className="text-[13px] text-[#6F6267] leading-relaxed">
                         {articleData.longevityTip ||
-                          "Take extra time on the prep and dehydration step. Eliminating surface oils ensures up to 3 weeks of salon-grade retention without lifting or chipping."}
+                          "Take extra time on the prep and dehydration step. Eliminating surface oils ensures up to 3 weeks of durable high-gloss retention without lifting or chipping."}
                       </p>
                     </div>
                   </div>
@@ -644,6 +689,52 @@ export default function ArticleDetailView({
               </div>
             </div>
           )}
+
+          {/* Bridge to Beauty Guide Main Hub */}
+          <div className="mt-14 rounded-[28px] bg-gradient-to-br from-[#7A0B2E] to-[#4A051B] p-6 sm:p-10 text-white shadow-lg">
+            <div className="flex flex-col md:flex-row md:items-center justify-between gap-6">
+              <div className="max-w-xl">
+                <span className="text-[10px] font-bold uppercase tracking-[0.25em] text-[#FFD6A5]">
+                  RoopSetu Editorial Collective
+                </span>
+                <h3 className="font-serif text-2xl sm:text-3xl font-medium text-white mt-1">
+                  Discover More Recreatable Looks
+                </h3>
+                <p className="mt-2 text-sm text-white/80 leading-relaxed">
+                  Browse over 30+ step-by-step masterclasses, drugstore duplicate formulas, and undertone matrices across all categories in our interactive handbook.
+                </p>
+              </div>
+
+              <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-3 shrink-0">
+                <Link
+                  href="/beauty-guide"
+                  className="inline-flex items-center justify-center gap-2 rounded-full bg-white px-6 py-3 text-xs font-bold uppercase tracking-wider text-[#7A0B2E] shadow hover:bg-[#FFE5D0] transition-colors"
+                >
+                  <ArrowLeft size={14} /> Back to Beauty Guide Hub
+                </Link>
+                <Link
+                  href="/beauty-guide#discovery-feed"
+                  className="inline-flex items-center justify-center gap-2 rounded-full border border-white/30 bg-white/10 px-6 py-3 text-xs font-bold uppercase tracking-wider text-white hover:bg-white/20 transition-colors"
+                >
+                  Explore Feed <ArrowRight size={14} />
+                </Link>
+              </div>
+            </div>
+
+            {/* Quick Category Jump Links */}
+            <div className="mt-8 pt-6 border-t border-white/15 grid grid-cols-2 sm:grid-cols-4 gap-3">
+              {beautyCategories.map((cat) => (
+                <Link
+                  key={cat.id}
+                  href="/beauty-guide#discovery-feed"
+                  className="flex items-center justify-between p-3 rounded-xl bg-white/10 hover:bg-white/15 border border-white/10 transition-colors text-white text-xs font-semibold"
+                >
+                  <span>{cat.label}</span>
+                  <ChevronRight size={14} className="text-white/60" />
+                </Link>
+              ))}
+            </div>
+          </div>
         </div>
       </section>
 

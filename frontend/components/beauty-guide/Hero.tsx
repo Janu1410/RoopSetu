@@ -187,7 +187,7 @@ export default function Hero() {
               ))}
             </div>
 
-            {/* 3 Informative Knowledge Pillars (No Beauticians) */}
+            {/* 3 Informative Knowledge Pillars */}
             <div className="mt-6 pt-4 border-t border-[#EADAD0] grid grid-cols-3 gap-2">
               <div className="flex items-center gap-2">
                 <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-lg bg-white border border-[#E3D3C9] text-[#7A0B2E]">

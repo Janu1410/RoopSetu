@@ -37,7 +37,7 @@ export type LookItem = {
   description?: string;
   tag?: string; // single tag for filtering (e.g., "Chrome", "French")
   occasion?: string; // e.g. "Bridal & Wedding", "Festive Garba", "Everyday Chic", "Cocktail & Party"
-  difficulty?: "Easy DIY" | "Intermediate" | "Pro / Salon";
+  difficulty?: "Easy DIY" | "Intermediate" | "Pro Masterclass";
   estimatedTime?: string;
   savesCount?: string;
   kitPrice?: string;
@@ -250,7 +250,7 @@ export const beautyCategories: LookCategory[] = [
         kitPrice: "₹1,898",
         author: {
           name: "Ananya Desai",
-          role: "Senior Editorial Nail Stylist",
+          role: "Senior Editorial Nail Curator",
         },
         readTime: "3 min read",
         articleStory: {
@@ -364,7 +364,7 @@ export const beautyCategories: LookCategory[] = [
           "Intricate hand-painted springtime florals accented with subtle pearl beads and matte finish.",
         tag: "Floral",
         occasion: "Festive Garba",
-        difficulty: "Pro / Salon",
+        difficulty: "Pro Masterclass",
         estimatedTime: "30 mins",
         savesCount: "64k saves",
         kitPrice: "₹1,320",
@@ -466,7 +466,7 @@ export const beautyCategories: LookCategory[] = [
           "Sweat-proof 24H HD airbrush finish, kohl-rimmed regal eyes, and a classic velvet scarlet pout.",
         tag: "Bridal",
         occasion: "Bridal & Wedding",
-        difficulty: "Pro / Salon",
+        difficulty: "Pro Masterclass",
         estimatedTime: "60 mins",
         savesCount: "320k saves",
         kitPrice: "₹3,400",
@@ -613,7 +613,7 @@ export const beautyCategories: LookCategory[] = [
           "A sculpted textured chignon with crown lift, designed to stay intact through hours of dancing.",
         tag: "Updos",
         occasion: "Cocktail & Party",
-        difficulty: "Pro / Salon",
+        difficulty: "Pro Masterclass",
         estimatedTime: "35 mins",
         savesCount: "105k saves",
         kitPrice: "₹899",
@@ -660,7 +660,7 @@ export const beautyCategories: LookCategory[] = [
           "Waist-length traditional braid studded with temple gold surya brooches and fresh fragrant Mogra.",
         tag: "Bridal",
         occasion: "Bridal & Wedding",
-        difficulty: "Pro / Salon",
+        difficulty: "Pro Masterclass",
         estimatedTime: "45 mins",
         savesCount: "195k saves",
         kitPrice: "₹1,650",
@@ -675,7 +675,7 @@ export const beautyCategories: LookCategory[] = [
           "Clean horizontal bun nestled at the nape with concentric rings of fresh white jasmine blossoms.",
         tag: "Buns",
         occasion: "Bridal & Wedding",
-        difficulty: "Pro / Salon",
+        difficulty: "Pro Masterclass",
         estimatedTime: "30 mins",
         savesCount: "114k saves",
         kitPrice: "₹990",
@@ -716,7 +716,7 @@ export const beautyCategories: LookCategory[] = [
           "Grand heritage bridal styling. Velvet crimson zardozi, sweat-proof HD airbrush, and Mogra bun.",
         tag: "Heritage",
         occasion: "Bridal & Wedding",
-        difficulty: "Pro / Salon",
+        difficulty: "Pro Masterclass",
         estimatedTime: "90 mins",
         savesCount: "380k saves",
         kitPrice: "₹3,800",
@@ -746,7 +746,7 @@ export const beautyCategories: LookCategory[] = [
           "Monochrome peach and rose complexion designed to complement pastel organza and tissue lehengas.",
         tag: "Pastel",
         occasion: "Bridal & Wedding",
-        difficulty: "Pro / Salon",
+        difficulty: "Pro Masterclass",
         estimatedTime: "60 mins",
         savesCount: "245k saves",
         kitPrice: "₹2,800",
@@ -791,7 +791,7 @@ export const beautyCategories: LookCategory[] = [
           "Traditional ceremonial makeup with non-smudge crimson sindoor alignment and waterproof kohl.",
         tag: "Ceremony",
         occasion: "Bridal & Wedding",
-        difficulty: "Pro / Salon",
+        difficulty: "Pro Masterclass",
         estimatedTime: "60 mins",
         savesCount: "290k saves",
         kitPrice: "₹3,100",
@@ -806,7 +806,7 @@ export const beautyCategories: LookCategory[] = [
           "Hyper-real shaded botanical roses and intricate lace cuffs using 100% natural Sojat henna.",
         tag: "Henna",
         occasion: "Bridal & Wedding",
-        difficulty: "Pro / Salon",
+        difficulty: "Pro Masterclass",
         estimatedTime: "75 mins",
         savesCount: "165k saves",
         kitPrice: "₹650",
@@ -951,7 +951,7 @@ export function getLookWithFallbacks(look: LookItem, categoryId?: string): LookI
         : ["Airbrush Compressor / HD Puff", "Veil Anchor Combs", "Jewelry Tape", "Sojat Henna Applicator"]),
     author: look.author || {
       name: "RoopSetu Beauty Editorial",
-      role: "Certified Stylist Collective",
+      role: "RoopSetu Beauty Editorial Desk",
     },
     readTime: look.readTime || "3 min read",
     estimatedTime: look.estimatedTime || "25 mins",
