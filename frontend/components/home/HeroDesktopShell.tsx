@@ -22,7 +22,7 @@ export default function HeroDesktopShell({
   title,
   description,
   children,
-  badgeText = "Trusted by 2,000+ Brides",
+  badgeText = "✦ Hand-Verified Beauty Professionals",
   className = "",
   contentClassName = "",
 }: HeroDesktopShellProps) {
@@ -31,12 +31,8 @@ export default function HeroDesktopShell({
       className={`hidden w-full max-w-[1240px] items-center gap-10 lg:grid lg:grid-cols-2 ${className}`}
     >
       <div className={`min-w-0 ${contentClassName}`}>
-        <div className="inline-flex w-fit items-center gap-3 rounded-full border border-[#EFD3DC] bg-white px-5 py-3 text-[0.98rem] font-semibold text-[#544152] shadow-[0_8px_20px_rgba(90,0,31,0.05)]">
-          <span className="relative inline-block h-4 w-10">
-            <span className="absolute left-0 top-1/2 h-4 w-4 -translate-y-1/2 rounded-full bg-[#CFD5E3]" />
-            <span className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 rounded-full bg-[#CFD5E3]" />
-            <span className="absolute left-6 top-1/2 h-4 w-4 -translate-y-1/2 rounded-full bg-[#CFD5E3]" />
-          </span>
+        <div className="inline-flex w-fit items-center gap-2.5 rounded-full border border-[#EFD3DC] bg-white px-4 py-2 text-[0.88rem] font-semibold text-[#8A1238] shadow-[0_8px_20px_rgba(90,0,31,0.05)]">
+          <span className="relative inline-block h-2 w-2 rounded-full bg-[#137333]" />
           {badgeText}
         </div>
 

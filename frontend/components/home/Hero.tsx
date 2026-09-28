@@ -2,6 +2,7 @@
 
 import { FormEvent, useEffect, useState } from "react";
 import { Playfair_Display } from "next/font/google";
+import { useRouter } from "next/navigation";
 import HeroDesktopShell from "./HeroDesktopShell";
 import MobileSearchModal from "./MobileSearchModal";
 
@@ -11,9 +12,10 @@ const playfair = Playfair_Display({
 });
 
 const chips = [
-  { icon: "\u{1F525}", label: "Bridal Makeup" },
-  { icon: "\u{1F485}", label: "Gel Nails" },
-  { icon: "\u{1F33F}", label: "Herbal Facial" },
+  { icon: "🔥", label: "Bridal Makeup", query: "bridal" },
+  { icon: "🌿", label: "Mehndi Artist", query: "mehendi" },
+  { icon: "💅", label: "Nail Extensions", query: "nails" },
+  { icon: "✨", label: "Hair & Draping", query: "hair-draping" },
 ];
 
 const popularSearches = [
@@ -48,6 +50,7 @@ const reverseGeocode = async (
 };
 
 export default function Hero() {
+  const router = useRouter();
   const [isMobileSearchOpen, setIsMobileSearchOpen] = useState(false);
   const [service, setService] = useState("");
   const [location, setLocation] = useState("Use current location");
@@ -58,6 +61,22 @@ export default function Hero() {
   const handleSearchSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsMobileSearchOpen(false);
+
+    const params = new URLSearchParams();
+    if (service.trim()) {
+      params.set("service", service.trim());
+    }
+    if (
+      location &&
+      location !== "Use current location" &&
+      location !== "Current location" &&
+      location !== "Location unavailable"
+    ) {
+      params.set("location", location.trim());
+    }
+
+    const query = params.toString();
+    router.push(query ? `/services?${query}` : "/services");
   };
 
   const requestCurrentLocation = () => {
@@ -298,13 +317,15 @@ export default function Hero() {
 
             <div className="mt-5 flex flex-wrap gap-2.5">
               {chips.map((chip) => (
-                <span
+                <button
                   key={chip.label}
-                  className="inline-flex items-center gap-2 rounded-full border border-[#EDD6DA] bg-white px-3.5 py-1.5 text-sm font-medium text-[#475569]"
+                  type="button"
+                  onClick={() => router.push(`/services?category=${chip.query}`)}
+                  className="inline-flex items-center gap-2 rounded-full border border-[#EDD6DA] bg-white px-3.5 py-1.5 text-sm font-medium text-[#475569] hover:border-[#8A1238] hover:text-[#8A1238] hover:bg-[#FFF9FB] transition-all cursor-pointer shadow-xs"
                 >
                   <span>{chip.icon}</span>
                   <span>{chip.label}</span>
-                </span>
+                </button>
               ))}
             </div>
           </HeroDesktopShell>
