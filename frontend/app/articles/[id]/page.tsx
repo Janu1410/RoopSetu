@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import ArticleDetailView from "@/components/beauty-guide/ArticleDetailView";
+import BeautyArticleDetail from "@/components/beauty-guide/BeautyArticleDetail";
 import {
   beautyCategories,
   getLookWithFallbacks,
@@ -39,7 +39,7 @@ export default async function ArticlePage({
   const enrichedItem = getLookWithFallbacks(matchedItem, matchedCategory?.id);
 
   return (
-    <ArticleDetailView
+    <BeautyArticleDetail
       articleData={enrichedItem}
       parentCategory={matchedCategory}
     />
