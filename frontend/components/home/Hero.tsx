@@ -1,9 +1,14 @@
 "use client";
 
-import { FormEvent, useEffect, useState } from "react";
+import Image from "next/image";
+import { FormEvent, useEffect, useRef, useState } from "react";
 import { Playfair_Display } from "next/font/google";
 import { useRouter } from "next/navigation";
-import HeroDesktopShell from "./HeroDesktopShell";
+import { ArrowRight, Sparkles } from "lucide-react";
+import {
+  buildCategorySearchHref,
+  buildServiceSearchHref,
+} from "@/lib/home-search.mjs";
 import MobileSearchModal from "./MobileSearchModal";
 
 const playfair = Playfair_Display({
@@ -11,11 +16,11 @@ const playfair = Playfair_Display({
   weight: ["600", "700"],
 });
 
-const chips = [
-  { icon: "🔥", label: "Bridal Makeup", query: "bridal" },
-  { icon: "🌿", label: "Mehndi Artist", query: "mehendi" },
-  { icon: "💅", label: "Nail Extensions", query: "nails" },
-  { icon: "✨", label: "Hair & Draping", query: "hair-draping" },
+const popularCategories = [
+  { label: "Bridal Makeup", query: "bridal" },
+  { label: "Mehendi", query: "mehendi" },
+  { label: "Nails", query: "nails" },
+  { label: "Hair & Draping", query: "hair-draping" },
 ];
 
 const popularSearches = [
@@ -57,26 +62,12 @@ export default function Hero() {
   const [locationStatus, setLocationStatus] = useState<
     "idle" | "loading" | "ready" | "error"
   >("idle");
+  const locationRequestRef = useRef<AbortController | null>(null);
 
   const handleSearchSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     setIsMobileSearchOpen(false);
-
-    const params = new URLSearchParams();
-    if (service.trim()) {
-      params.set("service", service.trim());
-    }
-    if (
-      location &&
-      location !== "Use current location" &&
-      location !== "Current location" &&
-      location !== "Location unavailable"
-    ) {
-      params.set("location", location.trim());
-    }
-
-    const query = params.toString();
-    router.push(query ? `/services?${query}` : "/services");
+    router.push(buildServiceSearchHref({ service, location }));
   };
 
   const requestCurrentLocation = () => {
@@ -86,28 +77,33 @@ export default function Hero() {
       return;
     }
 
+    locationRequestRef.current?.abort();
+    const controller = new AbortController();
+    locationRequestRef.current = controller;
     setLocationStatus("loading");
-
-    const abortController = new AbortController();
 
     navigator.geolocation.getCurrentPosition(
       async ({ coords }) => {
+        if (controller.signal.aborted) return;
+
         try {
           const resolvedLocation = await reverseGeocode(
             coords.latitude,
             coords.longitude,
-            abortController.signal,
+            controller.signal,
           );
-
+          if (controller.signal.aborted) return;
           setLocation(resolvedLocation || "Current location");
           setLocationStatus("ready");
         } catch {
+          if (controller.signal.aborted) return;
           setLocation("Current location");
           setLocationStatus("ready");
         }
       },
       () => {
-        setLocation("Use current location");
+        if (controller.signal.aborted) return;
+        setLocation("Location unavailable");
         setLocationStatus("error");
       },
       {
@@ -118,219 +114,98 @@ export default function Hero() {
     );
   };
 
-  useEffect(() => {
-    if (!isMobileSearchOpen) {
-      document.body.style.overflow = "";
-      return;
-    }
+  useEffect(() => () => locationRequestRef.current?.abort(), []);
 
-    document.body.style.overflow = "hidden";
-
-    const handleEscape = (event: KeyboardEvent) => {
-      if (event.key === "Escape") {
-        setIsMobileSearchOpen(false);
-      }
-    };
-
-    document.addEventListener("keydown", handleEscape);
-
-    return () => {
-      document.body.style.overflow = "";
-      document.removeEventListener("keydown", handleEscape);
-    };
-  }, [isMobileSearchOpen]);
+  const openCategory = (category: string) => {
+    router.push(buildCategorySearchHref(category));
+  };
 
   return (
-    <>
-      <section className="relative flex-1 overflow-hidden bg-gradient-to-br from-[#4A0019] via-[#64102D] to-[#7C1437] pb-10 pt-6 text-white sm:pb-12 sm:pt-7 lg:bg-none lg:bg-[#FFF8F3] lg:pb-8 lg:pt-5 lg:text-[#2D2230]">
-        <div className="pointer-events-none absolute inset-0 hidden lg:block bg-gradient-to-r from-[#fff9f6] via-[#fffaf8] to-[#fff0f4]" />
-        <div className="pointer-events-none absolute -top-24 right-[-140px] h-72 w-72 rounded-full bg-[#7B183C]/35 blur-3xl lg:hidden" />
-        <div className="pointer-events-none absolute bottom-[-160px] left-[-120px] h-72 w-72 rounded-full bg-[#5A001F]/45 blur-3xl lg:hidden" />
+    <section className="bg-[#5A001F] px-3 pb-3 sm:px-4 lg:px-5">
+      <div className="grid overflow-hidden rounded-[10px] border border-[#D4AF37]/70 bg-[#5A001F] lg:min-h-[calc(100svh-112px)] lg:grid-cols-2">
+        <div className="relative min-h-[420px] overflow-hidden bg-[#32121E] sm:min-h-[500px] lg:min-h-[calc(100svh-112px)]">
+          <Image
+            src="/images/hero/desktop/her-30.jpg"
+            alt="Bridal beauty look in a warmly lit studio"
+            fill
+            preload
+            sizes="(max-width: 1023px) 100vw, 50vw"
+            className="object-cover object-[54%_center]"
+          />
+          <div className="absolute inset-0 bg-gradient-to-t from-[#230914]/35 via-transparent to-[#230914]/10" />
+          <div className="absolute bottom-5 left-5 flex items-center gap-2 text-[0.62rem] font-semibold uppercase tracking-[0.2em] text-white/85 sm:bottom-7 sm:left-7">
+            <span className="h-px w-8 bg-[#E9C77B]" />
+            RoopSetu · The bridge of beauty
+          </div>
+        </div>
 
-        <div className="relative mx-auto w-full max-w-7xl px-0 lg:px-8">
-          <div className="px-5 py-6 sm:px-6 sm:py-8 lg:hidden">
-            <h1
-              className={`${playfair.className} text-[2.45rem] leading-[0.96] text-white sm:text-[3rem]`}
-            >
-              Book Your{" "}
-              <span className="relative inline-block">
-                Perfect Beautician
-                <span className="absolute -bottom-2 left-0 h-[4px] w-full rounded-full bg-[#E7A8B8]" />
-              </span>
-            </h1>
+        <div className="flex flex-col items-center justify-center px-6 py-12 text-center text-[#FFF8F3] sm:px-10 sm:py-14 lg:px-10 lg:py-10 xl:px-16">
+          <p className="mb-3 inline-flex items-center gap-2 text-[0.64rem] font-semibold uppercase tracking-[0.24em] text-[#F3D9E0] sm:text-xs">
+            <Sparkles
+              className="h-3.5 w-3.5 text-[#D4AF37]"
+              aria-hidden="true"
+            />
+            Hand-verified beauty professionals
+          </p>
 
-            <div className="mt-7">
-              <button
-                type="button"
-                onClick={() => setIsMobileSearchOpen(true)}
-                className="w-full bg-transparent text-left"
-                aria-haspopup="dialog"
-                aria-expanded={isMobileSearchOpen}
-              >
-                <div className="flex min-h-[54px] items-center rounded-[16px] border border-[#F0DCE1] bg-white px-4 text-[#334155]">
-                  <div className="flex min-w-0 flex-1 items-center gap-2.5">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                      className="h-4.5 w-4.5 shrink-0 text-[#F08EA4]"
-                    >
-                      <path
-                        d="m21 21-4.35-4.35M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                    <p className="truncate text-[0.9rem] font-medium text-[#3B2732]">
-                      Search service, stylist or salon
-                    </p>
-                  </div>
+          <h1
+            className={`${playfair.className} max-w-[12ch] text-[clamp(3.25rem,5.5vw,5.9rem)] leading-[0.92] tracking-[-0.045em] text-white [text-wrap:balance]`}
+          >
+            Book Your
+            <em className="mt-1 block font-normal text-[#F6E7D1]">
+              Perfect Beautician
+            </em>
+          </h1>
 
-                  <div className="mx-3 h-6 w-px shrink-0 bg-[#E9D7DC]" />
-
-                  <div className="flex min-w-0 flex-[0.92] items-center gap-2.5">
-                    <svg
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
-                      fill="none"
-                      stroke="currentColor"
-                      strokeWidth="1.8"
-                      className="h-4.5 w-4.5 shrink-0 text-[#C44D74]"
-                    >
-                      <path
-                        d="M12 21s7-5.74 7-11a7 7 0 1 0-14 0c0 5.26 7 11 7 11Z"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                      <path
-                        d="M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      />
-                    </svg>
-                    <p className="truncate text-[0.86rem] font-medium text-[#6F5661]">
-                      {locationStatus === "loading"
-                        ? "Finding location"
-                        : location}
-                    </p>
-                  </div>
-                </div>
-              </button>
-            </div>
+          <div className="relative mt-6 aspect-[2.05/1] w-full max-w-[430px] overflow-hidden rounded-[8px] border border-[#D4AF37]/80 bg-[#3D1C28] shadow-[0_18px_44px_rgba(20,0,8,0.22)] sm:mt-7">
+            <Image
+              src="/images/hero/desktop/mehndi-generated.jpg"
+              alt="Bridal mehendi artistry"
+              fill
+              sizes="(max-width: 1023px) 80vw, 430px"
+              className="object-cover object-center"
+            />
           </div>
 
-          <HeroDesktopShell
-            title={
-              <>
-                Book Your{" "}
-                <span className="relative inline-block">
-                  Perfect Beautician
-                  <span className="absolute -bottom-2 left-0 h-[4px] w-full rounded-full bg-[#D45B80]" />
-                </span>
-              </>
-            }
-            description={
-              <p>
-                Find bridal makeup, mehndi, skincare, and salon-at-home services
-                near you with a quick and simple search.
-              </p>
-            }
+          <p className="mt-5 max-w-[510px] text-sm leading-6 text-[#F7E9EC]/90 sm:mt-6 sm:text-base sm:leading-7">
+            Find bridal makeup, mehndi, skincare, and salon-at-home services
+            near you with a quick and simple search.
+          </p>
+
+          <button
+            type="button"
+            onClick={() => setIsMobileSearchOpen(true)}
+            aria-haspopup="dialog"
+            aria-expanded={isMobileSearchOpen}
+            className="premium-interactive mt-6 inline-flex min-h-[54px] items-center justify-center gap-3 rounded-[4px] bg-[#E4BE73] px-8 text-[0.76rem] font-bold uppercase tracking-[0.1em] text-[#4B071D] shadow-[0_12px_28px_rgba(20,0,8,0.2)] transition-colors hover:bg-[#F0D294] focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#FFF8F3] sm:mt-7"
           >
-            <form
-              className="border border-[#F0E0DE] bg-white p-2.5 shadow-[0_14px_40px_-28px_rgba(90,0,31,0.45)]"
-              onSubmit={handleSearchSubmit}
-            >
-              <div className="flex flex-col gap-3 lg:flex-row">
-                <label className="flex min-h-[58px] items-center gap-3 border border-[#F2E6E6] bg-white px-4 lg:flex-1">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.8"
-                    className="h-5 w-5 text-[#F08EA4]"
-                  >
-                    <path
-                      d="m21 21-4.35-4.35M10.5 18a7.5 7.5 0 1 1 0-15 7.5 7.5 0 0 1 0 15Z"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                  <input
-                    type="text"
-                    value={service}
-                    onChange={(event) => setService(event.target.value)}
-                    placeholder="Service (e.g., Mehndi)"
-                    className="w-full border-none bg-transparent text-[0.95rem] font-medium text-[#334155] placeholder:text-[#94A3B8] focus:outline-none"
-                  />
-                </label>
+            Find a Beautician
+            <ArrowRight className="h-4 w-4" aria-hidden="true" />
+          </button>
 
-                <label className="flex min-h-[58px] items-center gap-3 border border-[#F2E6E6] bg-white px-4 lg:flex-1">
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="currentColor"
-                    strokeWidth="1.8"
-                    className="h-5 w-5 text-[#F08EA4]"
-                  >
-                    <path
-                      d="M12 21s7-5.74 7-11a7 7 0 1 0-14 0c0 5.26 7 11 7 11Z"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                    <path
-                      d="M12 13a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                    />
-                  </svg>
-                  <input
-                    type="text"
-                    value={
-                      locationStatus === "loading"
-                        ? "Finding your location..."
-                        : location
-                    }
-                    onChange={(event) => setLocation(event.target.value)}
-                    className="w-full border-none bg-transparent text-[0.95rem] font-semibold text-[#1E293B] focus:outline-none"
-                  />
-                  <button
-                    type="button"
-                    onClick={requestCurrentLocation}
-                    className="shrink-0 text-sm font-semibold text-[#8A1238] transition hover:text-[#730F30]"
-                  >
-                    Use
-                  </button>
-                </label>
-
+          <div className="mt-5 flex flex-wrap justify-center gap-x-3 gap-y-1.5 text-[0.68rem] font-medium text-[#F2DCE2]/80">
+            {popularCategories.map((category, index) => (
+              <span
+                key={category.query}
+                className="inline-flex items-center gap-3"
+              >
                 <button
-                  type="submit"
-                  className="min-h-[58px] bg-[#8A1238] px-6 text-base font-semibold text-white transition-colors hover:bg-[#730F30] lg:min-w-[132px] lg:text-lg"
-                >
-                  Search
-                </button>
-              </div>
-            </form>
-
-            <div className="mt-5 flex flex-wrap gap-2.5">
-              {chips.map((chip) => (
-                <button
-                  key={chip.label}
                   type="button"
-                  onClick={() => router.push(`/services?category=${chip.query}`)}
-                  className="inline-flex items-center gap-2 rounded-full border border-[#EDD6DA] bg-white px-3.5 py-1.5 text-sm font-medium text-[#475569] hover:border-[#8A1238] hover:text-[#8A1238] hover:bg-[#FFF9FB] transition-all cursor-pointer shadow-xs"
+                  onClick={() => openCategory(category.query)}
+                  className="transition-colors hover:text-white focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#E4BE73]"
                 >
-                  <span>{chip.icon}</span>
-                  <span>{chip.label}</span>
+                  {category.label}
                 </button>
-              ))}
-            </div>
-          </HeroDesktopShell>
+                {index < popularCategories.length - 1 ? (
+                  <span aria-hidden="true" className="text-[#D4AF37]/70">
+                    ·
+                  </span>
+                ) : null}
+              </span>
+            ))}
+          </div>
         </div>
-      </section>
+      </div>
 
       <MobileSearchModal
         isOpen={isMobileSearchOpen}
@@ -344,6 +219,6 @@ export default function Hero() {
         handleSearchSubmit={handleSearchSubmit}
         popularSearches={popularSearches}
       />
-    </>
+    </section>
   );
 }

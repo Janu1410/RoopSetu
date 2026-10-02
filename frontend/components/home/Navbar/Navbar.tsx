@@ -192,8 +192,8 @@ export default function Navbar() {
 
   return (
     <>
-      <header className="premium-reveal-soft sticky top-0 z-40 border-b border-[#F1DDDE] bg-[#FFF8F3]/90 backdrop-blur-md">
-        <nav className="relative mx-auto flex h-[62px] w-full max-w-7xl items-center justify-between px-4 sm:px-6 lg:h-[68px] lg:px-6">
+      <header className="sticky top-0 z-40 bg-[#5A001F] px-3 pb-2 pt-3 sm:px-4 lg:px-5">
+        <nav className="relative mx-auto flex h-[54px] w-full items-center justify-between rounded-[8px] border border-[#D4AF37]/75 bg-[#FFF8F3] px-3 shadow-[0_8px_24px_rgba(33,4,15,0.16)] sm:px-5 lg:h-[70px] lg:px-6">
           <MobileNavbar
             authUser={authUser}
             beauticianProfileActionLabel={beauticianProfileActionLabel}

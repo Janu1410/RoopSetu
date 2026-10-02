@@ -52,7 +52,7 @@ export default function MobileSearchModal({
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 z-[70] flex items-end bg-black/35 backdrop-blur-[2px] lg:hidden">
+    <div className="fixed inset-0 z-[70] flex items-end justify-center bg-black/45 backdrop-blur-[3px] lg:items-center lg:px-6 lg:py-8">
       <button
         type="button"
         className="absolute inset-0"
@@ -64,7 +64,7 @@ export default function MobileSearchModal({
         role="dialog"
         aria-modal="true"
         aria-label="Search beautician services"
-        className="relative max-h-[82vh] w-full rounded-t-[28px] bg-white shadow-[0_-24px_60px_rgba(90,0,31,0.18)]"
+        className="relative max-h-[82vh] w-full max-w-[560px] overflow-y-auto overscroll-contain rounded-t-[28px] bg-white shadow-[0_-24px_60px_rgba(90,0,31,0.18)] lg:max-h-[min(82vh,760px)] lg:rounded-[28px] lg:shadow-[0_30px_90px_rgba(32,5,16,0.32)]"
       >
         <div className="mx-auto mt-3 h-1.5 w-14 rounded-full bg-[#E4CDD4]" />
 

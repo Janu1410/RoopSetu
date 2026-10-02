@@ -47,9 +47,7 @@ const categoryData = {
   ],
 };
 
-export default function CategoryPage({ params }: { params: { slug: string } }) {
-  // In a real app, you would fetch data based on params.slug here
-
+export default function CategoryPage() {
   return (
     <div className="min-h-screen bg-gray-50 pb-20">
       <HeroBanner

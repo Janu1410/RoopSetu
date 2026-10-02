@@ -6,7 +6,8 @@
     "dev": "next dev --turbo",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint"
+    "lint": "eslint",
+    "test:unit": "node --test tests/unit/*.test.mjs"
   },
   "dependencies": {
     "@hookform/resolvers": "^5.2.2",

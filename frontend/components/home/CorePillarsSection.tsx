@@ -1,265 +1,191 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
-import { Playfair_Display } from "next/font/google";
-import { motion } from "framer-motion";
+import { motion, useReducedMotion } from "framer-motion";
 import {
-  Sparkles,
+  ArrowDownRight,
   ArrowRight,
-  ShieldCheck,
-  HeartHandshake,
-  BookOpen,
-  CheckCircle2,
-  Bell,
-  Star,
-  Clock,
+  BookOpenText,
+  Images,
+  MapPin,
+  Sparkles,
 } from "lucide-react";
 
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  weight: ["600", "700"],
-});
+const reasons = [
+  {
+    number: "01",
+    icon: BookOpenText,
+    label: "For the first spark",
+    title: "Find a look that feels like you.",
+    description:
+      "Explore beauty ideas, categories and editorial guides before you decide what your occasion calls for.",
+    href: "/beauty-guide",
+    action: "Explore the beauty guide",
+    tone: "rose",
+  },
+  {
+    number: "02",
+    icon: Images,
+    label: "For a considered choice",
+    title: "See the work and the details.",
+    description:
+      "Artist profiles are built around portfolios, service menus, experience and service areas, so the important details have a place together.",
+    href: "/beauty-categories",
+    action: "Explore beauty categories",
+    tone: "gold",
+  },
+  {
+    number: "03",
+    icon: Sparkles,
+    label: "For independent artists",
+    title: "Make your work easier to discover.",
+    description:
+      "Beauty professionals can shape a profile with their craft, location, services and portfolio in one dedicated setup flow.",
+    href: "/become-beautician",
+    action: "Create a professional profile",
+    tone: "plum",
+  },
+] as const;
 
-type Pillar = {
-  id: string;
-  badge: string;
-  badgeColor: string;
-  icon: typeof Sparkles;
-  iconBg: string;
-  iconColor: string;
-  title: string;
-  subtitle: string;
-  description: string;
-  features: string[];
-  cta: string;
-  href: string;
-  highlight: boolean;
-  tag: string;
+const toneStyles = {
+  rose: {
+    icon: "bg-[#F5E7E9] text-[#8A1238]",
+    number: "text-[#A7465E]",
+    hover: "group-hover:text-[#8A1238]",
+  },
+  gold: {
+    icon: "bg-[#F4EDDF] text-[#826329]",
+    number: "text-[#8C7449]",
+    hover: "group-hover:text-[#826329]",
+  },
+  plum: {
+    icon: "bg-[#ECE8F0] text-[#5E496B]",
+    number: "text-[#766480]",
+    hover: "group-hover:text-[#5E496B]",
+  },
 };
 
-const pillars: Pillar[] = [
-  {
-    id: "beauticians",
-    badge: "LIVE NOW",
-    badgeColor: "bg-[#E6F4EA] text-[#137333] border-[#CEEAD6]",
-    icon: Sparkles,
-    iconBg: "bg-[#FCE8ED]",
-    iconColor: "text-[#8A1238]",
-    title: "Hand-Verified Beauticians",
-    subtitle: "At-Home & Studio Appointments",
-    description:
-      "Connect directly with curated bridal makeup artists, mehendi masters, and festive hair stylists. Transparent pricing menus and zero booking commission.",
-    features: [
-      "100% Verified portfolios & genuine bride reviews",
-      "Direct WhatsApp inquiries with no middlemen",
-      "Doorstep service or luxury studio bookings",
-    ],
-    cta: "Find Verified Artists",
-    href: "/services",
-    highlight: true,
-    tag: "Most Popular Vertical",
-  },
-  {
-    id: "rentals",
-    badge: "COMING SOON",
-    badgeColor: "bg-[#FFF4E5] text-[#B06000] border-[#FFE2B8]",
-    icon: HeartHandshake,
-    iconBg: "bg-[#FFF4E5]",
-    iconColor: "text-[#B06000]",
-    title: "Ethnic Wear & Jewelry Rentals",
-    subtitle: "Navratri Chaniyas & Bridal Lehengas",
-    description:
-      "Wear authentic handcrafted Kutchi Chaniya Cholis, designer bridal couture, and royal Kundan/Polki jewelry at just 10% of retail price with verified security deposit protection.",
-    features: [
-      "Save 90% without hoarding single-use festive outfits",
-      "Sanitized, tailored fit & doorstep delivery",
-      "Curated sets matching your makeup style",
-    ],
-    cta: "Explore Rental Teaser",
-    href: "/services",
-    highlight: false,
-    tag: "Launching Navratri 2026",
-  },
-  {
-    id: "guide",
-    badge: "EXPLORE LOOKS",
-    badgeColor: "bg-[#F3E8FF] text-[#6B21A8] border-[#E9D5FF]",
-    icon: BookOpen,
-    iconBg: "bg-[#F3E8FF]",
-    iconColor: "text-[#6B21A8]",
-    title: "Beauty & Style Lookbook",
-    subtitle: "Curated Trends & Editorial Guides",
-    description:
-      "Browse hand-curated festive makeup trends, Gujarati & Marwari bridal lookbooks, and step-by-step beauty routines. Match any editorial look directly to local artists.",
-    features: [
-      "Editorial inspiration for all 9 Navratri nights",
-      "Product recommendations for sweat-resistant garba",
-      "One-click 'Get This Look' artist attribution",
-    ],
-    cta: "Browse Beauty Guide",
-    href: "/beauty-guide",
-    highlight: false,
-    tag: "Editorial Inspiration",
-  },
-];
-
 export default function CorePillarsSection() {
-  const [waitlistNotified, setWaitlistNotified] = useState(false);
+  const reducedMotion = useReducedMotion();
 
   return (
-    <section className="relative py-20 sm:py-24 bg-[#FFF8F3] overflow-hidden border-t border-[#F2E5E0]">
-      {/* Ambient background decoration */}
-      <div className="pointer-events-none absolute inset-0">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-gradient-to-r from-[#D4AF37]/5 via-[#8A1238]/5 to-transparent rounded-full blur-3xl" />
-      </div>
+    <section
+      id="why-roopsetu"
+      aria-labelledby="why-roopsetu-heading"
+      className="relative isolate overflow-hidden border-y border-[#E9DFDA] bg-[#F7F1E9] px-5 py-20 sm:px-8 sm:py-24 lg:px-12 lg:py-28"
+    >
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-32 top-[-10rem] h-[28rem] w-[28rem] rounded-full border border-[#8A1238]/10 sm:right-[-8rem]"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-16 top-[-8rem] h-[24rem] w-[24rem] rounded-full border border-[#8A1238]/10 sm:right-[-4rem]"
+      />
 
-      <div className="relative mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
-        {/* Section Header */}
-        <div className="text-center max-w-3xl mx-auto mb-14 sm:mb-18">
+      <div className="relative mx-auto max-w-[1320px]">
+        <div className="grid gap-10 lg:grid-cols-[0.83fr_1.17fr] lg:items-end lg:gap-16">
           <motion.div
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="inline-flex items-center gap-2 rounded-full border border-[#EFD3DC] bg-white/90 backdrop-blur-md px-4 py-1.5 text-xs sm:text-sm font-semibold text-[#8A1238] shadow-xs mb-4"
+            initial={reducedMotion ? false : { opacity: 0, y: 18 }}
+            whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
           >
-            <ShieldCheck className="w-4 h-4 text-[#8A1238]" />
-            <span>The 3 Pillars of RoopSetu</span>
+            <p className="mb-5 flex items-center gap-3 text-[0.68rem] font-bold uppercase tracking-[0.22em] text-[#8A1238]">
+              <span className="h-px w-8 bg-[#B88D43]" />
+              Why RoopSetu
+            </p>
+            <h2
+              id="why-roopsetu-heading"
+              className="max-w-[620px] font-serif text-[clamp(2.7rem,5.4vw,5rem)] leading-[0.98] tracking-[-0.045em] text-[#34252D] [text-wrap:balance]"
+            >
+              Beauty choices,
+              <br />
+              <span className="italic text-[#8A1238]">with a clearer path.</span>
+            </h2>
           </motion.div>
 
-          <motion.h2
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.1 }}
-            className={`${playfair.className} text-3xl sm:text-4xl lg:text-5xl font-bold text-[#5A001F] tracking-tight`}
+          <motion.div
+            initial={reducedMotion ? false : { opacity: 0, y: 18 }}
+            whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: "-60px" }}
+            transition={{ duration: 0.65, delay: 0.08, ease: [0.22, 1, 0.36, 1] }}
+            className="max-w-[590px] lg:justify-self-end"
           >
-            Your Complete Festive &{" "}
-            <span className="italic bg-gradient-to-r from-[#8A1238] to-[#C9933E] bg-clip-text text-transparent">
-              Wedding Bridge
-            </span>
-          </motion.h2>
-
-          <motion.p
-            initial={{ opacity: 0, y: 15 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.2 }}
-            className="mt-4 text-base sm:text-lg text-[#6C5662] leading-relaxed"
-          >
-            We bridge the gap between discerning celebrants and hand-verified beauty professionals, regal attire, and timeless styling inspiration.
-          </motion.p>
+            <p className="text-base leading-7 text-[#66585D] sm:text-lg sm:leading-8">
+              RoopSetu brings beauty inspiration and independent professionals
+              into one considered space, helping you move from an idea toward
+              the details that matter.
+            </p>
+            <div className="mt-6 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.14em] text-[#796C70]">
+              <span className="flex h-8 w-8 items-center justify-center rounded-full border border-[#D9C9C3] text-[#8A1238]">
+                <ArrowDownRight className="h-4 w-4" aria-hidden="true" />
+              </span>
+              Made for the people who create the look, too
+            </div>
+          </motion.div>
         </div>
 
-        {/* 3 Interactive Pillar Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 sm:gap-8 items-stretch">
-          {pillars.map((pillar, idx) => {
-            const Icon = pillar.icon;
-            return (
-              <motion.div
-                key={pillar.id}
-                initial={{ opacity: 0, y: 24 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, margin: "-40px" }}
-                transition={{ duration: 0.5, delay: idx * 0.12 }}
-                whileHover={{ y: -8 }}
-                className={`relative flex flex-col justify-between rounded-3xl bg-white p-7 sm:p-8 transition-all duration-300 border ${
-                  pillar.highlight
-                    ? "border-[#E7B8C6] shadow-[0_20px_45px_-12px_rgba(90,0,31,0.14)] ring-2 ring-[#8A1238]/10"
-                    : "border-[#EFE5E0] shadow-[0_12px_30px_-10px_rgba(0,0,0,0.06)] hover:border-[#D4AF37]/50 hover:shadow-[0_20px_40px_-12px_rgba(90,0,31,0.1)]"
-                }`}
-              >
-                {/* Top Corner Ribbon / Tag */}
-                <div className="flex items-center justify-between gap-3 mb-6">
-                  <div
-                    className={`inline-flex h-12 w-12 items-center justify-center rounded-2xl ${pillar.iconBg} ${pillar.iconColor} shadow-xs`}
-                  >
-                    <Icon className="w-6 h-6" />
-                  </div>
+        <div className="relative mt-14 grid gap-px overflow-hidden rounded-[1.75rem] border border-[#E1D5CE] bg-[#E1D5CE] sm:mt-16 lg:grid-cols-3">
+          {reasons.map((reason, index) => {
+            const Icon = reason.icon;
+            const tone = toneStyles[reason.tone];
 
-                  <span
-                    className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-[0.72rem] font-bold tracking-wide uppercase border ${pillar.badgeColor}`}
-                  >
-                    {pillar.id === "beauticians" && (
-                      <span className="relative flex h-2 w-2">
-                        <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[#137333] opacity-75" />
-                        <span className="relative inline-flex rounded-full h-2 w-2 bg-[#137333]" />
-                      </span>
-                    )}
-                    {pillar.badge}
+            return (
+              <motion.article
+                key={reason.number}
+                initial={reducedMotion ? false : { opacity: 0, y: 20 }}
+                whileInView={reducedMotion ? undefined : { opacity: 1, y: 0 }}
+                viewport={{ once: true, margin: "-40px" }}
+                transition={{
+                  duration: 0.55,
+                  delay: reducedMotion ? 0 : index * 0.09,
+                  ease: [0.22, 1, 0.36, 1],
+                }}
+                className="group flex min-h-[330px] flex-col bg-[#FBF8F3] p-6 sm:min-h-[350px] sm:p-8 lg:p-9"
+              >
+                <div className="flex items-start justify-between">
+                  <span className={`font-mono text-xs tracking-[0.18em] ${tone.number}`}>
+                    {reason.number}
+                  </span>
+                  <span className={`flex h-11 w-11 items-center justify-center rounded-full ${tone.icon}`}>
+                    <Icon className="h-[1.15rem] w-[1.15rem]" strokeWidth={1.7} aria-hidden="true" />
                   </span>
                 </div>
 
-                {/* Card Header & Description */}
-                <div>
-                  <div className="flex items-center gap-1.5 text-xs font-semibold text-[#A07080] mb-1.5">
-                    <Sparkles className="w-3 h-3 text-[#D4AF37]" />
-                    <span>{pillar.tag}</span>
-                  </div>
-
-                  <h3
-                    className={`${playfair.className} text-2xl font-bold text-[#2D2230] leading-snug mb-3`}
-                  >
-                    {pillar.title}
-                  </h3>
-
-                  <p className="text-sm text-[#64748B] leading-relaxed mb-6">
-                    {pillar.description}
+                <div className="mt-9">
+                  <p className="mb-3 text-[0.64rem] font-bold uppercase tracking-[0.18em] text-[#927D75]">
+                    {reason.label}
                   </p>
-
-                  {/* Feature Checkpoints */}
-                  <ul className="space-y-2.5 mb-8 border-t border-[#F5EBE6] pt-5">
-                    {pillar.features.map((feature, fIdx) => (
-                      <li key={fIdx} className="flex items-start gap-2.5 text-xs text-[#544152] font-medium leading-relaxed">
-                        <CheckCircle2 className="w-4 h-4 text-[#137333] shrink-0 mt-0.5" />
-                        <span>{feature}</span>
-                      </li>
-                    ))}
-                  </ul>
+                  <h3 className="max-w-[18rem] font-serif text-[1.75rem] leading-[1.1] tracking-[-0.025em] text-[#34252D] sm:text-[1.9rem]">
+                    {reason.title}
+                  </h3>
+                  <p className="mt-4 max-w-[25rem] text-sm leading-6 text-[#6C6062]">
+                    {reason.description}
+                  </p>
                 </div>
 
-                {/* Bottom Action Area */}
-                <div className="pt-4 border-t border-[#F5EBE6]">
-                  {pillar.id === "rentals" ? (
-                    <div className="flex items-center justify-between gap-2">
-                      <Link
-                        href={pillar.href}
-                        className="inline-flex items-center gap-1.5 text-xs font-bold text-[#B06000] hover:text-[#804600] transition-colors"
-                      >
-                        <span>Learn More</span>
-                        <ArrowRight className="w-3.5 h-3.5" />
-                      </Link>
-
-                      <button
-                        type="button"
-                        onClick={() => setWaitlistNotified(true)}
-                        className={`inline-flex items-center gap-1 text-[0.72rem] font-bold px-3 py-1.5 rounded-full transition-all cursor-pointer ${
-                          waitlistNotified
-                            ? "bg-[#E6F4EA] text-[#137333]"
-                            : "bg-[#FFF4E5] hover:bg-[#FFE8CC] text-[#B06000] border border-[#FFE2B8]"
-                        }`}
-                      >
-                        <Bell className="w-3 h-3" />
-                        <span>{waitlistNotified ? "Notified!" : "Notify Me"}</span>
-                      </button>
-                    </div>
-                  ) : (
-                    <Link
-                      href={pillar.href}
-                      className={`inline-flex items-center justify-between w-full py-2.5 px-4 rounded-xl text-xs font-bold transition-all group ${
-                        pillar.highlight
-                          ? "bg-gradient-to-r from-[#5A001F] to-[#8A1238] text-white shadow-sm hover:shadow-md"
-                          : "bg-[#FFF5F8] text-[#8A1238] hover:bg-[#8A1238] hover:text-white"
-                      }`}
-                    >
-                      <span>{pillar.cta}</span>
-                      <ArrowRight className="w-3.5 h-3.5 transition-transform group-hover:translate-x-1" />
-                    </Link>
-                  )}
-                </div>
-              </motion.div>
+                <Link
+                  href={reason.href}
+                  className={`mt-auto inline-flex w-fit items-center gap-2 pt-8 text-xs font-bold text-[#493A40] transition-colors ${tone.hover} focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#8A1238]`}
+                >
+                  {reason.action}
+                  <ArrowRight className="h-3.5 w-3.5 transition-transform group-hover:translate-x-1" aria-hidden="true" />
+                </Link>
+              </motion.article>
             );
           })}
+        </div>
+
+        <div className="mt-6 flex flex-col gap-3 border-t border-[#DCCFC8] pt-5 text-xs leading-5 text-[#7D7070] sm:flex-row sm:items-center sm:justify-between">
+          <span className="inline-flex items-center gap-2">
+            <MapPin className="h-3.5 w-3.5 text-[#8A1238]" aria-hidden="true" />
+            Profiles can include location, services and portfolio work.
+          </span>
+          <span className="inline-flex items-center gap-2 sm:justify-end">
+            Inspiration for every occasion
+            <span className="h-px w-8 bg-[#B88D43]" />
+          </span>
         </div>
       </div>
     </section>

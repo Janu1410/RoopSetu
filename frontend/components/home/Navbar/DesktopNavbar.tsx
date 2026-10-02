@@ -47,33 +47,39 @@ export default function DesktopNavbar({
           alt="RoopSetu logo"
           width={1100}
           height={300}
-          className="block h-auto w-[160px] max-w-none object-contain lg:w-[178px]"
+          className="block h-auto w-[160px] max-w-none object-contain lg:w-[190px] xl:w-[205px]"
           priority
         />
       </Link>
 
-      <ul className="hidden items-center gap-7 lg:flex h-full">
+      <ul className="hidden h-full items-stretch border-l border-[#8A1238]/20 lg:flex">
         {navItems.map((item) => {
           const isActive = pathname === item.href;
+          const isPartnerLink = item.href === "/become-partner";
           return (
-            <li key={item.label} className="h-full flex items-center relative">
+            <li
+              key={item.label}
+              className="relative flex h-full items-center border-r border-[#8A1238]/20"
+            >
               <Link
                 href={item.href}
-                className={`premium-interactive text-[0.95rem] font-medium transition-colors duration-200 hover:text-[#8A1238] ${
-                  isActive ? "text-[#8A1238]" : "text-[#334155]"
+                className={`premium-interactive flex h-full items-center px-3.5 text-[0.68rem] font-bold uppercase tracking-[0.045em] transition-colors duration-200 xl:px-5 xl:text-[0.75rem] ${
+                  isPartnerLink
+                    ? "bg-[#5A001F] text-white hover:bg-[#741235]"
+                    : isActive
+                      ? "bg-[#F1D494] text-[#5A001F]"
+                      : "text-[#5A001F] hover:bg-[#F9F0E4]"
                 }`}
+                aria-current={isActive ? "page" : undefined}
               >
                 {item.label}
               </Link>
-              {isActive && (
-                <div className="absolute bottom-0 left-0 w-full h-[2px] bg-[#8A1238] rounded-t-sm" />
-              )}
             </li>
           );
         })}
       </ul>
 
-      <div className="hidden items-center gap-4 lg:flex">
+      <div className="hidden h-full items-center gap-2 pl-3 lg:flex xl:gap-3 xl:pl-4">
         {authUser ? (
           <div className="relative" ref={desktopProfileMenuRef}>
             <button
@@ -124,7 +130,7 @@ export default function DesktopNavbar({
 
         <Link
           href="/liked"
-          className="inline-flex h-6 w-6 items-center justify-center text-[#8A1238] transition-opacity hover:opacity-75"
+          className="premium-interactive inline-flex h-9 w-9 items-center justify-center rounded-sm text-[#8A1238] transition-colors hover:bg-[#F8E9EC]"
           aria-label="Liked profiles"
         >
           <svg
