@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import type { AuthUser } from "@/lib/auth";
+import CitySelector from "@/components/home/Navbar/CitySelector";
 import {
   getBeauticianProfileHref,
   type BeauticianProfileActionLabel,
@@ -12,6 +13,8 @@ type MobileMenuProps = {
   authUser: AuthUser | null;
   beauticianProfileActionLabel: BeauticianProfileActionLabel | null;
   navItems: NavItem[];
+  selectedCity: string;
+  onSelectCity: (city: string) => void;
   isMenuOpen: boolean;
   onCloseMenu: () => void;
   onLogout: () => void;
@@ -21,6 +24,8 @@ export default function MobileMenu({
   authUser,
   beauticianProfileActionLabel,
   navItems,
+  selectedCity,
+  onSelectCity,
   isMenuOpen,
   onCloseMenu,
   onLogout,
@@ -42,24 +47,24 @@ export default function MobileMenu({
         className={`relative h-full overflow-y-auto border-l border-[#EEDBDD] bg-[#FFF8F3] shadow-[-24px_0_60px_rgba(90,0,31,0.2)] transition-transform duration-300 ease-out ${
           isMenuOpen ? "translate-x-0" : "translate-x-full"
         }`}
-        style={{ width: "66.6667vw", maxWidth: "420px" }}
+        style={{ width: "80vw", maxWidth: "420px" }}
       >
         <div className="flex min-h-full flex-col px-5 pb-8 pt-5">
-          <div className="flex items-start justify-between border-b border-[#EEDBDD] pb-5">
+          <div className="flex items-start justify-between border-b border-[#EEDBDD] pb-4">
             <div>
               <Image
                 src="/roopsetu-wordmark.png"
                 alt="RoopSetu logo"
                 width={1100}
                 height={300}
-                className="h-[32px] w-auto max-w-none object-contain"
+                className="h-[30px] w-auto max-w-none object-contain"
               />
             </div>
 
             <button
               type="button"
               onClick={onCloseMenu}
-              className="inline-flex h-10 w-10 items-center justify-center rounded-full border border-[#E7D3D6] bg-white text-[#8A1238]"
+              className="inline-flex h-9 w-9 items-center justify-center rounded-full border border-[#E7D3D6] bg-white text-[#8A1238]"
               aria-label="Close navigation menu"
             >
               <svg
@@ -77,8 +82,17 @@ export default function MobileMenu({
             </button>
           </div>
 
+          {/* City Selection Card in Mobile Menu */}
+          <div className="mt-4">
+            <CitySelector
+              selectedCity={selectedCity}
+              onSelectCity={onSelectCity}
+              variant="mobile-card"
+            />
+          </div>
+
           {authUser ? (
-            <div className="mt-5 rounded-2xl border border-[#E7D3D6] bg-white p-4">
+            <div className="mt-4 rounded-2xl border border-[#E7D3D6] bg-white p-4">
               <div className="flex items-center gap-3">
                 <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-[#8A1238] text-sm font-semibold text-white">
                   <svg
@@ -105,14 +119,14 @@ export default function MobileMenu({
                 </div>
               </div>
 
-              <div className="mt-4 flex flex-col gap-3">
+              <div className="mt-4 flex flex-col gap-2.5">
                 {authUser.role === "BEAUTICIAN" &&
                 beauticianProfileActionLabel ? (
                   <Link
                     href={getBeauticianProfileHref(
                       beauticianProfileActionLabel,
                     )}
-                    className="inline-flex items-center justify-between rounded-xl border border-[#F0D7DE] px-3 py-3 text-sm font-semibold text-[#8A1238]"
+                    className="inline-flex items-center justify-between rounded-xl border border-[#F0D7DE] px-3 py-2.5 text-xs font-bold text-[#8A1238]"
                     onClick={onCloseMenu}
                   >
                     <span>{beauticianProfileActionLabel}</span>
@@ -122,7 +136,7 @@ export default function MobileMenu({
 
                 <button
                   type="button"
-                  className="inline-flex items-center justify-between rounded-xl border border-[#F0D7DE] px-3 py-3 text-sm font-semibold text-[#8A1238]"
+                  className="inline-flex items-center justify-between rounded-xl border border-[#F0D7DE] px-3 py-2.5 text-xs font-bold text-[#8A1238]"
                   onClick={onLogout}
                 >
                   <span>Logout</span>
@@ -132,21 +146,33 @@ export default function MobileMenu({
             </div>
           ) : null}
 
-          <div
-            className={`${authUser ? "mt-8" : "mt-6"} flex flex-col gap-5 text-[#334155]`}
-          >
+          {/* Navigation Links */}
+          <div className="mt-6 flex flex-col gap-3">
             {navItems.map((item) => {
               const isActive = pathname === item.href;
+              const isPartnerLink =
+                item.href === "/become-beautician" ||
+                item.href === "/become-partner";
+
               return (
                 <Link
                   key={item.label}
                   href={item.href}
-                  className={`text-[1.15rem] transition-colors hover:text-[#8A1238] ${
-                    isActive ? "text-[#8A1238] font-bold" : "font-medium"
+                  className={`flex items-center justify-between rounded-xl px-3.5 py-3 transition-colors ${
+                    isPartnerLink
+                      ? "bg-[#5A001F] text-white hover:bg-[#741235] font-bold mt-2 shadow-xs"
+                      : isActive
+                        ? "bg-[#F1D494]/60 text-[#5A001F] font-bold"
+                        : "text-[#34252D] hover:bg-[#F9ECEF] font-semibold text-base"
                   }`}
                   onClick={onCloseMenu}
                 >
-                  {item.label}
+                  <span className="text-sm sm:text-base">{item.label}</span>
+                  {item.badge ? (
+                    <span className="rounded-full bg-[#E5C16C]/40 px-2 py-0.5 text-[0.6rem] font-extrabold uppercase tracking-wider text-[#5A001F] border border-[#D4AF37]/80">
+                      {item.badge}
+                    </span>
+                  ) : null}
                 </Link>
               );
             })}
@@ -156,3 +182,4 @@ export default function MobileMenu({
     </div>
   );
 }
+

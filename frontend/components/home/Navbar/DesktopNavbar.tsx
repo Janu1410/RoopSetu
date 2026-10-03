@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import type { RefObject } from "react";
 import type { AuthUser } from "@/lib/auth";
 import ProfileDropdown from "@/components/home/Navbar/ProfileDropdown";
+import CitySelector from "@/components/home/Navbar/CitySelector";
 import type {
   BeauticianProfileActionLabel,
   NavItem,
@@ -13,6 +14,8 @@ type DesktopNavbarProps = {
   authUser: AuthUser | null;
   beauticianProfileActionLabel: BeauticianProfileActionLabel | null;
   navItems: NavItem[];
+  selectedCity: string;
+  onSelectCity: (city: string) => void;
   isProfileMenuOpen: boolean;
   isLoginOpen: boolean;
   desktopProfileMenuRef: RefObject<HTMLDivElement | null>;
@@ -26,6 +29,8 @@ export default function DesktopNavbar({
   authUser,
   beauticianProfileActionLabel,
   navItems,
+  selectedCity,
+  onSelectCity,
   isProfileMenuOpen,
   isLoginOpen,
   desktopProfileMenuRef,
@@ -55,7 +60,10 @@ export default function DesktopNavbar({
       <ul className="hidden h-full items-stretch border-l border-[#8A1238]/20 lg:flex">
         {navItems.map((item) => {
           const isActive = pathname === item.href;
-          const isPartnerLink = item.href === "/become-partner";
+          const isPartnerLink =
+            item.href === "/become-beautician" ||
+            item.href === "/become-partner";
+
           return (
             <li
               key={item.label}
@@ -63,7 +71,7 @@ export default function DesktopNavbar({
             >
               <Link
                 href={item.href}
-                className={`premium-interactive flex h-full items-center px-3.5 text-[0.68rem] font-bold uppercase tracking-[0.045em] transition-colors duration-200 xl:px-5 xl:text-[0.75rem] ${
+                className={`premium-interactive flex h-full items-center gap-1.5 px-3.5 text-[0.68rem] font-bold uppercase tracking-[0.045em] transition-colors duration-200 xl:px-4 xl:text-[0.74rem] ${
                   isPartnerLink
                     ? "bg-[#5A001F] text-white hover:bg-[#741235]"
                     : isActive
@@ -72,19 +80,31 @@ export default function DesktopNavbar({
                 }`}
                 aria-current={isActive ? "page" : undefined}
               >
-                {item.label}
+                <span>{item.label}</span>
+                {item.badge ? (
+                  <span className="rounded-full bg-[#E5C16C]/35 px-1.5 py-0.5 text-[0.55rem] font-extrabold uppercase tracking-wider text-[#5A001F] border border-[#D4AF37]/80">
+                    {item.badge}
+                  </span>
+                ) : null}
               </Link>
             </li>
           );
         })}
       </ul>
 
-      <div className="hidden h-full items-center gap-2 pl-3 lg:flex xl:gap-3 xl:pl-4">
+      <div className="hidden h-full items-center gap-2.5 pl-3 lg:flex xl:gap-3 xl:pl-4">
+        {/* City Selector with GPS auto-detect */}
+        <CitySelector
+          selectedCity={selectedCity}
+          onSelectCity={onSelectCity}
+          variant="desktop"
+        />
+
         {authUser ? (
           <div className="relative" ref={desktopProfileMenuRef}>
             <button
               type="button"
-              className="premium-interactive inline-flex h-6 w-6 items-center justify-center text-[#8A1238] transition-opacity hover:opacity-75"
+              className="premium-interactive inline-flex h-7 w-7 items-center justify-center text-[#8A1238] transition-opacity hover:opacity-75"
               aria-label="Profile"
               aria-haspopup="menu"
               aria-expanded={isProfileMenuOpen}
@@ -119,7 +139,7 @@ export default function DesktopNavbar({
         ) : (
           <button
             type="button"
-            className="premium-interactive inline-flex items-center justify-center bg-transparent px-0 text-sm font-semibold text-[#6C4A59] transition-colors duration-200 hover:text-[#8A1238] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8A1238]"
+            className="premium-interactive inline-flex items-center justify-center bg-transparent px-1 text-sm font-semibold text-[#6C4A59] transition-colors duration-200 hover:text-[#8A1238] focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-[#8A1238]"
             aria-haspopup="dialog"
             aria-expanded={isLoginOpen}
             onClick={onOpenLogin}
@@ -150,3 +170,4 @@ export default function DesktopNavbar({
     </>
   );
 }
+

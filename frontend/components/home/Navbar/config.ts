@@ -4,6 +4,8 @@ export type BeauticianProfileActionLabel =
 export type NavItem = {
   label: string;
   href: string;
+  badge?: string;
+  isComingSoon?: boolean;
 };
 
 export const getBeauticianProfileHref = (
@@ -21,6 +23,13 @@ export const getBeauticianProfileHref = (
 export const NAV_ITEMS: NavItem[] = [
   { label: "Home", href: "/" },
   { label: "Services", href: "/services" },
+  {
+    label: "Ethnic Rentals",
+    href: "/#ethnic-rentals",
+    badge: "Coming Soon",
+    isComingSoon: true,
+  },
   { label: "Beauty Guide", href: "/beauty-guide" },
-  { label: "Become Partner", href: "/become-partner" },
+  { label: "Become Partner", href: "/become-beautician" },
 ];
+

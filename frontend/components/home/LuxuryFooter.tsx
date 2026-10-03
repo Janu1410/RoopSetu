@@ -1,290 +1,116 @@
-"use client";
-
-import { useState } from "react";
 import Link from "next/link";
-import { Playfair_Display } from "next/font/google";
-import { motion } from "framer-motion";
-import {
-  Sparkles,
-  ShieldCheck,
-  Heart,
-  ArrowRight,
-  CheckCircle2,
-  MapPin,
-  MessageCircle,
-  Mail,
-} from "lucide-react";
+import { ArrowUpRight, Sparkles } from "lucide-react";
 
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  weight: ["600", "700"],
-});
-
-const CITIES = [
-  { name: "Ahmedabad", areas: "Satellite, Bodakdev, SG Highway, Prahlad Nagar" },
-  { name: "Surat", areas: "Ghod Dod Road, Vesu, Adajan, Piplod" },
-  { name: "Vadodara", areas: "Alkapuri, Akota, Vasna, Gotri" },
-  { name: "Rajkot", areas: "Kalawad Road, Yagnik Road, Amin Marg" },
-  { name: "Mumbai", areas: "Juhu, Bandra, Andheri, Ghatkopar" },
+const discoverLinks = [
+  { label: "Beauty categories", href: "/beauty-categories" },
+  { label: "Beauty guide", href: "/beauty-guide" },
+  { label: "Services", href: "/services" },
 ];
 
-export default function LuxuryFooter() {
-  const [newsletterEmail, setNewsletterEmail] = useState("");
-  const [subscribed, setSubscribed] = useState(false);
+const communityLinks = [
+  { label: "For beauty professionals", href: "/become-beautician" },
+  { label: "Partner sign in", href: "/login" },
+];
 
-  const handleSubscribe = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (newsletterEmail.trim()) {
-      setSubscribed(true);
-      setTimeout(() => {
-        setNewsletterEmail("");
-      }, 3000);
-    }
-  };
-
+function PinterestMark() {
   return (
-    <footer className="relative bg-gradient-to-b from-[#4A0018] via-[#380113] to-[#24000C] text-[#F5E6EC] border-t border-[#D4AF37]/35 overflow-hidden">
-      {/* Ambient Silk Light Glows */}
-      <div className="pointer-events-none absolute -top-40 left-1/4 h-96 w-96 rounded-full bg-[#D4AF37]/10 blur-[120px]" />
-      <div className="pointer-events-none absolute -bottom-32 right-10 h-80 w-80 rounded-full bg-[#8A1238]/25 blur-[100px]" />
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="currentColor" className="h-[18px] w-[18px]">
+      <path d="M12.04 2C6.57 2 3.68 5.93 3.68 9.22c0 1.99.75 3.76 2.36 4.42.26.11.5 0 .58-.28l.24-.97c.08-.28.05-.38-.16-.63-.47-.55-.77-1.26-.77-2.27 0-2.93 2.2-5.55 5.73-5.55 3.13 0 4.85 1.91 4.85 4.46 0 3.35-1.48 6.18-3.68 6.18-1.21 0-2.12-1-1.83-2.24.35-1.48 1.04-3.08 1.04-4.14 0-.95-.51-1.74-1.57-1.74-1.25 0-2.25 1.3-2.25 3.05 0 1.11.38 1.86.38 1.86l-1.52 6.45c-.45 1.92-.07 4.28-.04 4.52.02.14.2.18.29.07.12-.15 1.66-2.06 2.18-3.93.15-.53.86-3.37.86-3.37.43.82 1.69 1.54 3.02 1.54 3.98 0 6.68-3.63 6.68-8.49C20.07 5.42 16.88 2 12.04 2Z" />
+    </svg>
+  );
+}
 
-      {/* Top Pre-Footer Newsletter / Lookbook Strip */}
-      <div className="border-b border-[#6E1632]/60 bg-black/15 backdrop-blur-md">
-        <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-10 sm:py-12">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
-            <div className="lg:col-span-7">
-              <div className="inline-flex items-center gap-2 rounded-full border border-[#D4AF37]/40 bg-[#5A001F]/60 px-3.5 py-1 text-xs font-semibold text-[#FFD2DD] mb-3 backdrop-blur-sm">
-                <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]" />
-                <span>The RoopSetu Bridal & Festive Edit</span>
-              </div>
-              <h3 className={`${playfair.className} text-2xl sm:text-3xl font-bold text-white tracking-tight`}>
-                Curated Trends & Artist Spotlights, Weekly.
-              </h3>
-              <p className="mt-2 text-sm text-[#D8B4C0] max-w-xl">
-                Get handpicked bridal lookbooks, Navratri beauty guides, and early access to designer rentals delivered to your inbox.
-              </p>
-            </div>
+function InstagramMark() {
+  return (
+    <svg aria-hidden="true" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" className="h-[18px] w-[18px]">
+      <rect x="3" y="3" width="18" height="18" rx="5" />
+      <circle cx="12" cy="12" r="4" />
+      <circle cx="17.5" cy="6.7" r="0.8" fill="currentColor" stroke="none" />
+    </svg>
+  );
+}
 
-            <div className="lg:col-span-5">
-              {subscribed ? (
-                <motion.div
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  className="rounded-xl bg-[#2E7D32]/25 border border-[#4CAF50]/40 p-4 text-center text-white"
-                >
-                  <p className="text-sm font-semibold flex items-center justify-center gap-2 text-[#A5D6A7]">
-                    <CheckCircle2 className="w-4 h-4" />
-                    <span>Welcome to the RoopSetu Inner Circle!</span>
-                  </p>
-                </motion.div>
-              ) : (
-                <form onSubmit={handleSubscribe} className="flex gap-2">
-                  <div className="relative flex-1">
-                    <Mail className="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-[#C49DA9]" />
-                    <input
-                      type="email"
-                      required
-                      value={newsletterEmail}
-                      onChange={(e) => setNewsletterEmail(e.target.value)}
-                      placeholder="Enter your email for the Lookbook"
-                      className="w-full rounded-xl bg-white/10 border border-[#85223E] pl-10 pr-4 py-3 text-sm text-white placeholder-[#C49DA9] focus:outline-none focus:border-[#D4AF37] focus:ring-2 focus:ring-[#D4AF37]/20 transition-all backdrop-blur-sm"
-                    />
-                  </div>
-                  <button
-                    type="submit"
-                    className="px-5 py-3 rounded-xl bg-gradient-to-r from-[#D4AF37] to-[#C29826] text-[#33000F] font-bold text-sm hover:brightness-110 active:scale-95 transition-all shadow-md shrink-0 flex items-center gap-1.5 cursor-pointer"
-                  >
-                    <span>Subscribe</span>
-                    <ArrowRight className="w-4 h-4" />
-                  </button>
-                </form>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
+export default function LuxuryFooter() {
+  return (
+    <footer className="relative overflow-hidden bg-[#FFF8F3] text-[#2D2230]">
+      <div className="pointer-events-none absolute -right-36 -top-40 h-96 w-96 rounded-full bg-[#E6C27B]/20 blur-3xl" />
 
-      {/* Main Navigation Directory */}
-      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 pt-16 pb-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-10 pb-12 border-b border-[#6E1632]/50">
-          {/* Brand Bio Column */}
-          <div className="lg:col-span-2">
-            <Link href="/" className="inline-flex items-center gap-2.5 mb-4 group">
-              <span className={`${playfair.className} text-3xl font-bold tracking-tight text-white group-hover:text-[#FFD2DD] transition-colors`}>
-                RoopSetu
-              </span>
-              <span className="text-[0.65rem] font-bold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-[#6C0024] text-[#FFD2DD] border border-[#A11B45] shadow-xs">
-                ✦ Elegance
+      <div className="relative mx-auto max-w-7xl px-5 pb-7 pt-14 sm:px-8 sm:pt-20 lg:px-10">
+        <div className="grid gap-12 border-b border-[#5A001F]/15 pb-12 md:grid-cols-12 md:gap-8 lg:pb-16">
+          <div className="md:col-span-6 lg:col-span-5">
+            <Link href="/" aria-label="RoopSetu home" className="group inline-flex items-center gap-2">
+              <span className="font-serif text-3xl font-semibold tracking-tight text-[#5A001F] sm:text-4xl">
+                RoopSetu<span className="text-[#B67A36]">.</span>
               </span>
             </Link>
-
-            <p className="text-sm text-[#D8B4C0] leading-relaxed max-w-sm mb-6">
-              RoopSetu (रूपसेतु – The Bridge of Elegance) is Gujarat & Mumbai’s premier festive beauty ecosystem. Connecting brides and celebrants with hand-verified artists, bridal attire, and curated lookbooks.
+            <p className="mt-4 max-w-md text-sm leading-7 text-[#66545D] sm:text-base">
+              A little inspiration, a trusted beauty professional, and the confidence to make every moment your own.
             </p>
-
-            <div className="inline-flex items-center gap-2 rounded-xl bg-[#5A001F]/60 px-4 py-2.5 text-xs font-semibold text-[#FFD2DD] border border-[#85223E] shadow-sm">
-              <ShieldCheck className="w-4 h-4 text-[#D4AF37]" />
-              <span>100% Hand-Verified Artist Credentials</span>
-            </div>
-
-            <div className="mt-6 flex items-center gap-3">
-              <a
-                href="https://instagram.com"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="h-9 w-9 rounded-lg bg-white/10 hover:bg-white/20 border border-white/15 flex items-center justify-center text-white transition-colors"
-                aria-label="Instagram"
-              >
-                <svg
-                  className="w-4 h-4"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
-                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
-                  <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
-                </svg>
-              </a>
-              <a
-                href="https://wa.me/919999999999"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="h-9 w-9 rounded-lg bg-[#25D366]/20 hover:bg-[#25D366]/35 border border-[#25D366]/40 flex items-center justify-center text-[#25D366] transition-colors"
-                aria-label="WhatsApp Concierge"
-              >
-                <MessageCircle className="w-4 h-4" />
-              </a>
+            <div className="mt-6 inline-flex items-center gap-2 rounded-full border border-[#5A001F]/10 bg-white/70 px-3.5 py-2 text-xs font-medium text-[#5A001F]">
+              <Sparkles className="h-3.5 w-3.5 text-[#B67A36]" aria-hidden="true" />
+              Beauty inspiration for every occasion
             </div>
           </div>
 
-          {/* Quick Links Column */}
-          <div>
-            <h4 className="text-xs font-bold uppercase tracking-widest text-[#D4AF37] mb-4">
-              Explore Services
-            </h4>
-            <ul className="space-y-2.5 text-sm">
-              <li>
-                <Link
-                  href="/services"
-                  className="text-[#E0C0CC] hover:text-white transition-colors flex items-center gap-1.5"
-                >
-                  <ArrowRight className="w-3 h-3 text-[#D4AF37]" />
-                  <span>Find Beauticians</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/beauty-guide"
-                  className="text-[#E0C0CC] hover:text-white transition-colors flex items-center gap-1.5"
-                >
-                  <ArrowRight className="w-3 h-3 text-[#D4AF37]" />
-                  <span>Beauty Lookbook</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/services?category=festive"
-                  className="text-[#E0C0CC] hover:text-white transition-colors flex items-center gap-1.5"
-                >
-                  <ArrowRight className="w-3 h-3 text-[#D4AF37]" />
-                  <span>Navratri Garba Glam</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/services?category=bridal"
-                  className="text-[#E0C0CC] hover:text-white transition-colors flex items-center gap-1.5"
-                >
-                  <ArrowRight className="w-3 h-3 text-[#D4AF37]" />
-                  <span>Bridal Packages</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/services?category=mehendi"
-                  className="text-[#E0C0CC] hover:text-white transition-colors flex items-center gap-1.5"
-                >
-                  <ArrowRight className="w-3 h-3 text-[#D4AF37]" />
-                  <span>Bridal Mehendi Art</span>
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          {/* Cities Column */}
-          <div>
-            <h4 className="text-xs font-bold uppercase tracking-widest text-[#D4AF37] mb-4">
-              Active Cities
-            </h4>
-            <ul className="space-y-2.5 text-sm">
-              {CITIES.map((city) => (
-                <li key={city.name}>
-                  <Link
-                    href={`/services?location=${encodeURIComponent(city.name)}`}
-                    className="text-[#E0C0CC] hover:text-white transition-colors flex items-center gap-1.5 group"
-                  >
-                    <MapPin className="w-3 h-3 text-[#D4AF37] group-hover:scale-110 transition-transform" />
-                    <span>{city.name}</span>
+          <nav aria-label="Explore RoopSetu" className="md:col-span-3 lg:col-span-2 lg:col-start-7">
+            <h2 className="text-xs font-bold uppercase tracking-[0.18em] text-[#8A1238]">Explore</h2>
+            <ul className="mt-5 space-y-3.5">
+              {discoverLinks.map((link) => (
+                <li key={link.href}>
+                  <Link className="group inline-flex items-center gap-1 text-sm text-[#55434C] transition-colors hover:text-[#8A1238] focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#8A1238]" href={link.href}>
+                    {link.label}<ArrowUpRight className="h-3.5 w-3.5 opacity-0 transition-opacity group-hover:opacity-100" aria-hidden="true" />
                   </Link>
                 </li>
               ))}
             </ul>
-          </div>
+          </nav>
 
-          {/* Partner Column */}
-          <div>
-            <h4 className="text-xs font-bold uppercase tracking-widest text-[#D4AF37] mb-4">
-              For Artists
-            </h4>
-            <ul className="space-y-2.5 text-sm">
-              <li>
-                <Link
-                  href="/become-beautician"
-                  className="text-[#FFD2DD] font-semibold hover:underline flex items-center gap-1.5"
-                >
-                  <Sparkles className="w-3 h-3 text-[#D4AF37]" />
-                  <span>Join as Beautician</span>
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/login"
-                  className="text-[#E0C0CC] hover:text-white transition-colors"
-                >
-                  Partner Sign In
-                </Link>
-              </li>
-              <li>
-                <Link
-                  href="/become-beautician/setup"
-                  className="text-[#E0C0CC] hover:text-white transition-colors"
-                >
-                  Profile Setup Guide
-                </Link>
-              </li>
-              <li className="pt-2">
-                <div className="rounded-lg bg-[#5A001F]/50 p-2.5 border border-[#85223E] text-xs text-[#FFD2DD]">
-                  <p className="font-bold text-white mb-0.5">0% Commission</p>
-                  <p className="text-[0.7rem] text-[#D8B4C0]">Direct WhatsApp inquiries to your phone.</p>
-                </div>
-              </li>
+          <nav aria-label="RoopSetu community" className="md:col-span-3 lg:col-span-2">
+            <h2 className="text-xs font-bold uppercase tracking-[0.18em] text-[#8A1238]">Community</h2>
+            <ul className="mt-5 space-y-3.5">
+              {communityLinks.map((link) => (
+                <li key={link.href}>
+                  <Link className="group inline-flex items-center gap-1 text-sm text-[#55434C] transition-colors hover:text-[#8A1238] focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#8A1238]" href={link.href}>
+                    {link.label}<ArrowUpRight className="h-3.5 w-3.5 opacity-0 transition-opacity group-hover:opacity-100" aria-hidden="true" />
+                  </Link>
+                </li>
+              ))}
             </ul>
+          </nav>
+
+          <div className="md:col-span-12 lg:col-span-3">
+            <h2 className="text-xs font-bold uppercase tracking-[0.18em] text-[#8A1238]">Follow along</h2>
+            <p className="mt-5 max-w-xs text-sm leading-6 text-[#66545D]">
+              Fresh looks, thoughtful details, and ideas worth saving.
+            </p>
+            <div className="mt-4 flex items-center gap-2.5">
+              <a
+                href="https://www.instagram.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Instagram (opens in a new tab)"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-[#5A001F]/15 bg-white text-[#5A001F] transition-colors hover:border-[#5A001F] hover:bg-[#5A001F] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#8A1238]"
+              >
+                <InstagramMark />
+              </a>
+              <a
+                href="https://www.pinterest.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="Pinterest (opens in a new tab)"
+                className="flex h-11 w-11 items-center justify-center rounded-full border border-[#5A001F]/15 bg-white text-[#5A001F] transition-colors hover:border-[#5A001F] hover:bg-[#5A001F] hover:text-white focus-visible:outline-2 focus-visible:outline-offset-3 focus-visible:outline-[#8A1238]"
+              >
+                <PinterestMark />
+              </a>
+            </div>
           </div>
         </div>
 
-        {/* Bottom Copyright and Love Strip */}
-        <div className="pt-8 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs text-[#B892A0]">
-          <p>© {new Date().getFullYear()} RoopSetu Technologies Private Limited. All rights reserved.</p>
-
-          <div className="flex items-center gap-1.5 text-[#E0C0CC]">
-            <span>Crafted with</span>
-            <Heart className="w-3.5 h-3.5 text-[#E74C3C] fill-[#E74C3C]" />
-            <span>for Indian Weddings & Festive Celebrations</span>
-          </div>
+        <div className="flex flex-col gap-3 pt-6 text-xs text-[#76636B] sm:flex-row sm:items-center sm:justify-between">
+          <p>© {new Date().getFullYear()} RoopSetu. Made for moments that matter.</p>
+          <a href="#" className="w-fit transition-colors hover:text-[#8A1238] focus-visible:rounded-sm focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#8A1238]">
+            Back to top <span aria-hidden="true">↑</span>
+          </a>
         </div>
       </div>
     </footer>

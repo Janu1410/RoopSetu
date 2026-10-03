@@ -10,6 +10,13 @@ import {
   NAV_ITEMS,
   type BeauticianProfileActionLabel,
 } from "@/components/home/Navbar/config";
+import {
+  CITY_CHANGE_EVENT,
+  DEFAULT_CITY,
+  getStoredCity,
+  setStoredCity,
+} from "@/lib/city-selection.mjs";
+
 const DASHBOARD_CACHE_KEY_PREFIX = "roopsetu-beautician-dashboard";
 const DASHBOARD_CACHE_TTL_MS = 10 * 60 * 1000;
 
@@ -78,6 +85,7 @@ const getBeauticianProfileActionLabel = (
 
 export default function Navbar() {
   const [authUser, setAuthUser] = useState<AuthUser | null>(null);
+  const [selectedCity, setSelectedCity] = useState(DEFAULT_CITY);
   const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isMenuMounted, setIsMenuMounted] = useState(false);
@@ -91,6 +99,11 @@ export default function Navbar() {
     setAuthUser(user);
     setIsProfileMenuOpen(false);
     setIsLoginOpen(false);
+  };
+
+  const handleSelectCity = (city: string) => {
+    setSelectedCity(city);
+    setStoredCity(city);
   };
 
   const closeMenu = () => {
@@ -134,17 +147,28 @@ export default function Navbar() {
   useEffect(() => {
     const frameId = window.requestAnimationFrame(() => {
       setAuthUser(getStoredAuthUser());
+      setSelectedCity(getStoredCity());
     });
 
     const handleStorage = () => {
       setAuthUser(getStoredAuthUser());
+      setSelectedCity(getStoredCity());
+    };
+
+    const handleCityChange = (event: Event) => {
+      const customEvent = event as CustomEvent<{ city?: string }>;
+      if (customEvent.detail?.city) {
+        setSelectedCity(customEvent.detail.city);
+      }
     };
 
     window.addEventListener("storage", handleStorage);
+    window.addEventListener(CITY_CHANGE_EVENT, handleCityChange);
 
     return () => {
       window.cancelAnimationFrame(frameId);
       window.removeEventListener("storage", handleStorage);
+      window.removeEventListener(CITY_CHANGE_EVENT, handleCityChange);
     };
   }, []);
 
@@ -197,6 +221,8 @@ export default function Navbar() {
           <MobileNavbar
             authUser={authUser}
             beauticianProfileActionLabel={beauticianProfileActionLabel}
+            selectedCity={selectedCity}
+            onSelectCity={handleSelectCity}
             isMenuOpen={isMenuOpen}
             isProfileMenuOpen={isProfileMenuOpen}
             mobileProfileMenuRef={mobileProfileMenuRef}
@@ -213,6 +239,8 @@ export default function Navbar() {
             authUser={authUser}
             beauticianProfileActionLabel={beauticianProfileActionLabel}
             navItems={NAV_ITEMS}
+            selectedCity={selectedCity}
+            onSelectCity={handleSelectCity}
             isProfileMenuOpen={isProfileMenuOpen}
             isLoginOpen={isLoginOpen}
             desktopProfileMenuRef={desktopProfileMenuRef}
@@ -231,6 +259,8 @@ export default function Navbar() {
           authUser={authUser}
           beauticianProfileActionLabel={beauticianProfileActionLabel}
           navItems={NAV_ITEMS}
+          selectedCity={selectedCity}
+          onSelectCity={handleSelectCity}
           isMenuOpen={isMenuOpen}
           onCloseMenu={closeMenu}
           onLogout={handleLogout}

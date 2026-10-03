@@ -14,3 +14,17 @@ export function getActiveServiceIndex(progress, serviceCount) {
   const boundedProgress = Math.min(1, Math.max(0, progress));
   return Math.min(serviceCount - 1, Math.floor(boundedProgress * serviceCount));
 }
+
+export function getServiceSlideRange(index, serviceCount) {
+  if (
+    !Number.isInteger(index) ||
+    !Number.isInteger(serviceCount) ||
+    serviceCount <= 0 ||
+    index < 0 ||
+    index >= serviceCount
+  ) {
+    return [0, 1];
+  }
+
+  return [index / serviceCount, (index + 1) / serviceCount];
+}

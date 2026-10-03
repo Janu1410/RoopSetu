@@ -1,6 +1,10 @@
 import assert from "node:assert/strict";
 import test from "node:test";
-import { getActiveServiceIndex, getScrollProgress } from "../../lib/services-lookbook.mjs";
+import {
+  getActiveServiceIndex,
+  getScrollProgress,
+  getServiceSlideRange,
+} from "../../lib/services-lookbook.mjs";
 
 test("scroll progress is clamped to the section's scroll range", () => {
   assert.equal(getScrollProgress(-25, 100), 0);
@@ -32,4 +36,17 @@ test("active service selection clamps progress and handles invalid counts", () =
   assert.equal(getActiveServiceIndex(0.5, -2), 0);
   assert.equal(getActiveServiceIndex(0.5, 2.5), 0);
   assert.equal(getActiveServiceIndex(Number.NaN, 4), 0);
+});
+
+test("each image gets an equal scroll interval for its page-turn reveal", () => {
+  assert.deepEqual(getServiceSlideRange(0, 4), [0, 0.25]);
+  assert.deepEqual(getServiceSlideRange(1, 4), [0.25, 0.5]);
+  assert.deepEqual(getServiceSlideRange(2, 4), [0.5, 0.75]);
+  assert.deepEqual(getServiceSlideRange(3, 4), [0.75, 1]);
+});
+
+test("invalid slide ranges fall back to the full progress interval", () => {
+  assert.deepEqual(getServiceSlideRange(-1, 4), [0, 1]);
+  assert.deepEqual(getServiceSlideRange(4, 4), [0, 1]);
+  assert.deepEqual(getServiceSlideRange(0, 0), [0, 1]);
 });

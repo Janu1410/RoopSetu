@@ -3,11 +3,14 @@ import Link from "next/link";
 import type { RefObject } from "react";
 import type { AuthUser } from "@/lib/auth";
 import ProfileDropdown from "@/components/home/Navbar/ProfileDropdown";
+import CitySelector from "@/components/home/Navbar/CitySelector";
 import type { BeauticianProfileActionLabel } from "@/components/home/Navbar/config";
 
 type MobileNavbarProps = {
   authUser: AuthUser | null;
   beauticianProfileActionLabel: BeauticianProfileActionLabel | null;
+  selectedCity: string;
+  onSelectCity: (city: string) => void;
   isMenuOpen: boolean;
   isProfileMenuOpen: boolean;
   mobileProfileMenuRef: RefObject<HTMLDivElement | null>;
@@ -21,6 +24,8 @@ type MobileNavbarProps = {
 export default function MobileNavbar({
   authUser,
   beauticianProfileActionLabel,
+  selectedCity,
+  onSelectCity,
   isMenuOpen,
   isProfileMenuOpen,
   mobileProfileMenuRef,
@@ -32,11 +37,11 @@ export default function MobileNavbar({
 }: MobileNavbarProps) {
   return (
     <>
-      <div className="flex items-center gap-3 lg:hidden">
+      <div className="flex items-center gap-2 lg:hidden">
         <button
           type="button"
           onClick={onToggleMenu}
-          className="premium-interactive inline-flex h-10 w-10 items-center justify-center rounded-xl border border-[#E7D3D6] bg-white text-[#8A1238]"
+          className="premium-interactive inline-flex h-9 w-9 items-center justify-center rounded-xl border border-[#E7D3D6] bg-white text-[#8A1238]"
           aria-label="Toggle navigation menu"
           aria-expanded={isMenuOpen}
         >
@@ -61,6 +66,13 @@ export default function MobileNavbar({
             )}
           </svg>
         </button>
+
+        {/* Compact City Selector for Mobile */}
+        <CitySelector
+          selectedCity={selectedCity}
+          onSelectCity={onSelectCity}
+          variant="mobile-compact"
+        />
       </div>
 
       <Link
@@ -72,12 +84,12 @@ export default function MobileNavbar({
           alt="RoopSetu logo"
           width={1100}
           height={300}
-          className="block h-auto w-[136px] max-w-none object-contain"
+          className="block h-auto w-[124px] max-w-none object-contain sm:w-[136px]"
           priority
         />
       </Link>
 
-      <div className="flex items-center gap-3 lg:hidden">
+      <div className="flex items-center gap-2.5 lg:hidden">
         {authUser ? (
           <div className="relative" ref={mobileProfileMenuRef}>
             <button
@@ -116,7 +128,7 @@ export default function MobileNavbar({
         ) : (
           <button
             type="button"
-            className="premium-interactive inline-flex items-center justify-center bg-transparent px-0 text-sm font-semibold text-[#6C4A59] transition-colors duration-200 hover:text-[#8A1238]"
+            className="premium-interactive inline-flex items-center justify-center bg-transparent px-0 text-xs sm:text-sm font-semibold text-[#6C4A59] transition-colors duration-200 hover:text-[#8A1238]"
             onClick={onOpenLogin}
           >
             Login
@@ -145,3 +157,4 @@ export default function MobileNavbar({
     </>
   );
 }
+
