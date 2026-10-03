@@ -36,7 +36,7 @@ export default function MobileMenu({
     <div className="fixed inset-0 z-[60] flex justify-end lg:hidden">
       <button
         type="button"
-        className={`absolute inset-0 bg-[#2D1020]/35 backdrop-blur-[2px] transition-opacity duration-300 ${
+        className={`absolute inset-0 bg-[#3D0015]/45 backdrop-blur-[2px] transition-opacity duration-300 ${
           isMenuOpen ? "opacity-100" : "opacity-0"
         }`}
         aria-label="Close navigation menu"

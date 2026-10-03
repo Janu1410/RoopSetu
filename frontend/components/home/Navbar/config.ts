@@ -23,12 +23,7 @@ export const getBeauticianProfileHref = (
 export const NAV_ITEMS: NavItem[] = [
   { label: "Home", href: "/" },
   { label: "Services", href: "/services" },
-  {
-    label: "Ethnic Rentals",
-    href: "/#ethnic-rentals",
-    badge: "Coming Soon",
-    isComingSoon: true,
-  },
+  { label: "Ethnic Rentals", href: "/rentals" },
   { label: "Beauty Guide", href: "/beauty-guide" },
   { label: "Become Partner", href: "/become-beautician" },
 ];

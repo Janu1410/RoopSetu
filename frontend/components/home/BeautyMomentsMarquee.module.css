@@ -3,8 +3,9 @@
   overflow: hidden;
   padding: clamp(4.5rem, 8vw, 7.5rem) 0 0;
   background:
-    radial-gradient(ellipse at 50% 100%, rgb(138 18 56 / 44%), transparent 52%),
-    linear-gradient(180deg, #2d1020 0%, #4a0e23 54%, #5a001f 100%);
+    radial-gradient(ellipse at 50% 0%, rgba(212, 175, 55, 0.12), transparent 55%),
+    radial-gradient(ellipse at 50% 100%, rgb(138 18 56 / 48%), transparent 60%),
+    linear-gradient(180deg, #5a001f 0%, #460018 45%, #300010 100%);
   color: #fff8f3;
 }
 
@@ -74,7 +75,7 @@
   transition: color 180ms ease, background-color 180ms ease, border-color 180ms ease;
 }
 
-.link:hover { border-color: #e6c27b; background: #e6c27b; color: #4b1028; }
+.link:hover { border-color: #e6c27b; background: #e6c27b; color: #5a001f; }
 .link:focus-visible { outline: 3px solid #e6c27b; outline-offset: 3px; }
 
 .viewport {
@@ -128,7 +129,7 @@
 .card::after {
   position: absolute;
   inset: 45% 0 0;
-  background: linear-gradient(180deg, transparent, rgb(36 17 26 / 54%));
+  background: linear-gradient(180deg, transparent, rgb(58 0 20 / 65%));
   content: "";
   pointer-events: none;
 }
@@ -140,7 +141,7 @@
   left: 1rem;
   border: 1px solid rgb(255 248 243 / 40%);
   border-radius: 999px;
-  background: rgb(45 18 34 / 48%);
+  background: rgb(58 0 20 / 65%);
   padding: 0.48rem 0.78rem;
   color: #fff8f3;
   font-size: 0.67rem;
