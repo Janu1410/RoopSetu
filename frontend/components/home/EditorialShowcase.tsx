@@ -80,7 +80,10 @@ export default function EditorialShowcase() {
     >
       <div className="relative mx-auto h-[62vh] min-h-[460px] max-h-[660px] w-full max-w-[1360px] overflow-hidden rounded-2xl bg-[#14080D] shadow-[0_20px_50px_rgba(50,5,20,0.18)] sm:rounded-3xl">
         {/* Main Background Image with Framer-style Angled Slide Transition */}
-        <div className="relative h-full w-full overflow-hidden">
+        <div
+          className="relative h-full w-full overflow-hidden"
+          style={{ position: "relative", width: "100%", height: "100%" }}
+        >
           <AnimatePresence initial={false} mode="sync">
             <motion.div
               key={currentLook.image}
@@ -89,6 +92,15 @@ export default function EditorialShowcase() {
               exit={{ y: "-15%", opacity: 0.35, scale: 0.98 }}
               transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
               className="absolute inset-0 origin-bottom-left overflow-hidden"
+              style={{
+                position: "absolute",
+                top: 0,
+                left: 0,
+                right: 0,
+                bottom: 0,
+                width: "100%",
+                height: "100%",
+              }}
             >
               <Image
                 src={currentLook.image}
@@ -198,6 +210,7 @@ export default function EditorialShowcase() {
                     ? "scale-105 border-2 border-[#F4CF83] shadow-[0_6px_22px_rgba(244,207,131,0.5)] ring-2 ring-[#F4CF83]/50"
                     : "border border-white/30 opacity-60 hover:scale-102 hover:border-white/70 hover:opacity-100"
                 }`}
+                style={{ position: "relative" }}
               >
                 <Image
                   src={look.image}
