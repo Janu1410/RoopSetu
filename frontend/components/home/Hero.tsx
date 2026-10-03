@@ -123,15 +123,12 @@ export default function Hero() {
   return (
     <section className="bg-[#5A001F] px-3 pb-3 sm:px-4 lg:px-5">
       <div className="grid overflow-hidden rounded-[10px] border border-[#D4AF37]/70 bg-[#5A001F] lg:min-h-[calc(100svh-112px)] lg:grid-cols-2">
-        <div
-          className="relative min-h-[420px] overflow-hidden bg-[#32121E] sm:min-h-[500px] lg:min-h-[calc(100svh-112px)]"
-          style={{ position: "relative" }}
-        >
+        <div className="relative min-h-[420px] overflow-hidden bg-[#32121E] sm:min-h-[500px] lg:min-h-[calc(100svh-112px)]">
           <Image
             src="/images/hero/desktop/her-30.jpg"
             alt="Bridal beauty look in a warmly lit studio"
             fill
-            priority
+            preload
             sizes="(max-width: 1023px) 100vw, 50vw"
             className="object-cover object-[54%_center]"
           />

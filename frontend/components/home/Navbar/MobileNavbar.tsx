@@ -37,7 +37,7 @@ export default function MobileNavbar({
 }: MobileNavbarProps) {
   return (
     <>
-      <div className="flex items-center gap-2 lg:hidden">
+      <div className="flex items-center lg:hidden">
         <button
           type="button"
           onClick={onToggleMenu}
@@ -66,13 +66,6 @@ export default function MobileNavbar({
             )}
           </svg>
         </button>
-
-        {/* Compact City Selector for Mobile */}
-        <CitySelector
-          selectedCity={selectedCity}
-          onSelectCity={onSelectCity}
-          variant="mobile-compact"
-        />
       </div>
 
       <Link
@@ -89,7 +82,13 @@ export default function MobileNavbar({
         />
       </Link>
 
-      <div className="flex items-center gap-2.5 lg:hidden">
+      <div className="flex items-center gap-2 sm:gap-2.5 lg:hidden">
+        {/* Compact Location Icon Only (Beside Login) */}
+        <CitySelector
+          selectedCity={selectedCity}
+          onSelectCity={onSelectCity}
+          variant="mobile-icon-only"
+        />
         {authUser ? (
           <div className="relative" ref={mobileProfileMenuRef}>
             <button

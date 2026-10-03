@@ -1,4 +1,4 @@
 "use client";
 
-export { default, EDITORIAL_LOOKS } from "./EditorialPinnedShowcase";
-export type { EditorialLook } from "./EditorialPinnedShowcase";
+export { default, EDITORIAL_LOOKS } from "./EditorialShowcase";
+export type { EditorialLook } from "./EditorialShowcase";
