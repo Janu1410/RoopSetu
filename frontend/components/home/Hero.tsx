@@ -131,7 +131,7 @@ export default function Hero() {
             src="/images/hero/desktop/her-30.jpg"
             alt="Bridal beauty look in a warmly lit studio"
             fill
-            preload
+            priority
             sizes="(max-width: 1023px) 100vw, 50vw"
             className="object-cover object-[54%_center]"
           />
