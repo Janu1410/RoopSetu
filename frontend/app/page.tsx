@@ -3,7 +3,7 @@
 import Navbar from "@/components/home/Navbar/Navbar";
 import Hero from "@/components/home/Hero";
 import AboutSection from "@/components/home/AboutSection";
-import EditorialShowcase from "@/components/home/EditorialShowcase";
+import EditorialBeautySection from "@/components/home/EditorialBeautySection";
 import CorePillarsSection from "@/components/home/CorePillarsSection";
 import ServicesLookbook from "@/components/home/ServicesLookbook";
 import BeautyMomentsMarquee from "@/components/home/BeautyMomentsMarquee";
@@ -15,7 +15,7 @@ export default function HomePage() {
       <Navbar />
       <Hero />
       <AboutSection />
-      <EditorialShowcase />
+      <EditorialBeautySection />
       <CorePillarsSection />
       <ServicesLookbook />
       <BeautyMomentsMarquee />
