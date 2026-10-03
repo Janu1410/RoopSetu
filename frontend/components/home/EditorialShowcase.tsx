@@ -3,7 +3,6 @@
 import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { AnimatePresence, motion } from "framer-motion";
 import { ArrowUpRight, ChevronDown, Sparkles } from "lucide-react";
 
 export type EditorialLook = {
@@ -73,46 +72,44 @@ export default function EditorialShowcase() {
 
   return (
     <section
+      id="editorial-showcase"
       aria-label="Editorial beauty showcase"
-      className="relative h-[100svh] min-h-[580px] w-full overflow-hidden bg-[#14080D]"
+      className="relative h-screen min-h-[580px] w-full overflow-hidden bg-[#14080D]"
+      style={{ height: "100svh", minHeight: "580px" }}
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
     >
-      {/* Main Full-Viewport Background Image with Framer-style Angled Slide Transition */}
+      {/* Main Full-Viewport Background Images (Bulletproof CSS transition with angled sweep) */}
       <div
-        className="relative h-full w-full overflow-hidden"
-        style={{ position: "relative", width: "100%", height: "100%" }}
+        className="absolute inset-0 h-full w-full overflow-hidden"
+        style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
       >
-        <AnimatePresence initial={false} mode="sync">
-          <motion.div
-            key={currentLook.image}
-            initial={{ y: "100%", rotate: -3.5, scale: 1.05 }}
-            animate={{ y: "0%", rotate: 0, scale: 1 }}
-            exit={{ y: "-15%", opacity: 0.35, scale: 0.98 }}
-            transition={{ duration: 0.65, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute inset-0 origin-bottom-left overflow-hidden"
-            style={{
-              position: "absolute",
-              top: 0,
-              left: 0,
-              right: 0,
-              bottom: 0,
-              width: "100%",
-              height: "100%",
-            }}
-          >
-            <Image
-              src={currentLook.image}
-              alt={currentLook.alt}
-              fill
-              priority
-              sizes="100vw"
-              className="object-cover object-center"
-            />
-            {/* Filmic dark vignette overlay */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/15 to-black/35" />
-          </motion.div>
-        </AnimatePresence>
+        {EDITORIAL_LOOKS.map((look, idx) => {
+          const isActive = idx === activeIndex;
+
+          return (
+            <div
+              key={look.id}
+              className={`absolute inset-0 h-full w-full origin-bottom-left transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+                isActive
+                  ? "z-10 opacity-100 scale-100 rotate-0 translate-y-0"
+                  : "z-0 opacity-0 scale-105 -rotate-2 translate-y-6 pointer-events-none"
+              }`}
+              style={{ position: "absolute", top: 0, left: 0, width: "100%", height: "100%" }}
+            >
+              <Image
+                src={look.image}
+                alt={look.alt}
+                fill
+                priority={idx === 0}
+                sizes="100vw"
+                className="object-cover object-center"
+              />
+              {/* Filmic dark vignette overlay for legibility */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/65 via-black/15 to-black/35" />
+            </div>
+          );
+        })}
       </div>
 
       {/* Top Floating Editorial Badge */}
@@ -126,10 +123,7 @@ export default function EditorialShowcase() {
       </div>
 
       {/* Bottom Left Floating Card (Styled after template reference) */}
-      <motion.div
-        layout
-        className="absolute bottom-6 left-6 z-30 w-[calc(100%-3rem)] max-w-[390px] rounded-lg border border-[#D4AF37]/90 bg-[#F4CF83] p-4 shadow-[0_20px_45px_rgba(20,0,8,0.45)] sm:bottom-12 sm:left-12 sm:p-5"
-      >
+      <div className="absolute bottom-6 left-6 z-30 w-[calc(100%-3rem)] max-w-[390px] rounded-lg border border-[#D4AF37]/90 bg-[#F4CF83] p-4 shadow-[0_20px_45px_rgba(20,0,8,0.45)] sm:bottom-12 sm:left-12 sm:p-5">
         {/* Card Header with Title and Chevron */}
         <button
           type="button"
@@ -152,32 +146,24 @@ export default function EditorialShowcase() {
         <div className="my-2.5 border-b border-dashed border-[#5A001F]/35" />
 
         {/* Collapsible Content */}
-        <AnimatePresence initial={false}>
-          {isExpanded && (
-            <motion.div
-              initial={{ opacity: 0, height: 0 }}
-              animate={{ opacity: 1, height: "auto" }}
-              exit={{ opacity: 0, height: 0 }}
-              transition={{ duration: 0.22 }}
-              className="overflow-hidden"
+        {isExpanded ? (
+          <div className="overflow-hidden transition-all duration-200">
+            <p className="text-xs font-medium leading-relaxed text-[#5A001F]/85 sm:text-[0.82rem]">
+              {currentLook.description}
+            </p>
+            <Link
+              href={currentLook.href}
+              className="group mt-3 inline-flex items-center gap-1.5 text-[0.68rem] font-bold uppercase tracking-widest text-[#5A001F] transition-colors hover:text-[#7A0D30]"
             >
-              <p className="text-xs font-medium leading-relaxed text-[#5A001F]/85 sm:text-[0.82rem]">
-                {currentLook.description}
-              </p>
-              <Link
-                href={currentLook.href}
-                className="group mt-3 inline-flex items-center gap-1.5 text-[0.68rem] font-bold uppercase tracking-widest text-[#5A001F] transition-colors hover:text-[#7A0D30]"
-              >
-                <span>Explore this look</span>
-                <ArrowUpRight
-                  className="h-3 w-3 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
-                  aria-hidden="true"
-                />
-              </Link>
-            </motion.div>
-          )}
-        </AnimatePresence>
-      </motion.div>
+              <span>Explore this look</span>
+              <ArrowUpRight
+                className="h-3 w-3 transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5"
+                aria-hidden="true"
+              />
+            </Link>
+          </div>
+        ) : null}
+      </div>
 
       {/* Right Corner Thumbnails Stack (Hover to switch, matching template) */}
       <div
