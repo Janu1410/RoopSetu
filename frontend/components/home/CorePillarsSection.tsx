@@ -125,34 +125,30 @@ export default function CorePillarsSection() {
     <section
       id="why-roopsetu"
       aria-labelledby="why-roopsetu-heading"
-      className="relative isolate overflow-hidden border-y border-[#E9DFDA] bg-[#F7F1E9] px-5 py-12 sm:px-8 sm:py-16 lg:px-12 lg:py-16"
+      className="relative isolate overflow-hidden border-y border-[#E9DFDA] bg-[#F7F1E9] px-4 py-8 sm:px-8 sm:py-10 lg:px-12 lg:py-12"
     >
-      {/* Subtle Luxury Aura Curves */}
+      {/* Subtle Warm Luxury Ambient Glow (No wire lines or borders) */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -right-32 top-[-10rem] h-[28rem] w-[28rem] rounded-full border border-[#8A1238]/10 sm:right-[-8rem]"
-      />
-      <div
-        aria-hidden="true"
-        className="pointer-events-none absolute -right-16 top-[-8rem] h-[24rem] w-[24rem] rounded-full border border-[#8A1238]/10 sm:right-[-4rem]"
+        className="pointer-events-none absolute -right-20 top-[-6rem] h-96 w-96 rounded-full bg-[#EADACD]/30 blur-3xl"
       />
 
       <div className="relative mx-auto max-w-[1320px]">
         {/* Section Header */}
-        <div className="grid gap-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-end lg:gap-12">
+        <div className="grid gap-5 lg:grid-cols-[0.88fr_1.12fr] lg:items-end lg:gap-10">
           <motion.div
             initial={false}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ duration: 0.5, ease: [0.22, 1, 0.36, 1] }}
           >
-            <p className="mb-3 flex items-center gap-3 text-[0.68rem] font-bold uppercase tracking-[0.22em] text-[#8A1238]">
-              <span className="h-px w-8 bg-[#B88D43]" />
+            <p className="mb-2 flex items-center gap-2.5 text-[0.66rem] font-bold uppercase tracking-[0.22em] text-[#8A1238]">
+              <span className="h-px w-7 bg-[#B88D43]" />
               Why RoopSetu · The 3 Core Pillars
             </p>
             <h2
               id="why-roopsetu-heading"
-              className="max-w-[560px] font-serif text-[clamp(1.9rem,3.4vw,2.85rem)] leading-[1.08] tracking-[-0.035em] text-[#34252D] [text-wrap:balance]"
+              className="max-w-[540px] font-serif text-[clamp(1.75rem,2.8vw,2.45rem)] leading-[1.1] tracking-[-0.035em] text-[#34252D] [text-wrap:balance]"
             >
               A complete ecosystem,
               <br />
@@ -169,16 +165,16 @@ export default function CorePillarsSection() {
               delay: 0.06,
               ease: [0.22, 1, 0.36, 1],
             }}
-            className="max-w-[580px] lg:justify-self-end"
+            className="max-w-[560px] lg:justify-self-end"
           >
-            <p className="text-sm leading-6 text-[#66585D] sm:text-base sm:leading-7">
+            <p className="text-[0.88rem] leading-relaxed text-[#66585D] sm:text-base sm:leading-6">
               RoopSetu unites hand-verified beauty talent, designer festive
               rentals, and curated lookbooks into one trusted space — designed
               for brides, celebrants, and independent artisans across Gujarat & Mumbai.
             </p>
-            <div className="mt-4 flex items-center gap-3 text-xs font-semibold uppercase tracking-[0.14em] text-[#796C70]">
-              <span className="flex h-7 w-7 items-center justify-center rounded-full border border-[#D9C9C3] text-[#8A1238]">
-                <ArrowDownRight className="h-3.5 w-3.5" aria-hidden="true" />
+            <div className="mt-2.5 flex items-center gap-2.5 text-[0.68rem] font-semibold uppercase tracking-[0.14em] text-[#796C70]">
+              <span className="flex h-6 w-6 items-center justify-center rounded-full border border-[#D9C9C3] text-[#8A1238]">
+                <ArrowDownRight className="h-3 w-3" aria-hidden="true" />
               </span>
               Built for clients and the artists who create the look
             </div>
@@ -186,7 +182,7 @@ export default function CorePillarsSection() {
         </div>
 
         {/* 3 Core Pillars Grid */}
-        <div className="relative mt-8 grid gap-px overflow-hidden rounded-[1.75rem] border border-[#E1D5CE] bg-[#E1D5CE] sm:mt-10 lg:grid-cols-3">
+        <div className="relative mt-6 grid gap-px overflow-hidden rounded-2xl border border-[#E2D5CC] bg-[#E2D5CC] shadow-[0_12px_36px_-12px_rgba(90,0,31,0.06)] sm:mt-7 lg:grid-cols-3">
           {CORE_PILLARS.map((pillar, index) => {
             const Icon = pillar.icon;
             const tone = toneStyles[pillar.tone];
@@ -203,9 +199,9 @@ export default function CorePillarsSection() {
                   delay: reducedMotion ? 0 : index * 0.08,
                   ease: [0.22, 1, 0.36, 1],
                 }}
-                className="group flex min-h-[350px] flex-col justify-between bg-[#FBF8F3] p-6 transition-colors hover:bg-white sm:min-h-[375px] sm:p-7 lg:p-8"
+                className="group flex flex-col justify-between bg-[#FBF8F3] p-5 transition-colors duration-200 hover:bg-white sm:p-6 lg:p-7"
               >
-                <div>
+                <div className="flex flex-1 flex-col">
                   {/* Top Bar: Number + Status Badge + Icon */}
                   <div className="flex items-center justify-between">
                     <span
@@ -221,10 +217,10 @@ export default function CorePillarsSection() {
                         {pillar.badge.label}
                       </span>
                       <span
-                        className={`flex h-9 w-9 items-center justify-center rounded-full ${tone.icon}`}
+                        className={`flex h-8 w-8 items-center justify-center rounded-full ${tone.icon}`}
                       >
                         <Icon
-                          className="h-[1.1rem] w-[1.1rem]"
+                          className="h-4 w-4"
                           strokeWidth={1.7}
                           aria-hidden="true"
                         />
@@ -233,26 +229,26 @@ export default function CorePillarsSection() {
                   </div>
 
                   {/* Body Content */}
-                  <div className="mt-6">
-                    <p className="mb-2 text-[0.66rem] font-bold uppercase tracking-[0.18em] text-[#927D75]">
+                  <div className="mt-5 flex flex-1 flex-col">
+                    <p className="mb-1.5 text-[0.65rem] font-bold uppercase tracking-[0.18em] text-[#927D75]">
                       {pillar.label}
                     </p>
-                    <h3 className="font-serif text-[1.4rem] leading-[1.15] tracking-[-0.025em] text-[#34252D] sm:text-[1.55rem]">
+                    <h3 className="min-h-[2.8rem] font-serif text-[1.28rem] leading-[1.18] tracking-[-0.025em] text-[#34252D] sm:text-[1.4rem]">
                       {pillar.title}
                     </h3>
-                    <p className="mt-2.5 text-sm leading-6 text-[#6C6062]">
+                    <p className="mt-2 min-h-[3.6rem] text-xs leading-5 text-[#6C6062] sm:text-[0.82rem] sm:leading-relaxed">
                       {pillar.description}
                     </p>
 
                     {/* Key Feature Checkpoints */}
-                    <ul className="mt-5 space-y-2 border-t border-[#F0E6DF] pt-4">
+                    <ul className="mt-4 space-y-1.5 border-t border-[#F0E6DF] pt-3.5">
                       {pillar.features.map((feature) => (
                         <li
                           key={feature}
                           className="flex items-center gap-2 text-xs font-medium text-[#5D5054]"
                         >
-                          <span className="flex h-4 w-4 shrink-0 items-center justify-center rounded-full bg-[#EADACD]/50 text-[#8A1238]">
-                            <Check className="h-2.5 w-2.5" />
+                          <span className="flex h-3.5 w-3.5 shrink-0 items-center justify-center rounded-full bg-[#EADACD]/50 text-[#8A1238]">
+                            <Check className="h-2 w-2" />
                           </span>
                           <span>{feature}</span>
                         </li>
@@ -264,7 +260,7 @@ export default function CorePillarsSection() {
                 {/* Bottom Action Link */}
                 <Link
                   href={pillar.href}
-                  className={`mt-6 inline-flex w-fit items-center gap-2 border-t border-transparent pt-2 text-xs font-bold text-[#493A40] transition-colors ${tone.hover} focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#8A1238]`}
+                  className={`mt-5 inline-flex w-fit items-center gap-2 border-t border-transparent pt-1 text-xs font-bold text-[#493A40] transition-colors ${tone.hover} focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-[#8A1238]`}
                 >
                   {pillar.action}
                   <ArrowRight
@@ -278,7 +274,7 @@ export default function CorePillarsSection() {
         </div>
 
         {/* Section Bottom Quality Commitment */}
-        <div className="mt-6 flex flex-col gap-3 border-t border-[#DCCFC8] pt-5 text-xs leading-5 text-[#7D7070] sm:flex-row sm:items-center sm:justify-between">
+        <div className="mt-5 flex flex-col gap-2 border-t border-[#DCCFC8] pt-4 text-[0.72rem] leading-5 text-[#7D7070] sm:flex-row sm:items-center sm:justify-between">
           <span className="inline-flex items-center gap-2">
             <MapPin className="h-3.5 w-3.5 text-[#8A1238]" aria-hidden="true" />
             Active in Ahmedabad, Surat, Vadodara, Rajkot & Mumbai
