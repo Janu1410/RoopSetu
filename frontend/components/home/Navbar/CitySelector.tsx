@@ -12,7 +12,7 @@ type CitySelectorProps = {
   selectedCity: string;
   onSelectCity: (city: string) => void;
   className?: string;
-  variant?: "desktop" | "mobile-compact" | "mobile-card" | "mobile-icon-only";
+  variant?: "desktop" | "mobile-compact" | "mobile-card";
 };
 
 export default function CitySelector({
@@ -176,41 +176,26 @@ export default function CitySelector({
     );
   }
 
-  // Variant: Mobile Compact or Mobile Icon Only
-  if (variant === "mobile-compact" || variant === "mobile-icon-only") {
-    const isIconOnly = variant === "mobile-icon-only";
-
+  // Variant: Mobile Compact (Small trigger button in Mobile Top Bar)
+  if (variant === "mobile-compact") {
     return (
       <div className={`relative ${className}`} ref={dropdownRef}>
-        {isIconOnly ? (
-          <button
-            type="button"
-            onClick={() => setIsOpen(!isOpen)}
-            className="premium-interactive inline-flex h-8 w-8 items-center justify-center rounded-full border border-[#D4AF37]/80 bg-white/90 text-[#8A1238] shadow-2xs hover:bg-white hover:border-[#8A1238] transition-all"
-            aria-label={`Current city: ${selectedCity}. Tap to change city.`}
-            aria-expanded={isOpen}
-            aria-haspopup="dialog"
-          >
-            <MapPin className="h-4 w-4 text-[#8A1238]" aria-hidden="true" />
-          </button>
-        ) : (
-          <button
-            type="button"
-            onClick={() => setIsOpen(!isOpen)}
-            className="premium-interactive inline-flex items-center gap-1 rounded-full border border-[#D4AF37]/80 bg-white/90 px-2 py-1 text-[0.68rem] font-bold text-[#5A001F] shadow-2xs hover:bg-white"
-            aria-label={`Current city: ${selectedCity}. Tap to change city.`}
-            aria-expanded={isOpen}
-            aria-haspopup="dialog"
-          >
-            <MapPin className="h-3 w-3 text-[#8A1238] shrink-0" aria-hidden="true" />
-            <span className="max-w-[70px] truncate sm:max-w-[90px]">{selectedCity}</span>
-            <ChevronDown
-              className={`h-2.5 w-2.5 text-[#8A1238]/70 transition-transform duration-200 ${
-                isOpen ? "rotate-180" : ""
-              }`}
-            />
-          </button>
-        )}
+        <button
+          type="button"
+          onClick={() => setIsOpen(!isOpen)}
+          className="premium-interactive inline-flex items-center gap-1 rounded-full border border-[#D4AF37]/80 bg-white/90 px-2 py-1 text-[0.68rem] font-bold text-[#5A001F] shadow-2xs hover:bg-white"
+          aria-label={`Current city: ${selectedCity}. Tap to change city.`}
+          aria-expanded={isOpen}
+          aria-haspopup="dialog"
+        >
+          <MapPin className="h-3 w-3 text-[#8A1238] shrink-0" aria-hidden="true" />
+          <span className="max-w-[70px] truncate sm:max-w-[90px]">{selectedCity}</span>
+          <ChevronDown
+            className={`h-2.5 w-2.5 text-[#8A1238]/70 transition-transform duration-200 ${
+              isOpen ? "rotate-180" : ""
+            }`}
+          />
+        </button>
 
         {isOpen ? (
           <div
