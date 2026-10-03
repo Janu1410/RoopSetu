@@ -127,6 +127,16 @@ export default function CorePillarsSection() {
       aria-labelledby="why-roopsetu-heading"
       className="relative isolate overflow-hidden border-y border-[#E9DFDA] bg-[#F7F1E9] px-5 py-12 sm:px-8 sm:py-16 lg:px-12 lg:py-16"
     >
+      {/* Subtle Luxury Aura Curves */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-32 top-[-10rem] h-[28rem] w-[28rem] rounded-full border border-[#8A1238]/10 sm:right-[-8rem]"
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-16 top-[-8rem] h-[24rem] w-[24rem] rounded-full border border-[#8A1238]/10 sm:right-[-4rem]"
+      />
+
       <div className="relative mx-auto max-w-[1320px]">
         {/* Section Header */}
         <div className="grid gap-6 lg:grid-cols-[0.85fr_1.15fr] lg:items-end lg:gap-12">
