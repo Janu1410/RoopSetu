@@ -93,17 +93,14 @@ export default function EditorialShowcase() {
       >
         {EDITORIAL_LOOKS.map((look, idx) => {
           const isActive = idx === activeIndex;
-          const isBelow = idx > activeIndex;
 
           return (
             <div
               key={look.id}
               className={`absolute inset-0 h-full w-full origin-bottom-left transition-all duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                 isActive
-                  ? "z-10 opacity-100 scale-100 rotate-0 translate-y-0"
-                  : isBelow
-                    ? "z-20 opacity-0 scale-105 -rotate-3 translate-y-full pointer-events-none"
-                    : "z-0 opacity-40 scale-95 rotate-0 -translate-y-6 pointer-events-none"
+                  ? "z-20 opacity-100 scale-100 rotate-0 translate-y-0"
+                  : "z-10 opacity-0 scale-105 -rotate-3 translate-y-full pointer-events-none"
               }`}
               style={{
                 position: "absolute",
@@ -206,15 +203,19 @@ export default function EditorialShowcase() {
                   ? "scale-105 border-2 border-[#F4CF83] shadow-[0_0_20px_rgba(244,207,131,0.65)] ring-2 ring-[#F4CF83]/60"
                   : "border border-white/40 opacity-70 hover:scale-102 hover:border-white/80 hover:opacity-100"
               }`}
-              style={{ position: "relative" }}
             >
-              <Image
-                src={look.image}
-                alt={look.alt}
-                fill
-                sizes="(max-width: 640px) 80px, 112px"
-                className={`object-cover ${look.position}`}
-              />
+              <div
+                className="relative h-full w-full overflow-hidden"
+                style={{ position: "relative", width: "100%", height: "100%" }}
+              >
+                <Image
+                  src={look.image}
+                  alt={look.alt}
+                  fill
+                  sizes="(max-width: 640px) 80px, 112px"
+                  className={`object-cover ${look.position}`}
+                />
+              </div>
             </button>
           );
         })}
