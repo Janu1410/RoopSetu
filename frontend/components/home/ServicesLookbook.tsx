@@ -105,7 +105,7 @@ export default function ServicesLookbook() {
   if (!featureImage || !services.length) return null;
 
   return (
-    <div id="services-lookbook" className="relative w-full">
+    <div id="services" className="relative w-full scroll-mt-20">
       {/* 1. Services Hero Intro Banner matching Template */}
       <div className={styles.heroBanner}>
         {/* Left & Right Botanical Line-Art Branches */}
@@ -125,7 +125,7 @@ export default function ServicesLookbook() {
       </div>
 
       {/* 2. Signature Services 2-Column Showcase */}
-      <section className={styles.section} aria-labelledby="service-showcase-heading">
+      <section id="services-lookbook" className={styles.section} aria-labelledby="service-showcase-heading">
         {/* Left Sticky Feature Aside matching Template */}
         <aside className={styles.feature}>
           <div className={styles.featureInner}>
