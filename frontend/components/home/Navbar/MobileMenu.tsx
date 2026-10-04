@@ -165,7 +165,18 @@ export default function MobileMenu({
                         ? "bg-[#F1D494]/60 text-[#5A001F] font-bold"
                         : "text-[#34252D] hover:bg-[#F9ECEF] font-semibold text-base"
                   }`}
-                  onClick={onCloseMenu}
+                  onClick={(e) => {
+                    onCloseMenu();
+                    if (item.href.startsWith("/#") && pathname === "/") {
+                      e.preventDefault();
+                      const targetId = item.href.replace("/#", "");
+                      const targetEl = document.getElementById(targetId);
+                      if (targetEl) {
+                        targetEl.scrollIntoView({ behavior: "smooth" });
+                        window.history.pushState(null, "", item.href);
+                      }
+                    }
+                  }}
                 >
                   <span className="text-sm sm:text-base">{item.label}</span>
                   {item.badge ? (
