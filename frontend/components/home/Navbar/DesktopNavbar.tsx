@@ -71,17 +71,6 @@ export default function DesktopNavbar({
             >
               <Link
                 href={item.href}
-                onClick={(e) => {
-                  if (item.href.startsWith("/#") && pathname === "/") {
-                    e.preventDefault();
-                    const targetId = item.href.replace("/#", "");
-                    const targetEl = document.getElementById(targetId);
-                    if (targetEl) {
-                      targetEl.scrollIntoView({ behavior: "smooth" });
-                      window.history.pushState(null, "", item.href);
-                    }
-                  }
-                }}
                 className={`premium-interactive flex h-full items-center gap-1.5 px-3.5 text-[0.68rem] font-bold uppercase tracking-[0.045em] transition-colors duration-200 xl:px-4 xl:text-[0.74rem] ${
                   isPartnerLink
                     ? "bg-[#5A001F] text-white hover:bg-[#741235]"
