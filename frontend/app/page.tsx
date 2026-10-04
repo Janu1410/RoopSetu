@@ -5,6 +5,7 @@ import Hero from "@/components/home/Hero";
 import AboutSection from "@/components/home/AboutSection";
 import EditorialBeautySection from "@/components/home/EditorialBeautySection";
 import CorePillarsSection from "@/components/home/CorePillarsSection";
+import ServicesLookbook from "@/components/home/ServicesLookbook";
 import FeaturedArtistsShowcase from "@/components/home/FeaturedArtistsShowcase";
 import BeautyMomentsMarquee from "@/components/home/BeautyMomentsMarquee";
 import LuxuryFooter from "@/components/home/LuxuryFooter";
@@ -17,6 +18,7 @@ export default function HomePage() {
       <AboutSection />
       <EditorialBeautySection />
       <CorePillarsSection />
+      <ServicesLookbook />
       <FeaturedArtistsShowcase />
       <BeautyMomentsMarquee />
       <LuxuryFooter />
