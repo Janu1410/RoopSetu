@@ -1,3 +1,84 @@
+/* Services Section Hero Banner matching Template */
+.heroBanner {
+  position: relative;
+  overflow: hidden;
+  background: #5a001f;
+  color: #fff8f3;
+  padding: clamp(56px, 9vh, 96px) 24px clamp(60px, 9vh, 98px);
+  text-align: center;
+  border-bottom: 1px solid rgba(240, 214, 153, 0.2);
+}
+
+.heroInner {
+  position: relative;
+  z-index: 2;
+  max-width: 820px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.heroEyebrow {
+  color: #fff8f3;
+  font: 900 clamp(1.5rem, 3.2vw, 2.65rem) / 1.1 sans-serif;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  margin: 0 0 10px;
+}
+
+.heroTitle {
+  color: #fff8f3;
+  font-family: var(--font-playfair-nav), Georgia, serif;
+  font-size: clamp(2.5rem, 5vw, 4.4rem);
+  font-style: italic;
+  font-weight: 500;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  margin: 0 0 20px;
+  text-wrap: balance;
+}
+
+.heroDescription {
+  color: rgba(255, 248, 243, 0.88);
+  font-family: var(--font-playfair-nav), Georgia, serif;
+  font-size: clamp(0.92rem, 1.2vw, 1.08rem);
+  font-style: italic;
+  font-weight: 400;
+  line-height: 1.7;
+  max-width: 680px;
+  margin: 0 0 32px;
+  text-wrap: balance;
+}
+
+.heroButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 12px 32px;
+  background: #f4cf83;
+  color: #5a001f;
+  font: 800 11px / 1.2 sans-serif;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+  border-radius: 4px;
+  transition: background-color 180ms ease, transform 180ms ease;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.22);
+}
+
+.heroButton:hover {
+  background: #f8d995;
+  transform: translateY(-2px);
+}
+
+.heroButton:focus-visible {
+  outline: 2px solid #f4cf83;
+  outline-offset: 4px;
+}
+
+/* 2-Column Showcase Layout */
 .section {
   --nav-height: 76px;
   display: grid;
@@ -301,6 +382,7 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
+  .heroButton,
   .featureLink,
   .serviceLink {
     transition: none;
