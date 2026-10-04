@@ -68,6 +68,9 @@ export default function EditorialScrollShowcase() {
       const inView = rect.top <= 120 && rect.bottom >= window.innerHeight - 120;
       if (!inView) return;
 
+      // Allow free scrolling when user has moved past this section downwards
+      if (rect.top < -30) return;
+
       if (isTransitioning.current) {
         e.preventDefault();
         return;
@@ -117,6 +120,9 @@ export default function EditorialScrollShowcase() {
       const rect = section.getBoundingClientRect();
       const inView = rect.top <= 100 && rect.bottom >= window.innerHeight - 100;
       if (!inView) return;
+
+      // Allow free touch scrolling when user has moved past this section downwards
+      if (rect.top < -30) return;
 
       if (isTransitioning.current) {
         if (e.cancelable) e.preventDefault();
