@@ -48,7 +48,7 @@ export default function ServicesLookbook() {
             <em className={playfair.className}>Signature Services</em>
           </h2>
 
-          <div className={`relative ${styles.featureImage}`} style={{ minHeight: "260px" }}>
+          <div className={`relative ${styles.featureImage}`}>
             <Image
               src={featureImage.image}
               alt={featureImage.alt}
@@ -93,7 +93,7 @@ export default function ServicesLookbook() {
 
                 {/* Service Details: Image on left, Price + Italic Description + Button on right */}
                 <div className={styles.serviceDetails}>
-                  <div className={`relative ${styles.serviceImage}`} style={{ minHeight: "220px" }}>
+                  <div className={`relative ${styles.serviceImage}`}>
                     <Image
                       src={service.image}
                       alt={service.alt}
